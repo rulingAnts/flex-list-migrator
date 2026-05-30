@@ -24,6 +24,7 @@ from tkinter import filedialog, messagebox, ttk
 from typing import Dict, List, Optional, Tuple
 
 import flex_core as core
+from version import __version__
 
 import pretty_export
 
@@ -218,7 +219,7 @@ class _ListPickerDialog:
 class App:
     def __init__(self, root: tk.Tk):
         self.root = root
-        root.title("FLEx List Migrator")
+        root.title(f"FLEx List Migrator  v{__version__}")
         root.minsize(980, 740)
 
         # State
