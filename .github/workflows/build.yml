@@ -1,46 +1,41 @@
-# Build portable Windows executable for FLEx List Migrator
+# Build portable Windows x86_64 executable for FLEx List Migrator
 #
-# ── WHY SELF-HOSTED ───────────────────────────────────────────────────────────
-# flexlibs2 loads FLEx's LCM DLLs (FwUtils, SIL.LCModel, etc.) at *module
-# import time* via clr.AddReference().  PyInstaller's analysis phase imports
-# every collected module, so those calls execute during the build.
-# A hosted GitHub runner has no FLEx installed → every clr.AddReference()
-# call fails → build crashes.
+# Uses a standard GitHub-hosted Windows runner (x86_64).  No self-hosted
+# runner or local Windows machine required.
 #
-# The self-hosted runner runs on the Windows machine where FLEx is already
-# installed, so module-level DLL loads succeed normally.
+# HOW IT AVOIDS THE FLEx-ON-CI PROBLEM
+# flexlibs2 loads FLEx DLLs at module import time.  We work around this by
+# NOT importing flexlibs2 during the PyInstaller analysis phase — instead,
+# build.spec uses importlib.util.find_spec() to locate the package directory
+# and adds it as a 'datas' entry.  PyInstaller bundles the raw .py files;
+# they are importable at runtime (sys._MEIPASS is on sys.path in a frozen app).
+# pythonnet/clr is safe to import and bundle without FLEx installed.
 #
-# ── SELF-HOSTED RUNNER SETUP (one-time, ~10 min) ─────────────────────────────
-# 1. On the Windows machine (Parallels VM or native), open a browser and go to:
-#      https://github.com/rulingAnts/flex-list-migrator/settings/actions/runners
-# 2. Click "New self-hosted runner" → Windows → x64
-# 3. Follow the instructions (download, configure, start the runner service).
-#    When asked for labels, add:  flex-build
-# 4. Start the runner as a service so it survives reboots:
-#      .\svc.ps1 install
-#      .\svc.ps1 start
-#
-# ── TRIGGERING A BUILD ────────────────────────────────────────────────────────
-# Manually:  GitHub → Actions → "Build Windows Executable" → Run workflow
-# On tag:    git tag v1.0.0 && git push origin v1.0.0
+# TRIGGERING A BUILD
+#   Manually:  GitHub → Actions → "Build Windows Executable" → Run workflow
+#   On tag:    git tag v1.0.1 && git push origin v1.0.1
 
 name: Build Windows Executable
 
 on:
-  workflow_dispatch:          # manual trigger from GitHub Actions UI
+  workflow_dispatch:
   push:
     tags:
-      - 'v*.*.*'              # triggers on version tags like v1.0.1
+      - 'v*.*.*'
 
 jobs:
   build:
-    # Runs on your self-hosted Windows runner (FLEx must be installed there).
-    # The runner must have the label 'flex-build' set during registration.
-    runs-on: [self-hosted, Windows, X64, flex-build]
+    runs-on: windows-latest     # GitHub-hosted x86_64 Windows — no FLEx needed
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          architecture: 'x64'
 
       - name: Read version
         id: ver
@@ -54,28 +49,30 @@ jobs:
               f.write(f"version={mod.__version__}\n")
 
       - name: Clone flexlibs2
-        run: |
-          if (Test-Path "../flexlibs2_ci") { Remove-Item -Recurse -Force "../flexlibs2_ci" }
-          git clone https://github.com/MattGyverLee/flexlibs.git ../flexlibs2_ci
+        run: git clone https://github.com/MattGyverLee/flexlibs.git flexlibs2_src
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install ../flexlibs2_ci
-          pip install pyinstaller
+      - name: Install flexlibs2
+        # pip install copies the package files into site-packages.
+        # It does NOT import the package, so FLEx DLL loads are never triggered.
+        run: pip install ./flexlibs2_src
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
 
       - name: Build executable
+        # build.spec locates flexlibs2 via find_spec (no import) and bundles
+        # it as .py data files — FLEx DLL loads only happen at user runtime.
         run: pyinstaller build.spec --noconfirm
 
       - name: Verify output
         run: |
           $exe = "dist\FLEx List Migrator.exe"
           if (-not (Test-Path $exe)) {
-            Write-Error "Build failed: $exe not found"
+            Write-Error "Build failed — output not found: $exe"
             exit 1
           }
-          $size = (Get-Item $exe).Length / 1MB
-          Write-Host "Built: $exe  ($([math]::Round($size, 1)) MB)"
+          $mb = [math]::Round((Get-Item $exe).Length / 1MB, 1)
+          Write-Host "Built: $exe  ($mb MB)"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

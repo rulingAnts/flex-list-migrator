@@ -1,40 +1,54 @@
 # PyInstaller build spec — FLEx List Migrator
 #
-# ── HOW TO BUILD (on the Windows self-hosted runner or local Windows machine) ──
-#   pip install ./flexlibs2   # from the flexlibs2 repo clone
+# ── HOW TO BUILD ─────────────────────────────────────────────────────────────
+#   git clone https://github.com/MattGyverLee/flexlibs.git flexlibs2_src
+#   pip install ./flexlibs2_src
 #   pip install pyinstaller
 #   pyinstaller build.spec
 #
 # ── OUTPUT ───────────────────────────────────────────────────────────────────
 #   dist\FLEx List Migrator.exe   (single portable executable)
 #
-# ── REQUIREMENTS ON THE TARGET MACHINE ───────────────────────────────────────
-#   FieldWorks Language Explorer 9 installed.
-#   FLEx must be CLOSED when the app runs.
-#   No other installation needed — flexlibs2 and pythonnet are bundled.
+# ── WHY NO collect_all / hiddenimports FOR flexlibs2 ─────────────────────────
+# flexlibs2 loads FLEx DLLs (FwUtils, SIL.LCModel, etc.) via clr.AddReference()
+# at *module import time*.  collect_all() and hiddenimports both cause PyInstaller
+# to import every submodule during its analysis phase — which crashes on any
+# machine without FLEx installed (including GitHub-hosted CI runners).
+#
+# Solution: use importlib.util.find_spec() to locate the flexlibs2 package
+# directory WITHOUT importing it, then add it as a datas entry.  PyInstaller
+# bundles the .py files into sys._MEIPASS; since sys._MEIPASS is on sys.path
+# in the frozen app, "import flexlibs2" works normally at runtime (on the
+# user's machine where FLEx IS installed and the DLL loads succeed).
 
+import importlib.util
 import os
-import sys
-from PyInstaller.utils.hooks import collect_all, collect_submodules
+
+# Locate flexlibs2 without importing it (find_spec does not execute __init__.py)
+_fl2_spec = importlib.util.find_spec('flexlibs2')
+if _fl2_spec is None:
+    raise SystemExit(
+        "flexlibs2 not found.\n"
+        "Run:  pip install ./flexlibs2_src"
+    )
+_fl2_dir = _fl2_spec.submodule_search_locations[0]
 
 block_cipher = None
-
-# ── flexlibs2: collect all Python files from the installed package ───────────
-# collect_all walks the package directory and gathers .py/.pyc files plus
-# any data files.  This is file-based and does NOT trigger the module-level
-# FLEx DLL loads that would fail on a machine without FLEx installed.
-datas_fl, binaries_fl, hiddenimports_fl = collect_all('flexlibs2')
 
 a = Analysis(
     ['flex_list_migrator.py'],
     pathex=[],
-    binaries=binaries_fl,
-    datas=datas_fl,
-    hiddenimports=hiddenimports_fl + [
+    binaries=[],
+    datas=[
+        # Bundle the entire flexlibs2 package as source files.
+        # This avoids any import of flexlibs2 during PyInstaller analysis.
+        (_fl2_dir, 'flexlibs2'),
+    ],
+    hiddenimports=[
         'flex_core',
         'pretty_export',
         'version',
-        # pythonnet
+        # pythonnet — safe to import/bundle without FLEx installed
         'clr',
         'clr._extra',
         'pythonnet',
