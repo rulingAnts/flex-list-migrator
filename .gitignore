@@ -1,0 +1,9 @@
+# PyInstaller output
+build/
+dist/
+*.spec.bak
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyo

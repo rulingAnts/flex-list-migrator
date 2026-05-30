@@ -1,0 +1,15 @@
+# FLEx List Migrator — runtime and build dependencies
+#
+# flexlibs2 is NOT on PyPI. Install from the local repo clone:
+#   pip install C:\path\to\flexlibs2
+# (Seth has already done this on both Windows and macOS.)
+#
+# flexlibs2 pulls in pythonnet >= 3.0.3, < 3.1 as its own dependency,
+# so pythonnet does not need to be listed separately here.
+#
+# The FLEx LCM DLLs (SIL.LCModel.dll etc.) come from the FieldWorks 9
+# installation on the target machine. They are found via the Windows
+# registry at runtime and are never bundled in the .exe.
+
+# --- Build only (not needed at runtime) ---
+pyinstaller >= 5.13
