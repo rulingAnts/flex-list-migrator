@@ -51,9 +51,16 @@ jobs:
       - name: Clone flexlibs2
         run: git clone https://github.com/MattGyverLee/flexlibs.git flexlibs2_src
 
+      - name: Patch flexlibs2 for headless build
+        # flexlibs2 loads FLEx DLLs at *module import time* via clr.AddReference().
+        # PyInstaller's static analysis imports every found submodule, so those
+        # calls execute during the build and crash on a runner without FLEx.
+        # ci_patch_flexlibs2.py wraps the three offending files in try/except so
+        # imports succeed without FLEx.  On the user's machine (with FLEx installed)
+        # the try/except is never triggered — normal code paths run unchanged.
+        run: python ci_patch_flexlibs2.py flexlibs2_src
+
       - name: Install flexlibs2
-        # pip install copies the package files into site-packages.
-        # It does NOT import the package, so FLEx DLL loads are never triggered.
         run: pip install ./flexlibs2_src
 
       - name: Install PyInstaller
