@@ -49,7 +49,16 @@ jobs:
               f.write(f"version={mod.__version__}\n")
 
       - name: Clone flexlibs2
-        run: git clone https://github.com/MattGyverLee/flexlibs.git flexlibs2_src
+        # PINNED to commit 1fdb29d — the last commit BEFORE upstream 9b82ffa
+        # (2026-07-04) renamed the package flexlibs2 -> flexicon (pyflexicon).
+        # This app imports flexlibs2.code.* throughout, so we build against the
+        # pre-rename layout. This exact commit is verified: all three patches in
+        # ci_patch_flexlibs2.py still apply (the v2.4.0 tag is too old — 2 of 3
+        # patterns had drifted). TEMPORARY: long-term we must refactor the app
+        # to flexicon, since a newer FLEx may drop compatibility with this pin.
+        run: |
+          git clone --filter=blob:none --no-checkout https://github.com/MattGyverLee/flexlibs.git flexlibs2_src
+          git -C flexlibs2_src checkout 1fdb29d8453940015a6e39fe050b9762a58cd937
 
       - name: Patch flexlibs2 for headless build
         # flexlibs2 loads FLEx DLLs at *module import time* via clr.AddReference().
