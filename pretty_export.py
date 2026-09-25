@@ -60,7 +60,7 @@ _HTML_HEAD = """\
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>FLEx List Export</title>
+<title>__DOC_TITLE__</title>
 <style>
   body {
     font-family: "Segoe UI", Calibri, Arial, sans-serif;
@@ -103,11 +103,28 @@ _HTML_HEAD = """\
   .item-name { font-weight: 500; }
   .item-abbr { color: #666; font-size: .88em; font-style: italic; }
   .item-desc { color: #666; font-size: .88em; margin: .1em 0 .1em 1.2em; }
+  /* Tabs (JS-free, CSS radio technique) — used only for 2+ lists. */
+  .tabs { margin-top: 1em; }
+  .tab-radio { position: absolute; opacity: 0; pointer-events: none; }
+  .tab-bar {
+    display: flex; flex-wrap: wrap; gap: .3em;
+    border-bottom: 2px solid #2c5f8a; margin-bottom: 1em;
+  }
+  .tab-bar label {
+    cursor: pointer; padding: .4em .9em; margin-bottom: -2px;
+    border: 1px solid #90b8d8; border-bottom: none; border-radius: 6px 6px 0 0;
+    background: #eef4fa; color: #1a5fa8; font-weight: 500;
+  }
+  .tab-bar label:hover { background: #dce9f6; }
+  .tab-panel { display: none; }
+  .tab-panel > h2 { margin-top: 0; }
 </style>
 </head>
 <body>
-<h1>FLEx List Export</h1>
+<h1>__DOC_TITLE__</h1>
 """
+
+DEFAULT_TITLE = "FLEx List Export"
 
 _HTML_FOOT = "</body>\n</html>\n"
 
@@ -116,24 +133,62 @@ def export_html(
     selections: List[Tuple[ListInfo, List[ItemInfo]]],
     out_path: str | Path,
     preferred_ws: str = "en",
+    title: str = DEFAULT_TITLE,
 ) -> None:
-    parts: List[str] = [_HTML_HEAD]
+    doc_title = (title or "").strip() or DEFAULT_TITLE
+    parts: List[str] = [_HTML_HEAD.replace("__DOC_TITLE__", _esc(doc_title))]
 
-    for li, items in selections:
-        name = _esc(li.name.best(preferred_ws) or li.guid)
-        abbr = li.abbr.best(preferred_ws)
-        desc = li.desc.best(preferred_ws) if hasattr(li, "desc") else ""
-        abbr_span = f' <span class="list-abbr">({_esc(abbr)})</span>' if abbr else ""
-        parts.append(f"<section>\n<h2>{name}{abbr_span}</h2>")
-        if desc:
-            parts.append(f'<p class="list-desc">{_esc(desc)}</p>')
-        parts.append('<div class="root-list">')
-        for item in items:
-            _html_item(item, parts, preferred_ws)
-        parts.append("</div>\n</section>")
+    if len(selections) > 1:
+        # Multiple lists -> put each on its own tab (CSS radio technique).
+        # Per-tab mapping rules are generated here since the count is dynamic.
+        rules: List[str] = []
+        for i in range(len(selections)):
+            rules.append(
+                f'#flt-{i}:checked ~ .tab-bar label[for="flt-{i}"]'
+                " { background: #2c5f8a; color: #fff; border-color: #2c5f8a; }"
+            )
+            rules.append(f"#flt-{i}:checked ~ #flp-{i} {{ display: block; }}")
+        parts.append("<style>\n" + "\n".join(rules) + "\n</style>")
+
+        parts.append('<div class="tabs">')
+        for i in range(len(selections)):
+            checked = " checked" if i == 0 else ""
+            parts.append(
+                f'<input class="tab-radio" type="radio" name="flt" id="flt-{i}"{checked}>'
+            )
+        parts.append('<nav class="tab-bar">')
+        for i, (li, _items) in enumerate(selections):
+            tab_name = _esc(li.name.best(preferred_ws) or li.guid)
+            parts.append(f'<label for="flt-{i}">{tab_name}</label>')
+        parts.append("</nav>")
+        for i, (li, items) in enumerate(selections):
+            parts.append(f'<section class="tab-panel" id="flp-{i}">')
+            _html_list_body(li, items, parts, preferred_ws)
+            parts.append("</section>")
+        parts.append("</div>")
+    else:
+        for li, items in selections:
+            parts.append("<section>")
+            _html_list_body(li, items, parts, preferred_ws)
+            parts.append("</section>")
 
     parts.append(_HTML_FOOT)
     Path(out_path).write_text("\n".join(parts), encoding="utf-8")
+
+
+def _html_list_body(li: ListInfo, items: List[ItemInfo], parts: List[str], ws: str) -> None:
+    """Render one list's heading, description, and item tree into ``parts``."""
+    name = _esc(li.name.best(ws) or li.guid)
+    abbr = li.abbr.best(ws)
+    desc = li.desc.best(ws) if hasattr(li, "desc") else ""
+    abbr_span = f' <span class="list-abbr">({_esc(abbr)})</span>' if abbr else ""
+    parts.append(f"<h2>{name}{abbr_span}</h2>")
+    if desc:
+        parts.append(f'<p class="list-desc">{_esc(desc)}</p>')
+    parts.append('<div class="root-list">')
+    for item in items:
+        _html_item(item, parts, ws)
+    parts.append("</div>")
 
 
 def _html_item(item: ItemInfo, parts: List[str], ws: str) -> None:

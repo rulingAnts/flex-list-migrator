@@ -43,7 +43,7 @@ class ExportReadableDialog:
         current_list: Optional[core.ListInfo],
         filter_fn,          # callable(items) -> filtered_items
     ):
-        self.result: Optional[Tuple] = None  # (path, fmt, selections, ws)
+        self.result: Optional[Tuple] = None  # (path, fmt, selections, ws, title)
         self._all_lists = all_lists
         self._current_list = current_list
         self._filter_fn = filter_fn
@@ -54,6 +54,15 @@ class ExportReadableDialog:
         win.grab_set()
         self.window = win
         pad = {"padx": 8, "pady": 4}
+
+        # Document title (used for the HTML <h1> heading and <title>)
+        title_row = ttk.Frame(win)
+        title_row.pack(fill="x", **pad)
+        ttk.Label(title_row, text="Document title:").pack(side="left")
+        default_title = current_list.display_name if current_list else ""
+        self._title = tk.StringVar(value=default_title)
+        ttk.Entry(title_row, textvariable=self._title).pack(
+            side="left", fill="x", expand=True, padx=4)
 
         # Scope
         scope_f = ttk.LabelFrame(win, text="What to export")
@@ -150,7 +159,8 @@ class ExportReadableDialog:
                                    parent=self.window)
             return
 
-        self.result = (path, fmt, selections, ws)
+        title = self._title.get().strip()
+        self.result = (path, fmt, selections, ws, title)
         self.window.destroy()
 
 
@@ -639,10 +649,11 @@ class App:
         self.root.wait_window(dlg.window)
         if not dlg.result:
             return
-        path, fmt, selections, ws = dlg.result
+        path, fmt, selections, ws, title = dlg.result
         try:
             if fmt == "html":
-                pretty_export.export_html(selections, path, preferred_ws=ws)
+                pretty_export.export_html(selections, path, preferred_ws=ws,
+                                          title=title)
             else:
                 pretty_export.export_text(selections, path, preferred_ws=ws)
             self._set_status(f"Exported → {_basename(path)}")
