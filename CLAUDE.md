@@ -16,10 +16,18 @@ approval AND a stated cost estimate first.**
 
 So WITHOUT Seth's explicit OK (and cost), do **not**: add or change `.github/workflows/**`;
 use a non-standard `runs-on:`; add a `schedule:` (cron) trigger; create Codespaces; use
-Git LFS; publish private Packages; or change the plan / budgets. The local
-`.git/hooks/pre-push` blocks workflow pushes (override `ALLOW_WORKFLOW_PUSH=1`) and
-production-branch pushes (`ALLOW_MAIN_PUSH=1`) — set those flags only after Seth approves
-that specific push.
+Git LFS; publish private Packages; or change the plan / budgets. This billable-work rule
+still stands — it is a policy, not a hook, so it applies even with no hook installed.
+
+## Branch policy — EXEMPT from the dev-branch / main-push gate (Seth, 2026-09-25)
+
+**This repo works DIRECTLY on `main`.** Seth has exempted `flex-list-migrator` from the
+firm dev-branch rule and the `main`-push gate. Commit, build, and push to `main` freely —
+no `dev` branch required, no `ALLOW_MAIN_PUSH=1` flag, and **no `.git/hooks/pre-push`
+guard hook** (it has been removed; do not reinstall it). GitHub Pages serves the docs
+site from `main`/`/docs`, so `main` is the working branch here.
+
+The billable-work guardrail above is the only remaining gate and still applies.
 
 > Note: `.github/workflows/build.yml` runs on `windows-latest` (standard tier) and only
 > triggers on `workflow_dispatch` or a `v*.*.*` tag push — a normal `main` push does not
