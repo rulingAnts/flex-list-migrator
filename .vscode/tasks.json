@@ -1,0 +1,23 @@
+{
+  // Reusable across projects: copy this whole .vscode/ folder, then edit the
+  // SETTINGS block at the top of setup-run-on-vm.sh (usually just RUN_CMD).
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Set up Run/Build on Parallels VM",
+      "detail": "Delete + recopy this repo to C:\\GIT\\<repo> on the VM and drop a launch batch (does NOT run it).",
+      "type": "shell",
+      "command": "${workspaceFolder}/.vscode/setup-run-on-vm.sh",
+      "args": [
+        // ${workspaceFolder} prompts you to pick one in a multi-root workspace.
+        "${workspaceFolder}"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}

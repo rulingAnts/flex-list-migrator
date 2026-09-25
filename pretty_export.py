@@ -73,12 +73,36 @@ _HTML_HEAD = """\
   h2 { color: #1a5fa8; border-bottom: 1px solid #90b8d8; padding-bottom: .2em; }
   .list-abbr { color: #555; font-style: italic; font-size: .9em; }
   .list-desc { color: #555; font-style: italic; margin: .2em 0 .8em 0; }
-  ul.root-list { list-style: none; padding-left: 0; }
-  ul { list-style: disc; padding-left: 1.4em; }
-  li { margin: .25em 0; }
+  .root-list { padding-left: 0; }
+  .children {
+    padding-left: 1.4em;
+    margin-left: .4em;
+    border-left: 1px solid #e0e0e0;
+  }
+  .item { margin: .25em 0; }
+  /* Collapsible parents (native <details>); collapsed by default. */
+  details > summary {
+    cursor: pointer;
+    list-style: none;            /* replace default marker with our own */
+  }
+  details > summary::-webkit-details-marker { display: none; }
+  details > summary::before {
+    content: "\\25B8";           /* ▸ */
+    display: inline-block;
+    width: 1em;
+    color: #2c5f8a;
+  }
+  details[open] > summary::before { content: "\\25BE"; }  /* ▾ */
+  /* Leaf items: bullet aligned with the disclosure triangle above. */
+  .leaf::before {
+    content: "\\2022";           /* • */
+    display: inline-block;
+    width: 1em;
+    color: #888;
+  }
   .item-name { font-weight: 500; }
   .item-abbr { color: #666; font-size: .88em; font-style: italic; }
-  .item-desc { color: #666; font-size: .88em; margin: .1em 0 .1em 1em; }
+  .item-desc { color: #666; font-size: .88em; margin: .1em 0 .1em 1.2em; }
 </style>
 </head>
 <body>
@@ -103,10 +127,10 @@ def export_html(
         parts.append(f"<section>\n<h2>{name}{abbr_span}</h2>")
         if desc:
             parts.append(f'<p class="list-desc">{_esc(desc)}</p>')
-        parts.append('<ul class="root-list">')
+        parts.append('<div class="root-list">')
         for item in items:
             _html_item(item, parts, preferred_ws)
-        parts.append("</ul>\n</section>")
+        parts.append("</div>\n</section>")
 
     parts.append(_HTML_FOOT)
     Path(out_path).write_text("\n".join(parts), encoding="utf-8")
@@ -117,15 +141,27 @@ def _html_item(item: ItemInfo, parts: List[str], ws: str) -> None:
     abbr = item.abbr.best(ws)
     desc = item.desc.best(ws)
     abbr_span = f' <span class="item-abbr">({_esc(abbr)})</span>' if abbr else ""
-    parts.append(f'<li><span class="item-name">{name}</span>{abbr_span}')
-    if desc:
-        parts.append(f'<p class="item-desc">{_esc(desc)}</p>')
+    label = f'<span class="item-name">{name}</span>{abbr_span}'
+    desc_p = f'<p class="item-desc">{_esc(desc)}</p>' if desc else ""
+
     if item.daughters:
-        parts.append("<ul>")
+        # Collapsible parent — <details> is collapsed by default (no `open`).
+        parts.append('<div class="item">')
+        parts.append(f"<details><summary>{label}</summary>")
+        if desc_p:
+            parts.append(desc_p)
+        parts.append('<div class="children">')
         for d in item.daughters:
             _html_item(d, parts, ws)
-        parts.append("</ul>")
-    parts.append("</li>")
+        parts.append("</div>")  # .children
+        parts.append("</details>")
+        parts.append("</div>")  # .item
+    else:
+        # Leaf item — no disclosure control.
+        parts.append(f'<div class="item leaf">{label}')
+        if desc_p:
+            parts.append(desc_p)
+        parts.append("</div>")
 
 
 def _esc(text: str) -> str:

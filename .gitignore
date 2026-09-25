@@ -7,3 +7,7 @@ dist/
 __pycache__/
 *.py[cod]
 *.pyo
+
+# Claude Code local settings
+.claude/settings.json
+.claude/settings.local.json
