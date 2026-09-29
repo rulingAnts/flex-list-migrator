@@ -34,6 +34,20 @@ All writes are wrapped in a transaction. FLEx must be closed while the tool runs
 If the target project uses Send/Receive, do a Send/Receive in FLEx before
 importing, and again afterwards to share the new items.
 
+## Opening lists at startup
+
+- **Drop files on the app.** Dragging one or more transfer `.json` files onto
+  `FLEx List Migrator.exe` (or a shortcut to it) starts the app with them
+  loaded. From a command prompt: `"FLEx List Migrator.exe" lists.json more.json`.
+- **Preloaded lists.** When no files are named, the app opens the `.json` files
+  in a `preload` folder. To hand someone the app with your lists ready:
+  - put the files in a `preload` folder next to `FLEx List Migrator.exe` and
+    share both (for example in a .zip), or
+  - build them into the `.exe`: put the files in `preload/` in the source
+    folder and run `pyinstaller build.spec`. `preload/` is gitignored, so
+    personal lists stay out of the repository and the public builds.
+- `--no-preload` skips the preload folder; `--help` shows these options.
+
 ## Known issues
 
 - **Only three lists can be exported and imported.** Since 1.1.0, Save

@@ -18,6 +18,7 @@ To build a standalone .exe:
 
 from __future__ import annotations
 
+import glob
 import os
 import sys
 import tkinter as tk
@@ -247,6 +248,7 @@ class App:
         self._src_json_path_var = tk.StringVar()
         self._src_json_label: str = ""   # display label when JSON is source
         self._json_source = False         # list labels get a [JSON] prefix
+        self._list_origin: Dict[int, str] = {}   # id(list) -> file it came from
 
         self._build_ui()
         self._refresh_project_combos()
@@ -421,18 +423,19 @@ class App:
         self._iid_to_guid.clear()
         self._guid_to_name.clear()
         self._guid_to_item.clear()
+        self._list_origin = {}
         self._list_box.delete(0, "end")
         for iid in self._tree.get_children():
             self._tree.delete(iid)
         self._update_support_ui()
 
     def _browse_source_json(self):
-        path = filedialog.askopenfilename(
-            title="Select Transfer JSON",
+        paths = filedialog.askopenfilenames(
+            title="Select Transfer JSON (one or more files)",
             filetypes=[("JSON", "*.json"), ("All Files", "*.*")],
         )
-        if path:
-            self._src_json_path_var.set(path)
+        if paths:
+            self._src_json_path_var.set("; ".join(paths))
 
     def _load_source(self):
         if self._source_type_var.get() == "json":
@@ -455,6 +458,7 @@ class App:
             self._src = core.open_project(name, write_enabled=False)
             self._src_lists = core.read_lists(self._src)
             self._checked.clear()
+            self._list_origin = {}
             self._refresh_list_box()
             n_ok = sum(1 for li in self._src_lists if not core.unsupported_reason(li))
             self._set_status(
@@ -466,46 +470,78 @@ class App:
             self._set_status("Source project failed to load.")
 
     def _load_source_json(self):
-        path = self._src_json_path_var.get().strip()
-        if not path or not os.path.isfile(path):
+        paths = [p.strip() for p in self._src_json_path_var.get().split(";") if p.strip()]
+        self.load_json_files(paths)
+
+    def open_files(self, paths: List[str]) -> None:
+        """Open transfer files as the source (used for files given at startup)."""
+        if self._source_type_var.get() != "json":
+            self._source_type_var.set("json")
+            self._on_source_type_change()
+        self.load_json_files(paths)
+
+    def load_json_files(self, paths: List[str]) -> bool:
+        """Load one or more transfer files as the source.
+
+        All or nothing: if any file can't be loaded, none are.
+        """
+        if not paths:
             messagebox.showwarning("No File", "Browse to a transfer JSON file first.")
-            return
-        try:
-            meta, lists, notes = core.load_from_json(path)
-        except Exception as exc:
-            messagebox.showerror("Can't Load JSON", str(exc))
-            return
+            return False
+        missing = [p for p in paths if not os.path.isfile(p)]
+        if missing:
+            messagebox.showwarning("File Not Found", "Can't find:\n" + "\n".join(missing))
+            return False
+        loaded = []   # (path, metadata, lists, notes)
+        for path in paths:
+            try:
+                meta, lists, notes = core.load_from_json(path)
+            except Exception as exc:
+                messagebox.showerror("Can't Load JSON", f"{_basename(path)}:\n\n{exc}")
+                return False
+            loaded.append((path, meta, lists, notes))
+        several = len(loaded) > 1
+        notes = [f"{_basename(p)}: {n}" if several else n
+                 for p, _meta, _lists, file_notes in loaded for n in file_notes]
         if notes:
-            shown = notes[:10]
-            more = len(notes) - len(shown)
-            messagebox.showwarning(
-                "Loaded with notes",
-                f"{_basename(path)} loaded, with these notes:\n\n• " + "\n• ".join(shown)
-                + (f"\n• …and {more} more" if more else ""),
-            )
-        # A list with no name or known type (e.g. a hand-made file) is shown
-        # by the file's name.
-        for li in lists:
-            if not li.name.vals and not li.owner:
-                li.name = core.MultiStr({"en": _basename(path)})
-        src_project = meta.get("source_project", "")
-        self._src_json_label = src_project
-        self._src_lists = lists
+            messagebox.showwarning("Loaded with notes",
+                                   _bullets("Loaded, with these notes:", notes, 10).strip())
+
+        # With several files, each list is labelled with the file it came from.
+        self._list_origin = {}
+        all_lists: List[core.ListInfo] = []
+        for path, _meta, lists, _notes in loaded:
+            for li in lists:
+                # A list with no name or known type (e.g. a hand-made file) is
+                # shown by the file's name.
+                if not li.name.vals and not li.owner:
+                    li.name = core.MultiStr({"en": _basename(path)})
+                if several:
+                    self._list_origin[id(li)] = _basename(path)
+                all_lists.append(li)
+        projects = sorted({m.get("source_project", "") for _p, m, _l, _n in loaded} - {""})
+        self._src_json_label = ", ".join(projects)
+        self._src_json_path_var.set("; ".join(paths))
+        self._src_lists = all_lists
         self._checked.clear()
         self._refresh_list_box(json_source=True)
         # Select the first list so the tree populates immediately
         self._list_box.selection_set(0)
         self._on_list_select()
-        n_total = sum(_count_items(li.items) for li in lists)
+        n_total = sum(_count_items(li.items) for li in all_lists)
+        versions = "/".join(f"v{v}" for v in sorted({m["format_version"] for _p, m, _l, _n in loaded}))
         self._set_status(
-            f"JSON source: {len(lists)} list{'s' if len(lists) != 1 else ''}, "
-            f"{n_total} items"
-            + (f"  from '{src_project}'" if src_project else "")
-            + f"  [format v{meta['format_version']}]"
+            (f"JSON source: {len(loaded)} files, " if several else "JSON source: ")
+            + f"{len(all_lists)} list{'s' if len(all_lists) != 1 else ''}, {n_total} items"
+            + (f"  from '{self._src_json_label}'" if self._src_json_label else "")
+            + f"  [format {versions}]"
         )
+        return True
 
     def _list_label(self, li: core.ListInfo) -> str:
-        label = f"[JSON]  {li.display_name}" if self._json_source else li.display_name
+        origin = self._list_origin.get(id(li))
+        prefix = f"[{origin}]  " if origin else "[JSON]  " if self._json_source else ""
+        label = prefix + li.display_name
         if core.unsupported_reason(li):
             return f"{label}   (not supported yet)"
         n = _count_items(self._filter_checked(li.items))
@@ -969,6 +1005,43 @@ def _configure_logging() -> None:
                              or isinstance(h, logging.FileHandler)]
 
 
+USAGE = """Usage:  FLEx List Migrator [--no-preload] [FILE.json ...]
+
+FILE.json      Transfer files to open as the source. Dropping files onto
+               the app's icon opens them the same way.
+--no-preload   Don't open the lists in a "preload" folder.
+
+With no files named, the app opens any .json files in a "preload" folder,
+either built into the app or next to it."""
+
+
+def _startup_files(args: List[str]) -> List[str]:
+    """Transfer files to open when the app starts.
+
+    Files named on the command line win (dropping files onto the .exe names
+    them).  Otherwise the .json files in a "preload" folder are used: one built
+    into the .exe (see build.spec) or one next to the app.
+    """
+    files = [os.path.abspath(a) for a in args if not a.startswith("-")]
+    if files or "--no-preload" in args:
+        return files
+    for folder in _preload_dirs():
+        found = sorted(glob.glob(os.path.join(folder, "*.json")))
+        if found:
+            return found
+    return []
+
+
+def _preload_dirs() -> List[str]:
+    dirs = []
+    if hasattr(sys, "_MEIPASS"):                     # built into the .exe
+        dirs.append(os.path.join(sys._MEIPASS, "preload"))
+    app_dir = os.path.dirname(sys.executable if getattr(sys, "frozen", False)
+                              else os.path.abspath(__file__))
+    dirs.append(os.path.join(app_dir, "preload"))   # next to the app
+    return dirs
+
+
 def main():
     _configure_logging()
 
@@ -988,8 +1061,15 @@ def main():
 
     root = tk.Tk()
     _set_window_icon(root)
+    if any(a in ("-h", "--help", "/?") for a in sys.argv[1:]):
+        root.withdraw()
+        messagebox.showinfo("FLEx List Migrator", USAGE)
+        return
     app = App(root)
     root.protocol("WM_DELETE_WINDOW", app.on_close)
+    files = _startup_files(sys.argv[1:])
+    if files:
+        root.after(200, lambda: app.open_files(files))
     root.mainloop()
 
 

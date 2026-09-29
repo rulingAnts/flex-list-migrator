@@ -21,6 +21,7 @@
 # in the frozen app, "import flexlibs2" works normally at runtime (on the
 # user's machine where FLEx IS installed and the DLL loads succeed).
 
+import glob
 import importlib.util
 import os
 
@@ -32,6 +33,13 @@ if _fl2_spec is None:
         "Run:  pip install ./flexlibs2_src"
     )
 _fl2_dir = _fl2_spec.submodule_search_locations[0]
+
+# Optional preloaded lists: transfer files in preload/ are built into the .exe
+# and opened when it starts (README, "Preloaded lists").  preload/ is
+# gitignored, so personal lists stay out of the repository and CI builds.
+_preload = [(p, 'preload') for p in sorted(glob.glob(os.path.join('preload', '*.json')))]
+if _preload:
+    print('Building in preloaded lists: ' + ', '.join(os.path.basename(p) for p, _ in _preload))
 
 block_cipher = None
 
@@ -45,6 +53,7 @@ a = Analysis(
         (_fl2_dir, 'flexlibs2'),
         # The app sets this as its window icon at runtime.
         ('app_icon.ico', '.'),
+        *_preload,
     ],
     hiddenimports=[
         'flex_core',

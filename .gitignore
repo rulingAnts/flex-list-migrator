@@ -11,3 +11,6 @@ __pycache__/
 # Claude Code local settings
 .claude/settings.json
 .claude/settings.local.json
+
+# Personal lists built into a custom .exe (README, "Preloaded lists")
+preload/
