@@ -64,6 +64,7 @@ Nothing is written until you confirm.
 | `format`, `format_version` | text, number | The version statement (above). |
 | `generator` | text | Optional. The app version that wrote the file. |
 | `source_project` | text | Optional. Shown when the file is loaded. |
+| `description` | text | Optional. A template is listed in the app by this, e.g. "LTTW Papua (Seth)". |
 | `lists` | list of lists | Version 3 only: one entry per list, each with the list fields below (at least one list). |
 
 ## List fields

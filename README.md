@@ -34,6 +34,22 @@ All writes are wrapped in a transaction. FLEx must be closed while the tool runs
 If the target project uses Send/Receive, do a Send/Receive in FLEx before
 importing, and again afterwards to share the new items.
 
+## Templates
+
+**Source ▸ Template** offers ready-made lists bundled with the app, listed by
+description; for example **LTTW Papua (Seth)**: Text Chart Markers (with
+evidentials), Text Markup Tags and a topic-prominent chart template.
+
+**Please share yours.** If you've built lists that work well for a region, a
+language family, a field organization, or a workshop or training course, offer
+them as a template so colleagues can start from them. Save them with **Save
+Transfer JSON…** and submit them with the
+[template form](https://github.com/rulingAnts/flex-list-migrator/issues/new?template=template-submission.yml)
+(the app's **Submit yours…** button opens it).
+
+To bundle a template, add its transfer file, with a `description`, to
+`templates/`.
+
 ## Opening lists at startup
 
 - **Drop files on the app.** Dragging one or more transfer `.json` files onto

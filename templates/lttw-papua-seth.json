@@ -1,0 +1,4121 @@
+{
+  "format": "flex-list-migrator",
+  "format_version": 3,
+  "generator": "FLEx List Migrator",
+  "source_project": "fau-iya-flex",
+  "description": "LTTW Papua (Seth)",
+  "lists": [
+    {
+      "source_list_guid": "c48ffadc-ea5e-11de-9033-0013722f8dec",
+      "source_list_name": {
+        "en": "Text Chart Markers",
+        "id": "Penanda-penanda Bagan Teks"
+      },
+      "source_list_owner": "DsDiscourseData.ChartMarkers",
+      "items": [
+        {
+          "original_guid": "c49be68a-ea5e-11de-86fb-0013722f8dec",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "TenseAspectMood"
+          },
+          "abbr": {
+            "en": "TenseAspectMood"
+          },
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "68d2c6e0-4aa3-495d-835f-6bc84127e407",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Aspect"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "be3fa6e6-8afa-43f2-882c-343aaad51ea5",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Combined/Higher-level aspect"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": [
+                    {
+                      "original_guid": "6ee52017-74e1-414a-bc00-ca9fb69fd056",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Iterative/Durative"
+                      },
+                      "abbr": {
+                        "en": "ITR"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "c1572e4d-1a72-4e7c-96f9-e4da622ffb2f",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Pluractional"
+                      },
+                      "abbr": {
+                        "en": "PlAct"
+                      },
+                      "desc": {
+                        "en": "Plurality of action."
+                      },
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "c62083ee-ea5e-11de-8ca8-0013722f8dec",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Progressive state"
+                      },
+                      "abbr": {
+                        "en": "PRG.ST"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "c64dd06a-ea5e-11de-97de-0013722f8dec",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Resultative state"
+                      },
+                      "abbr": {
+                        "en": "RS"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "c659bc18-ea5e-11de-98bc-0013722f8dec",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Unrealized expectation"
+                      },
+                      "abbr": {
+                        "en": "NYT"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    }
+                  ]
+                },
+                {
+                  "original_guid": "a420f706-742e-43d6-b7f0-df576e840c44",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Nuclear Aspect"
+                  },
+                  "abbr": {
+                    "en": "Fayu has a two-way + uninflected aspect system on the verb. Other aspectual meanings are created by serial verbs and clitic particles."
+                  },
+                  "desc": {},
+                  "daughters": [
+                    {
+                      "original_guid": "27c9162a-4f94-48cf-9c51-b9379c981bfe",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Completive Aspect"
+                      },
+                      "abbr": {
+                        "en": "CMP"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "e67a0cde-1656-43a5-8960-f3e55883fddf",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Incompletive Aspect"
+                      },
+                      "abbr": {
+                        "en": "INCMP"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "5f9f6444-7923-4463-b82f-0c17a7ac8392",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Non-Final"
+                      },
+                      "abbr": {
+                        "en": "NFIN"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "original_guid": "a864d100-6bdb-4742-a2fc-08d0fb6702da",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Mood/Modality"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "c4a56fe8-ea5e-11de-87d8-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Direct imperative"
+                  },
+                  "abbr": {
+                    "en": "Direct imperative"
+                  },
+                  "desc": {},
+                  "daughters": [
+                    {
+                      "original_guid": "c4b15ba0-ea5e-11de-954e-0013722f8dec",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Direct imperative"
+                      },
+                      "abbr": {
+                        "en": "IMP"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "c4bd474e-ea5e-11de-88bd-0013722f8dec",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Jussive (let's...)"
+                      },
+                      "abbr": {
+                        "en": "JSV"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    }
+                  ]
+                },
+                {
+                  "original_guid": "d7b53076-8fa6-4b73-bed0-8b42a140bd96",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Interogative"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": [
+                    {
+                      "original_guid": "27108d70-8a5b-494d-b380-ebbd31cd5402",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Content Question"
+                      },
+                      "abbr": {
+                        "en": "WHQ"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "e97ee8ab-4d6c-4fcc-998b-64dc363566c6",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Yes/No Question"
+                      },
+                      "abbr": {
+                        "en": "YNQ"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    }
+                  ]
+                },
+                {
+                  "original_guid": "82d8032b-dd7e-41de-b14c-5f60c66426a5",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Mirative"
+                  },
+                  "abbr": {
+                    "en": "MIR"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "940b7d58-0614-4261-b7ec-d1c6de1a538d",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Abilitative"
+                  },
+                  "abbr": {
+                    "en": "ABL"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "c4c6d0ac-ea5e-11de-9ce4-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Subjunctive"
+              },
+              "abbr": {
+                "en": "Subjunctive"
+              },
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "c4d2bc5a-ea5e-11de-98bc-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Polite command"
+                  },
+                  "abbr": {
+                    "en": "SBV"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c4dea812-ea5e-11de-9298-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Purpose"
+                  },
+                  "abbr": {
+                    "en": "SBV"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "c4e83170-ea5e-11de-8ff3-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Potential/conditional"
+              },
+              "abbr": {
+                "en": "Potential/conditional"
+              },
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "c4f41d1e-ea5e-11de-8c69-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Potential"
+                  },
+                  "abbr": {
+                    "en": "POT"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c50008d6-ea5e-11de-8fe9-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "(w/?r?) conditional"
+                  },
+                  "abbr": {
+                    "en": "CND"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "c5099234-ea5e-11de-9bc6-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Potential/conditional, contrary-to-fact"
+              },
+              "abbr": {
+                "en": "Potential/conditional, contrary-to-fact"
+              },
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "d69085c6-ea5e-11de-8ff2-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Potential, C.F."
+                  },
+                  "abbr": {
+                    "en": "POT.C.F"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c5157de2-ea5e-11de-8717-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "(w/ng?) conditional, C.F."
+                  },
+                  "abbr": {
+                    "en": "CND.C.F"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c521699a-ea5e-11de-9e85-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Potential, C.F. Past"
+                  },
+                  "abbr": {
+                    "en": "POT.C.F P2"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c52af2ee-ea5e-11de-82a2-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "(w/ng?) conditional, C.F. Past"
+                  },
+                  "abbr": {
+                    "en": "CND C.F P2"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c536dea6-ea5e-11de-8e12-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Conditional, C.F. Past"
+                  },
+                  "abbr": {
+                    "en": "CND C.F P2"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c542ca54-ea5e-11de-9fa2-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "If/when"
+                  },
+                  "abbr": {
+                    "en": "CND.RS"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c54c53b2-ea5e-11de-94c6-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "If/when"
+                  },
+                  "abbr": {
+                    "en": "CND.TL"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c5583f6a-ea5e-11de-8747-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "If/when"
+                  },
+                  "abbr": {
+                    "en": "YET.CND"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "c5642b18-ea5e-11de-9faf-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Timeless"
+              },
+              "abbr": {
+                "en": "Timeless"
+              },
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "c57016d0-ea5e-11de-8eaf-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Timeless"
+                  },
+                  "abbr": {
+                    "en": "Timeless"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "c5a6eca0-ea5e-11de-99db-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Past"
+              },
+              "abbr": {
+                "en": "Past"
+              },
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "c5b2d84e-ea5e-11de-9731-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Past, recent"
+                  },
+                  "abbr": {
+                    "en": "P1"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c5bc61ac-ea5e-11de-8495-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Frustrated (RS)"
+                  },
+                  "abbr": {
+                    "en": "RS.FRUS"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c5c84d64-ea5e-11de-8666-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Frustrated (P1)"
+                  },
+                  "abbr": {
+                    "en": "P1.FRUS"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c5d43912-ea5e-11de-92d1-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Previous, progressive"
+                  },
+                  "abbr": {
+                    "en": "PREV PROG"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c5ddc270-ea5e-11de-85cd-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Previous, intentional"
+                  },
+                  "abbr": {
+                    "en": "PREV INTS"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c5e9ae1e-ea5e-11de-8c30-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Past, before yesterday"
+                  },
+                  "abbr": {
+                    "en": "P2"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c5f599d6-ea5e-11de-922d-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Past, before yest., state"
+                  },
+                  "abbr": {
+                    "en": "P2.ST"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c5ff2334-ea5e-11de-9ec7-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Past, before yest., unrealized exp."
+                  },
+                  "abbr": {
+                    "en": "P2.ST-YET"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c60b0ee2-ea5e-11de-89a0-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Remote past"
+                  },
+                  "abbr": {
+                    "en": "P3"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "c616fa9a-ea5e-11de-8272-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Present/Unfinished"
+              },
+              "abbr": {
+                "en": "Present"
+              },
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "c62c6fa6-ea5e-11de-85d8-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Persistive progressive state"
+                  },
+                  "abbr": {
+                    "en": "PERS PROG"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c6385b54-ea5e-11de-81ae-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "New progressive state"
+                  },
+                  "abbr": {
+                    "en": "NEWLY PROG"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c641e4b2-ea5e-11de-9206-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Intentional progressive state"
+                  },
+                  "abbr": {
+                    "en": "PROG INTS"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "c665a7d0-ea5e-11de-9f26-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Future"
+              },
+              "abbr": {
+                "en": "Future"
+              },
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "c66f312e-ea5e-11de-8ea0-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Immediate"
+                  },
+                  "abbr": {
+                    "en": "F1"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c67b1cdc-ea5e-11de-91c4-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Future, immediate, newly"
+                  },
+                  "abbr": {
+                    "en": "NEWLY F1"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c6870894-ea5e-11de-9f2d-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Future, unmarked"
+                  },
+                  "abbr": {
+                    "en": "F2"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c69091e8-ea5e-11de-9a02-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Intentional"
+                  },
+                  "abbr": {
+                    "en": "F2"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c69c7da0-ea5e-11de-9aeb-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Future, newly"
+                  },
+                  "abbr": {
+                    "en": "NEWLY F2"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c6a8694e-ea5e-11de-9d73-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Remote future"
+                  },
+                  "abbr": {
+                    "en": "F3"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "2c33375f-a039-4eac-8510-d84a2e0bc7cf",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Reality Status"
+              },
+              "abbr": {
+                "en": "Rs"
+              },
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "3bfe2ff3-c328-42f7-882e-2752badad50a",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Realis"
+                  },
+                  "abbr": {
+                    "en": "Real."
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "ff2168f0-425f-47fc-a45c-cefac3e48c0c",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Irrealis"
+                  },
+                  "abbr": {
+                    "en": "Irr."
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "original_guid": "6da154df-c4b0-4459-8a21-f33a17910c97",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Semantic Roles"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "969b2208-994c-4b1f-b669-c2d18d13e0ee",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "AGENT"
+              },
+              "abbr": {
+                "en": "AGT"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "7ce809b3-c931-4f16-8e00-7e576041b1a6",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "PATIENT"
+              },
+              "abbr": {
+                "en": "PT"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "4b957368-54b6-4161-8dc5-c09424873eba",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "SOURCE"
+              },
+              "abbr": {
+                "en": "SRC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "ac26224a-f027-4112-a893-493d9335ce6e",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "THEME"
+              },
+              "abbr": {
+                "en": "THM"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "98ab8d66-4ea9-46a6-9a63-72ae5faf33cc",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "GOAL"
+              },
+              "abbr": {
+                "en": "GOAL"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "f7856478-4ca0-4e62-a977-3261318e34ac",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "RECIPIENT"
+              },
+              "abbr": {
+                "en": "RECIPIENT"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c21496df-ff7b-47fb-939b-0d769fc34286",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "BENEFICIARY"
+              },
+              "abbr": {
+                "en": "BENF"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "5bb2108a-c7db-4b32-a22c-7ca55ba30d95",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "TIME"
+              },
+              "abbr": {
+                "en": "TIME"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "76c34fbc-3995-414c-bdda-249ff812fdb3",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "LOCATION"
+              },
+              "abbr": {
+                "en": "LOC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "f6827b51-2390-435f-9739-80fb851509c1",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "PATH"
+              },
+              "abbr": {
+                "en": "PTH"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "6b80cc00-614a-474a-b808-4cae8c217f25",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "INSTRUMENT"
+              },
+              "abbr": {
+                "en": "INS"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "1f98c982-64fa-45d8-94ee-e23a952c68eb",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "ACCOMPANIMENT"
+              },
+              "abbr": {
+                "en": "ACMP"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "591faa91-8f17-48a7-a4a3-8d5322f7c7ee",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "EXPERIENCER"
+              },
+              "abbr": {
+                "en": "EXP"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "e8006c30-b884-4262-bd31-f9737c4e8efa",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "STIMULUS"
+              },
+              "abbr": {
+                "en": "STM"
+              },
+              "desc": {},
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "9b6b54ca-6423-412b-bfa4-f4cbe52fbfa6",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Participant Reference..."
+          },
+          "abbr": {},
+          "desc": {
+            "en": "For Switch Reference markers, see Clause-Linkage-Markers (Feat) menu"
+          },
+          "daughters": [
+            {
+              "original_guid": "ebce752b-c0e6-49b6-aef7-56c9ab39a05d",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Change of Topic (Paragraph)"
+              },
+              "abbr": {
+                "en": "NewParTop"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "8eb9d81a-6df7-4e1e-a9ea-b9851571d3b2",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Change of Topic (Sentence)"
+              },
+              "abbr": {
+                "en": "NewLocTop"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "bdf2f7a1-c9d8-4bba-93b4-d5d60bdec0ed",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Participant Reference Functions"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "197d852e-4971-48dd-b1d1-26751b31b5a0",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Primary Topic"
+                  },
+                  "abbr": {
+                    "en": "Pr.Top"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "4b2cb34d-c5cb-416e-a73a-48c67ef42c07",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Secondary Topic"
+                  },
+                  "abbr": {
+                    "en": "Sec.Top"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "ede556d8-2fed-4cdd-867e-e0a5d4492aba",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Participant Reference Devices"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "55512a63-35c3-4eb1-a2e8-84ebb725cf0d",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Shared Argument (Previous Line)"
+                  },
+                  "abbr": {
+                    "en": "^sh^"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "83667d63-d6bf-4fc5-b830-8a2750cfb305",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Unambiguous Agent-like"
+                  },
+                  "abbr": {
+                    "en": "Mk.A"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "8a974b54-1773-448f-b58f-5ba31eb78f57",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Zero Anaphora"
+                  },
+                  "abbr": {
+                    "en": "∅"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c29e6308-7721-4aad-ac7c-8a94dbb5dd74",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "bɛ particle"
+                  },
+                  "abbr": {
+                    "en": "bɛ"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "original_guid": "1f3653a5-773c-4edd-87c5-e4b6653cd0ee",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Pragmatic Functions"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "841a669b-c5d2-4dce-b97c-f06cbfe3723a",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Topic"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "8e3dd520-ee5c-4d55-8b02-bb2aed9f1314",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Contrastive Topic"
+                  },
+                  "abbr": {
+                    "en": "Cntr. TOP"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "0316b8ed-b1a9-43e9-85a6-ea9fc5a5cf56",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Marked Topic"
+                  },
+                  "abbr": {
+                    "en": "TOP"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "f27e44ca-11db-4f57-9b1f-2acc784c51bc",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Focus"
+              },
+              "abbr": {
+                "en": "FOC"
+              },
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "216c579c-8a03-4184-9755-f2fd9ffa7e97",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Contrastive Focus"
+                  },
+                  "abbr": {
+                    "en": "Cntr.FOC"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "f5b569f2-3da2-4be5-8372-7f76222f3ada",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Marked Focus"
+                  },
+                  "abbr": {
+                    "en": "Mk. FOC"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "original_guid": "a620fd6e-06c8-4487-bc43-b3d514cbaa0c",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Syntax"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "5cab1263-f861-47e3-bb26-8ae8e9ba4703",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Argument Structure"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "584cea70-1a89-4127-b01f-1a2f3731927b",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Agent-like Arg"
+                  },
+                  "abbr": {
+                    "en": "A"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "c72b41d1-48e9-4d88-a823-f41c24cccece",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Theme-like Argument"
+                  },
+                  "abbr": {
+                    "en": "T"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "55248bca-033e-4f80-9327-ca9f37cd73a7",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Recipient-like Argument"
+                  },
+                  "abbr": {
+                    "en": "R"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "dd92dc85-dc0b-47d6-b743-79dd39101443",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Patient-Like Arg"
+                  },
+                  "abbr": {
+                    "en": "P"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "0a39b889-7325-4001-a828-cae80d58f066",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Single Argument"
+                  },
+                  "abbr": {
+                    "en": "S"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "80afd5b0-12b4-462f-a6f5-910284fb6db7",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Oblique"
+                  },
+                  "abbr": {
+                    "en": "Obl"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "083e3032-127e-46fe-bfb4-b032bc4cd6c3",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Shared Arument (in SVC)"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": [
+                    {
+                      "original_guid": "c3f3b813-de08-46f8-82f4-170380c8271b",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Shared Agent-like w/ Next"
+                      },
+                      "abbr": {
+                        "en": "A.shd"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "25137bd5-9156-4028-9055-16a63629a569",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Shared Patient-like w/ Next"
+                      },
+                      "abbr": {
+                        "en": "P.shd"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "14a0d398-545c-4e10-aac8-2f173425f362",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Shared Single Arg w/ Next"
+                      },
+                      "abbr": {
+                        "en": "S.shd"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "1c16b272-a33f-4d83-8177-f41180d6bb0a",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Shared Theme-like Arg w/ Next"
+                      },
+                      "abbr": {
+                        "en": "T.Shd"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "original_guid": "60f2294d-65a1-47a2-84f7-ef52dcf8941f",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Serial Verb Construction (All or Part)"
+              },
+              "abbr": {
+                "en": "SrlVb"
+              },
+              "desc": {
+                "en": "Marks either a non-final, symmetrical, one-argument-shared serial verb or an all-arguments-shared serial verb construction."
+              },
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "c6b1f2ac-ea5e-11de-820a-0013722f8dec",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Pronouns"
+          },
+          "abbr": {
+            "en": "Pronouns"
+          },
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "c6bdde64-ea5e-11de-9440-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Contrastive"
+              },
+              "abbr": {
+                "en": "P:Ctr"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c6c9ca12-ea5e-11de-9acb-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Alternative"
+              },
+              "abbr": {
+                "en": "P:Alt"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c6d35370-ea5e-11de-89ca-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Exclusive"
+              },
+              "abbr": {
+                "en": "P:Excl"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c6df3f1e-ea5e-11de-9037-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Additive"
+              },
+              "abbr": {
+                "en": "P:Add"
+              },
+              "desc": {},
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "c6eb2ad6-ea5e-11de-828c-0013722f8dec",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Demonstratives"
+          },
+          "abbr": {
+            "en": "Demonstratives"
+          },
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "c6f4b434-ea5e-11de-921a-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Proximal Contrastive"
+              },
+              "abbr": {
+                "en": "D:P.C"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c7009fe2-ea5e-11de-8474-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Proximal"
+              },
+              "abbr": {
+                "en": "D:Pr"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c70c8b9a-ea5e-11de-8ca8-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Nearby"
+              },
+              "abbr": {
+                "en": "D:Ne"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c7187748-ea5e-11de-9619-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Distal"
+              },
+              "abbr": {
+                "en": "D:Di"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c72200a6-ea5e-11de-875d-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Remote"
+              },
+              "abbr": {
+                "en": "D:Re"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c72dec5e-ea5e-11de-8271-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Emphatic Proximal Contrastive"
+              },
+              "abbr": {
+                "en": "D:Em.P.C"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c739d80c-ea5e-11de-82bf-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Emphatic Proximal"
+              },
+              "abbr": {
+                "en": "D:Em.Pr"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c743616a-ea5e-11de-8ef5-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Emphatic Nearby"
+              },
+              "abbr": {
+                "en": "D:Em.Ne"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c74f4d18-ea5e-11de-87a2-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Emphatic Distal"
+              },
+              "abbr": {
+                "en": "D:Em.Di"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c75b38d0-ea5e-11de-84e0-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Emphatic Remote"
+              },
+              "abbr": {
+                "en": "D:Em.Re"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c764c22e-ea5e-11de-8260-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Same.set"
+              },
+              "abbr": {
+                "en": "D:SaSet"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c770addc-ea5e-11de-96e9-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Different set"
+              },
+              "abbr": {
+                "en": "D:DiSet"
+              },
+              "desc": {},
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "476f2b82-e68b-4bee-8399-c98ee567e836",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Semantic Propositional Relationships"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "c7df6084-2b65-4ce6-8e2c-41ed37773a3c",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Additive"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "c579a024-ea5e-11de-98e7-0013722f8dec",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Chronological"
+                  },
+                  "abbr": {
+                    "en": "Chron."
+                  },
+                  "desc": {},
+                  "daughters": [
+                    {
+                      "original_guid": "c5858bdc-ea5e-11de-98cb-0013722f8dec",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Sequential"
+                      },
+                      "abbr": {
+                        "en": "SEQ"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "c591778a-ea5e-11de-9d45-0013722f8dec",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Sequential Different Subject"
+                      },
+                      "abbr": {
+                        "en": "SEQ.DS"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "c59b00e8-ea5e-11de-85c7-0013722f8dec",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Simultaneous/Immediate Different Subject"
+                      },
+                      "abbr": {
+                        "en": "SIML.DS"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "8ee9a6a2-7898-45a3-a763-d0f37da21843",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Simultaneous"
+                      },
+                      "abbr": {
+                        "en": "SIML"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    }
+                  ]
+                },
+                {
+                  "original_guid": "8b2aefef-9d4f-4b85-9e2e-ed3ce065e995",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Non-Chronological"
+                  },
+                  "abbr": {
+                    "en": "NonChron."
+                  },
+                  "desc": {},
+                  "daughters": [
+                    {
+                      "original_guid": "26559264-1fd7-4218-909b-2bcbdc935274",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Conjoining"
+                      },
+                      "abbr": {
+                        "en": "Conjoining"
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "4e941af0-9b77-4a50-8f8b-5d5932415be5",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Alternating"
+                      },
+                      "abbr": {
+                        "en": "alt."
+                      },
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "b6fb8a25-3ad7-41e3-af7e-3b3ec4ea8cc1",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Contrast"
+                      },
+                      "abbr": {
+                        "en": "contrst."
+                      },
+                      "desc": {},
+                      "daughters": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "original_guid": "065aa66a-f40d-4cd3-b7a2-26e977ffdea2",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "support-HEAD"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "ee3f190f-20f2-4044-8898-5b0417f41532",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Orientation"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": [
+                    {
+                      "original_guid": "b625f117-036c-49ed-ad21-f39d721ef3e7",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "orienter-CONTENT"
+                      },
+                      "abbr": {},
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "2efaf1c0-2e48-4039-aded-ede81579ef59",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "circumstance-NUCLEUS"
+                      },
+                      "abbr": {},
+                      "desc": {},
+                      "daughters": []
+                    },
+                    {
+                      "original_guid": "127234b3-0612-49a5-bb28-0d97caa4517c",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "time-NUCLEUS"
+                      },
+                      "abbr": {},
+                      "desc": {},
+                      "daughters": []
+                    }
+                  ]
+                },
+                {
+                  "original_guid": "754b936f-7269-426c-bf57-fa45136e00ce",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Chronological"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": [
+                    {
+                      "original_guid": "d271561e-ef9a-4f57-b16d-3a4a751a615f",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "step(n)-GOAL"
+                      },
+                      "abbr": {},
+                      "desc": {},
+                      "daughters": []
+                    }
+                  ]
+                },
+                {
+                  "original_guid": "424abd15-78ba-41d6-9dfa-11ec03479fd0",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Non-Chronological"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": [
+                    {
+                      "original_guid": "4666c573-a311-4e68-a4b7-db3ec5e10de3",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Restatement"
+                      },
+                      "abbr": {
+                        "en": "Restatement"
+                      },
+                      "desc": {},
+                      "daughters": [
+                        {
+                          "original_guid": "b323ff25-65b1-4296-8ccc-bbb6e6f34e41",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "equivalent-NUCLEUS"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "0afba804-a481-4991-a4f4-d29e74f3009d",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "specific(n)-GENERIC"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "7ef19a8c-9caf-4b29-8915-08ca6750a94d",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "contraction-amplification"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "7a655647-5c83-42a8-bf8c-7b6f0724241b",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "negative-POSITIVE"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        }
+                      ]
+                    },
+                    {
+                      "original_guid": "d18b61ce-acca-4e48-b214-5e939ef5d5ed",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Clarification"
+                      },
+                      "abbr": {},
+                      "desc": {},
+                      "daughters": [
+                        {
+                          "original_guid": "b5d6e709-3469-4a79-8aae-1ac2ad35efe3",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "comparison-NUCLEUS"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "68d51b24-2729-41cf-ac46-2edd564666bb",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "illustration-NUCLEUS"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "6fa241e7-f834-49be-856f-e5cdaf7e8fe3",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "standard-CONGRUENCE"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "dac1edc1-828d-4baa-a28b-eb9ffa127234",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "manner-NUCLEUS"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "638d9832-4a97-420d-a619-21a5f643d495",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "contrast-NUCLEUS"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        }
+                      ]
+                    },
+                    {
+                      "original_guid": "5fda144e-e0e6-42fa-83eb-e9bae913676c",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Logical"
+                      },
+                      "abbr": {},
+                      "desc": {},
+                      "daughters": [
+                        {
+                          "original_guid": "0293ad8d-7395-4783-ab07-cd6bad427e85",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "concession-CONTRAEXPECTATION"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "664405c7-0ae5-4af6-bc33-c04ddb3a26fb",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "condition-CONSEQUENCE"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "1b8de2ca-ad81-43ec-99f9-85f48e03281a",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "grounds-CONCLUSION"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "7146bb9a-1301-4996-ba88-c9332d04982c",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "grounds-EXHORTATION"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "70e69ecb-c067-4870-a5e7-80ad624ce5e6",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "means-RESULT"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "845eddbe-e898-4d8e-8674-e7a6fb7d5a84",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "purpose-MEANS"
+                          },
+                          "abbr": {
+                            "en": "purpose-MEANS"
+                          },
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "1d630252-3855-4ab0-a0d1-ea85908cb5a1",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "reason-RESULT"
+                          },
+                          "abbr": {
+                            "en": "reason-RESULT"
+                          },
+                          "desc": {},
+                          "daughters": []
+                        }
+                      ]
+                    },
+                    {
+                      "original_guid": "f16d6425-5ac1-4422-9311-037a2f91676a",
+                      "cls": "CmPossibility",
+                      "name": {
+                        "en": "Associative"
+                      },
+                      "abbr": {},
+                      "desc": {},
+                      "daughters": [
+                        {
+                          "original_guid": "43ba3151-d41a-4e90-b976-4392b653f7c5",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "comment-NUCLEUS"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        },
+                        {
+                          "original_guid": "ea8ca0fc-b693-49e5-8d5d-470551b26ca8",
+                          "cls": "CmPossibility",
+                          "name": {
+                            "en": "parenthesis-NUCLEUS"
+                          },
+                          "abbr": {},
+                          "desc": {},
+                          "daughters": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "original_guid": "f10d15db-bddb-4fc2-9fa8-10ed767cd5ec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "CONCEPT-PROPOSITION"
+              },
+              "abbr": {},
+              "desc": {
+                "en": "Relations between CONCEPT and Proposition"
+              },
+              "daughters": [
+                {
+                  "original_guid": "914f76b6-d7bb-41da-8295-96a331e2eb81",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "description-ITEM"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "35a7118d-10ed-48c3-b1a5-ae415613e362",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "identification-ITEM"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "original_guid": "2eaa671d-b0f3-4870-ba94-64e2c87d41c5",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Clause-Linkage-Markers (Feat)"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "3e624099-ba16-45a1-a4b8-8679802b77d6",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Hard Boundary"
+              },
+              "abbr": {
+                "en": "BNDRY"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "a8acda13-f93b-48eb-8f55-ea61e39c1bc7",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Non-Temporal Overlap"
+              },
+              "abbr": {
+                "en": "SEQ"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "b60954d2-1e32-4f0b-be70-cc2fc4a08a9c",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Temporal Overlap"
+              },
+              "abbr": {
+                "en": "SIML"
+              },
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "e3104169-2150-4f8e-88ea-54bea0db4a57",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Primary Topic"
+                  },
+                  "abbr": {
+                    "en": "SIM"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "b6d17898-d785-43c2-ae58-e808ab0cc9f4",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Secondary Topic"
+                  },
+                  "abbr": {
+                    "en": "SIM.Sec.Top"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "8dc8587a-9651-422c-a27f-936bfe018b87",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Causal Link"
+              },
+              "abbr": {
+                "en": "Reas/Rslt"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "f124ba40-95c5-4d03-99a3-b5b8e1de3bf0",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Prospective"
+              },
+              "abbr": {
+                "en": "PROSP"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "4bbb5b58-dfac-44be-a4c9-a1030dfd5328",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Nominalized"
+              },
+              "abbr": {
+                "en": "NMLZ"
+              },
+              "desc": {
+                "en": "Complement Clause, Relative Clause, Nominalized Vb"
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "e7689c74-fd29-4ede-8016-efb9b70aac5c",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Quote Margin"
+              },
+              "abbr": {
+                "en": "QUOT"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "d7810145-b00e-4aad-998d-43754547713e",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Unknown Conjunction"
+              },
+              "abbr": {
+                "en": "??"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "47084a71-01c4-46ec-9137-f0c0135b5db9",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Switch-Reference"
+              },
+              "abbr": {
+                "en": "SR"
+              },
+              "desc": {
+                "en": "Classical Switch-Reference System"
+              },
+              "daughters": [
+                {
+                  "original_guid": "b9afe039-cfe1-4376-af0b-cff2e89dc4e7",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Same-Subject"
+                  },
+                  "abbr": {
+                    "en": "SS"
+                  },
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "291130ab-bcd9-4344-bf1d-ce60a58a9ec3",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Different-Subject"
+                  },
+                  "abbr": {
+                    "en": "DS"
+                  },
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "original_guid": "2e22263c-22e7-5e5c-8329-278ceed5ce03",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Evidentials"
+          },
+          "abbr": {
+            "en": "EVID"
+          },
+          "desc": {
+            "en": "Grammatical marking of the speaker's source of information for a statement."
+          },
+          "discussion": [
+            [
+              {
+                "text": "Papuan languages have some of the largest evidentiality systems in the world. Most are obligatory and marked on the verb, especially in Trans-New Guinea highlands languages.",
+                "ws": "en"
+              }
+            ],
+            [
+              {
+                "text": "2-term systems: direct vs. indirect (reported).",
+                "ws": "en"
+              }
+            ],
+            [
+              {
+                "text": "3-term systems: visual vs. inferential vs. reportative, as in Enga (direct/visual vs. inferred vs. reported) and Tauya.",
+                "ws": "en"
+              }
+            ],
+            [
+              {
+                "text": "Larger (5+ term) systems, as in Fasu and Foi: visual; non-visual sensory; reported; heard from a known source; direct participation; inferred/assumed (2–3 subtypes).",
+                "ws": "en"
+              }
+            ],
+            [
+              {
+                "text": "In the Text Chart, choose Mark Evidentials, then a category, then a value. Only the values can be chosen (not the categories), and the chart cell shows the value's abbreviation.",
+                "ws": "en"
+              }
+            ]
+          ],
+          "daughters": [
+            {
+              "original_guid": "ee235c0b-fb88-53bb-ae1e-39e7cd9a5cb2",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Sensory / Direct"
+              },
+              "abbr": {
+                "en": "DIR"
+              },
+              "desc": {
+                "en": "The speaker perceived the event directly, with the senses."
+              },
+              "daughters": [
+                {
+                  "original_guid": "bfc98ca7-eea3-5d0c-ba65-4d0382fa7091",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Visual"
+                  },
+                  "abbr": {
+                    "en": "VIS"
+                  },
+                  "desc": {
+                    "en": "The speaker saw the event."
+                  },
+                  "discussion": [
+                    [
+                      {
+                        "text": "Also called: eyewitness; direct.",
+                        "ws": "en"
+                      }
+                    ],
+                    [
+                      {
+                        "text": "Example: “I saw it happen.”",
+                        "ws": "en"
+                      }
+                    ]
+                  ],
+                  "daughters": []
+                },
+                {
+                  "original_guid": "a290bd5a-67b6-55b1-8f53-cb33c8f2eae5",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Non-visual sensory"
+                  },
+                  "abbr": {
+                    "en": "NVSENS"
+                  },
+                  "desc": {
+                    "en": "The speaker heard, smelled or felt the event but did not see it."
+                  },
+                  "discussion": [
+                    [
+                      {
+                        "text": "Also called: non-visual; non-eyewitness.",
+                        "ws": "en"
+                      }
+                    ],
+                    [
+                      {
+                        "text": "Example: “I heard / smelled / felt it happen.”",
+                        "ws": "en"
+                      }
+                    ],
+                    [
+                      {
+                        "text": "Fasu has visual (seen) and non-visual sensory (heard) as two different suffixes.",
+                        "ws": "en"
+                      }
+                    ],
+                    [
+                      {
+                        "text": "Some systems split this value; for those languages use Auditory (AUD) and Other sensory (OSENS) instead.",
+                        "ws": "en"
+                      }
+                    ]
+                  ],
+                  "daughters": []
+                },
+                {
+                  "original_guid": "e19afaa4-4e29-5a5f-8722-938c54d3497a",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Auditory"
+                  },
+                  "abbr": {
+                    "en": "AUD"
+                  },
+                  "desc": {
+                    "en": "The speaker heard the event."
+                  },
+                  "discussion": [
+                    [
+                      {
+                        "text": "For systems that split non-visual sensory (NVSENS) into auditory and other senses.",
+                        "ws": "en"
+                      }
+                    ]
+                  ],
+                  "daughters": []
+                },
+                {
+                  "original_guid": "72d18ee2-6a11-51b3-b79e-8a495ef2883f",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Other sensory"
+                  },
+                  "abbr": {
+                    "en": "OSENS"
+                  },
+                  "desc": {
+                    "en": "The speaker perceived the event by smell, touch or taste."
+                  },
+                  "discussion": [
+                    [
+                      {
+                        "text": "For systems that split non-visual sensory (NVSENS) into auditory and other senses.",
+                        "ws": "en"
+                      }
+                    ]
+                  ],
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "546a0dd9-a310-550e-bd9f-3ddb1fcbec33",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Inferential"
+              },
+              "abbr": {
+                "en": "INFER"
+              },
+              "desc": {
+                "en": "The speaker infers the event instead of perceiving it."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "The most subdivided category in Papuan systems. Terms follow Aikhenvald, and San Roque & Loughnane.",
+                    "ws": "en"
+                  }
+                ],
+                [
+                  {
+                    "text": "Fasu has three inferential values: deduced from evidence, statement about a thought, and obvious to the speaker.",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": [
+                {
+                  "original_guid": "328418fb-afa5-5aa8-85a9-27ee281620c6",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Resultative inference"
+                  },
+                  "abbr": {
+                    "en": "INFER.RES"
+                  },
+                  "desc": {
+                    "en": "The speaker sees the result and infers the cause."
+                  },
+                  "discussion": [
+                    [
+                      {
+                        "text": "Also called: inferred from evidence.",
+                        "ws": "en"
+                      }
+                    ],
+                    [
+                      {
+                        "text": "Example: “He must have gone” (I see his footprints).",
+                        "ws": "en"
+                      }
+                    ]
+                  ],
+                  "daughters": []
+                },
+                {
+                  "original_guid": "bd3f971b-02d8-5b86-b57d-d4e3c237065a",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Reasoning inference"
+                  },
+                  "abbr": {
+                    "en": "INFER.REAS"
+                  },
+                  "desc": {
+                    "en": "Inference from general knowledge or logic."
+                  },
+                  "discussion": [
+                    [
+                      {
+                        "text": "Also called: deduced; assumed; obvious.",
+                        "ws": "en"
+                      }
+                    ]
+                  ],
+                  "daughters": []
+                },
+                {
+                  "original_guid": "117d6d39-a633-5609-9e4f-056be1d1bd4b",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Presumption"
+                  },
+                  "abbr": {
+                    "en": "PRESUMPT"
+                  },
+                  "desc": {
+                    "en": "A gut feeling: internal reasoning that it must be so."
+                  },
+                  "discussion": [
+                    [
+                      {
+                        "text": "Also called: internal support.",
+                        "ws": "en"
+                      }
+                    ]
+                  ],
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "85008dc2-0a13-59d9-9e41-10b2c919dbf6",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Reported / Indirect"
+              },
+              "abbr": {
+                "en": "INDIR"
+              },
+              "desc": {
+                "en": "The speaker learned of the event from someone else."
+              },
+              "daughters": [
+                {
+                  "original_guid": "46e07113-3677-5e5c-8571-d1b9e3e87ae5",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Reportative"
+                  },
+                  "abbr": {
+                    "en": "REP"
+                  },
+                  "desc": {
+                    "en": "Reported from an unspecified source."
+                  },
+                  "discussion": [
+                    [
+                      {
+                        "text": "Also called: reported; secondhand; hearsay (HEARSAY).",
+                        "ws": "en"
+                      }
+                    ],
+                    [
+                      {
+                        "text": "Example: “They say… / I was told…”",
+                        "ws": "en"
+                      }
+                    ]
+                  ],
+                  "daughters": []
+                },
+                {
+                  "original_guid": "b3bc5bc7-c99a-5580-8fa3-fe76ea09ced5",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Quotative"
+                  },
+                  "abbr": {
+                    "en": "EV.QUOT"
+                  },
+                  "desc": {
+                    "en": "A direct quotation of a named speaker. Abbreviated EV.QUOT so it isn't confused with a quote-margin marker (QUOT). Whether a quote margin is an evidential or a speech verb is an analysis decision: if you analyse quote margins as evidential marking in your language, you may want to change this abbreviation to QUOT and remove the separate quote-margin marker."
+                  },
+                  "discussion": [
+                    [
+                      {
+                        "text": "Example: “X said: …”",
+                        "ws": "en"
+                      }
+                    ]
+                  ],
+                  "daughters": []
+                },
+                {
+                  "original_guid": "66e58290-ff0c-54c0-9153-c66bff612b3b",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Heard from known source"
+                  },
+                  "abbr": {
+                    "en": "REP.KNOWN"
+                  },
+                  "desc": {
+                    "en": "The speaker knows who told them, as opposed to anonymous hearsay."
+                  },
+                  "discussion": [
+                    [
+                      {
+                        "text": "Fasu marks this as a separate value.",
+                        "ws": "en"
+                      }
+                    ]
+                  ],
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "594958f7-e87b-5a28-a2eb-cf2def09d913",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Participatory / Egophoric"
+              },
+              "abbr": {
+                "en": "EGO"
+              },
+              "desc": {
+                "en": "The speaker knows because they did it or were involved."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "Characteristically Papuan.",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": [
+                {
+                  "original_guid": "ee943128-6231-5b1a-85f9-6e6aa8d50b0a",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Participatory"
+                  },
+                  "abbr": {
+                    "en": "PART"
+                  },
+                  "desc": {
+                    "en": "Knowledge from the speaker's own participation in the event."
+                  },
+                  "discussion": [
+                    [
+                      {
+                        "text": "Also called: performative (PERF); personal-factual; ego; egophoric. These terms are used in descriptions of Foe, Oksapmin and Enga; Foe and Oksapmin are described as having a (personal-)factual value.",
+                        "ws": "en"
+                      }
+                    ],
+                    [
+                      {
+                        "text": "Example (Central Pomo style): “I caught it — I know because I did it myself.”",
+                        "ws": "en"
+                      }
+                    ],
+                    [
+                      {
+                        "text": "Avoid PERF as this marker's abbreviation: it is the usual gloss for perfect/perfective.",
+                        "ws": "en"
+                      }
+                    ]
+                  ],
+                  "daughters": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_list_guid": "c1af47dc-ea5e-11de-8e34-0013722f8dec",
+      "source_list_name": {
+        "en": "Text Markup Tags",
+        "id": "Tanda-tanda Markah Teks"
+      },
+      "source_list_owner": "LangProject.TextMarkupTags",
+      "items": [
+        {
+          "original_guid": "c1bb338a-ea5e-11de-88c4-0013722f8dec",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Grammatical Relations-Functional",
+            "id": "Hubungan Gramatikal-Fungsional"
+          },
+          "abbr": {
+            "en": "GrRel-Func",
+            "id": "HubGr-Fngs"
+          },
+          "desc": {
+            "en": "A list of Role tags based on the book \"Describing Morphosyntax\" by Thomas E. Payne(p. 129).",
+            "id": "Satu daftar penanda Peran berdasarkan buku \"Describing Morphosyntax\" oleh Thomas E. Payne (h. 129)"
+          },
+          "daughters": [
+            {
+              "original_guid": "c1c4bce8-ea5e-11de-9d35-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "A"
+              },
+              "abbr": {
+                "en": "A"
+              },
+              "desc": {
+                "en": "The most Agent-like argument of a multi-argument clause (transitive)."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c1d0a896-ea5e-11de-8624-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "P"
+              },
+              "abbr": {
+                "en": "P"
+              },
+              "desc": {
+                "en": "The most Patient-like argument of a multi-argument clause (transitive)."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c1dc944e-ea5e-11de-8ae3-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "S"
+              },
+              "abbr": {
+                "en": "S"
+              },
+              "desc": {
+                "en": "The only nominal argument of a single argument clause (intransitive)."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c1e61dac-ea5e-11de-9bc6-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Subject"
+              },
+              "abbr": {
+                "en": "Subj"
+              },
+              "desc": {
+                "en": "The S or A argument in a Nominative/Accusative system of grammatical relations."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c1f2095a-ea5e-11de-9609-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Direct Object"
+              },
+              "abbr": {
+                "en": "Obj"
+              },
+              "desc": {
+                "en": "Usually the P argument in a Nominative/Accusative system. The object most closely tied to the Verb syntactically."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c1fdf512-ea5e-11de-963a-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Indirect Object"
+              },
+              "abbr": {
+                "en": "IO"
+              },
+              "desc": {
+                "en": "An object less closely tied to the Verb syntactically than the Direct Object."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c2077e66-ea5e-11de-8f4c-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Ergative"
+              },
+              "abbr": {
+                "en": "Erg"
+              },
+              "desc": {
+                "en": "The A argument in an Ergative/Absolutive system of grammatical relations."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c2136a1e-ea5e-11de-8e7b-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Absolutive"
+              },
+              "abbr": {
+                "en": "Abs"
+              },
+              "desc": {
+                "en": "The S or P argument in an Ergative/Absolutive system of grammatical relations."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c21f55cc-ea5e-11de-9d3e-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Oblique"
+              },
+              "abbr": {
+                "en": "Obl"
+              },
+              "desc": {
+                "en": "A nominal with at best secondary relation to the Verb in a Clause."
+              },
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "d2137ae4-fd2d-4a9e-a868-f47f32528daa",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "SVC - Symmetrical Type"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "7447fd59-b218-482a-816d-a8bace3d1156",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Other Symmetrical SVC"
+              },
+              "abbr": {
+                "en": "Other Sym SVC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "460e5904-86e8-4655-9917-282aa5f39db6",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Unsorted"
+              },
+              "abbr": {
+                "en": "Sym SVC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "94092566-1a70-46e3-874a-b3935ae67e1a",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Sequence of actions or concomittant related actions"
+              },
+              "abbr": {
+                "en": "SeqSVC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "f39947f8-87ad-4836-8a07-07a469ad6dbd",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Cause/Effect and Resultative SVC"
+              },
+              "abbr": {
+                "en": "Cs/Ef/Res SVC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "30a1f405-57a0-48ff-aa90-4b5e2aecd1b3",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Manner SVC"
+              },
+              "abbr": {
+                "en": "Man. SVC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "2ee02d32-76e4-4d2f-b759-cb210c7bf881",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Synonymous/Parallel SVC"
+              },
+              "abbr": {
+                "en": "Syn/Prl SVC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "6a043b14-26a1-4ce3-87c7-0b05c7f09fea",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Coordinate SVC (Coord Cores)"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "e5581770-9c15-4202-8981-fe9607a334d3",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "SVC Minor Verb (ASym)"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "7367b5f3-3677-441e-8977-770ff83f93fa",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Other Minor Vb"
+              },
+              "abbr": {
+                "en": "Oth Min Vb"
+              },
+              "desc": {
+                "en": "Minor Verb or Core (if it has an object)"
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "3e7d3301-61c4-4342-9496-ca2ae91a933e",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Direction/Orientation"
+              },
+              "abbr": {
+                "en": "Dir/Or Vb"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "9ea6cf93-91be-4708-b767-d5d6c4d212f4",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Aspect/Change of State"
+              },
+              "abbr": {
+                "en": "Asp Min Vb"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "de79c4a4-f53b-4ea5-a722-04c7ea6269ec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Secondary Concept"
+              },
+              "abbr": {
+                "en": "2nd Cncpt SVC"
+              },
+              "desc": {
+                "en": "This covers desire, intention, perception, and lots of verbs normally termed \"control\" or \"raising\" constructions in other grammatical frameworks. Including things like \"want to\", \"appear to\", \"want him to\", etc."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "451dbfa8-41b2-4f13-ac25-b16dc02148ac",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Complement-Clause taking Verb"
+              },
+              "abbr": {
+                "en": "Cmp Cl Min Vb"
+              },
+              "desc": {
+                "en": "This is a serial verb that has a complement clause as its object."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "daa616e2-bea8-43b8-8041-96515ad90460",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Argument Specifying Minor Core (Unsorted)"
+              },
+              "abbr": {
+                "en": "ArgSpec-Unsrt"
+              },
+              "desc": {},
+              "discussion": [
+                [
+                  {
+                    "text": "This type adds an argument to a major verb. Later, you can further sort this into clarity on WHICH argument is added (GOAL, INSTRUMENT, BENEFACTIVE, etc).",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            },
+            {
+              "original_guid": "90c200a7-0681-4b5d-b3db-7867f28e0df5",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Argument Specifying Minor Core (Complex)"
+              },
+              "abbr": {
+                "en": "MixedArg"
+              },
+              "desc": {
+                "en": "Use this for complicated clitics that are more tightly "
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "66d77335-0439-47f4-9c1e-9adc2ef7725c",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Argument Specifiying Minor Core (Locomotive Theme)"
+              },
+              "abbr": {
+                "en": "LcmThmArg"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "4d7d49ae-7ad4-4287-9c1e-8390145ad69d",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Argument Specifying Minor Core (Simple Motion Theme)"
+              },
+              "abbr": {
+                "en": "SmpMtThmArg"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c687d171-b416-4a18-b6cb-589376ff0e29",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Argument Specifying Minor Core (Instrument)"
+              },
+              "abbr": {
+                "en": "InsArg"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "624bd9c2-ec03-4dc6-a744-2d41394bd61d",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Argument Specifying Minor Core (Recipient/Goal)"
+              },
+              "abbr": {
+                "en": "RcpGLArg"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c6ab917c-0489-4f98-8c75-bab22a81176a",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Valency Reducing Minor Verb"
+              },
+              "abbr": {
+                "en": "ValReducingMinorVb"
+              },
+              "desc": {},
+              "discussion": [
+                [
+                  {
+                    "text": "Reduces the number of arguments (so like passive or reflexive for example).",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            },
+            {
+              "original_guid": "bba7c59f-6cbe-4a7e-a429-a3df6182cf08",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Comparative Minor Verb"
+              },
+              "abbr": {
+                "en": "ComprtvVb"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "f986e4e8-2f50-4c3e-95c0-978496547dc1",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Superlative Minor Verb"
+              },
+              "abbr": {
+                "en": "SuprlVb"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "b998eb01-eba3-4786-b641-fb81578179d0",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Event Argument Minor Verb"
+              },
+              "abbr": {
+                "en": "EvntArgCore"
+              },
+              "desc": {},
+              "discussion": [
+                [
+                  {
+                    "text": "Do not share an argument. Instead, one is the argument of the other (or the event is). This is rare. See Aikhenvald 2018 for further discussion)",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "ad47b97d-7c2a-4800-830a-1b55b469815f",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "SVC - SgWd"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "d3f412f2-15b7-4f1b-8eb8-80eb6c6a71f7",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Single Word SVC"
+              },
+              "abbr": {
+                "en": "Sg.Wd. SVC"
+              },
+              "desc": {},
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "1279b8c0-56ac-4e3c-9e01-3c3a5b612801",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "SVC Argument Sharing"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "278af556-4629-4749-9e0c-3e2451b46bc0",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "All Arguments Shared SVC"
+              },
+              "abbr": {
+                "en": "SVCAllShdSVC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "4e598802-17a2-46c1-bbb4-c75fbbf5e6b6",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Shared Subject (or Agent) SVC"
+              },
+              "abbr": {
+                "en": "ShSbjSVC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "accc4712-f47c-4fb9-b342-25d3260cb3ec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "SVC Unclear Argument Sharing"
+              },
+              "abbr": {
+                "en": "ArgUnclrSVC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "2d0af03c-72a8-47d3-b2e1-9dcfe65d9616",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Switch-Function SVC"
+              },
+              "abbr": {
+                "en": "SwFSVC"
+              },
+              "desc": {},
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "f55c3716-a762-4394-b72d-302c397c2ed8",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "SVC - MultWd"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "4249e67c-a4fe-4406-9161-285b7af10456",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Multi-Word SVC"
+              },
+              "abbr": {
+                "en": "MultiWdSVC"
+              },
+              "desc": {},
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "48f9a3f3-6a0f-4637-b8ce-951b7b57389e",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Embedded SVC"
+          },
+          "abbr": {
+            "en": "SubSVC"
+          },
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "6b70b14f-665e-4793-a089-c1b40896ee39",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "SubordinateSVC"
+              },
+              "abbr": {
+                "en": "SubSVC"
+              },
+              "desc": {
+                "en": "Use this for serial verb constructions that are embedded inside other SVCs of the same type (because unfortunately FLEx tags don't do embedding and recursion wel) (so for example an asymetrical SVC inside an asymmetrical SVC or symmetrical inside symmetrical)."
+              },
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "bfca5efd-5169-454e-85ce-772677e2ea4b",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Complex SVC"
+          },
+          "abbr": {
+            "en": "CmplxSVC"
+          },
+          "desc": {
+            "en": "Use this to tag SVCs with uniquely complex (multi-embedding, with embedded symmetrical SVCs, etc)"
+          },
+          "daughters": [
+            {
+              "original_guid": "22b92350-e01a-4ab6-bbb5-95df766a126f",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Complex SVC"
+              },
+              "abbr": {
+                "en": "CmplSVC"
+              },
+              "desc": {
+                "en": "Use this to tag SVCs with uniquely complex (multi-embedding, with embedded symmetrical SVCs, etc)"
+              },
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "5da413c4-3fc9-4074-b07c-8f8e456c0a32",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "SVC Linked Core Structure..."
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "5fe42b08-3ffc-46fb-b6a6-588688ec50c7",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "All Shared Argument Cluster"
+              },
+              "abbr": {
+                "en": "SVCShdArgs"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "d4c0ebb3-7133-41df-ad36-8672fc11edab",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Asym Matrix SVC Core (Minus Shared Args)"
+              },
+              "abbr": {
+                "en": "MatrixCore"
+              },
+              "desc": {
+                "en": "Think of this as a \"matrix\" core (with minor cores and minor verbs inside it) of an asymmetrical SVC."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "35524d2d-2363-4c14-b107-cff4aa993635",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Shared Subject Argument"
+              },
+              "abbr": {
+                "en": "ShdSbjArg"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "85fc825a-7434-4415-9ee9-9f54165045b2",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "SVC - Symmetrical Core (minus shared arg) or Verb"
+              },
+              "abbr": {
+                "en": "SymSV"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "b12d89fa-b96c-4fc1-b358-326584097bf8",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Shared Switch-Function Argument"
+              },
+              "abbr": {
+                "en": "SwFuncArg"
+              },
+              "desc": {},
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "c228df2a-ea5e-11de-94ec-0013722f8dec",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Syntax-Descriptive"
+          },
+          "abbr": {
+            "en": "Syn-Desc"
+          },
+          "desc": {
+            "en": "A list of basic descriptive Syntax tags (a little bit generative)."
+          },
+          "daughters": [
+            {
+              "original_guid": "c234cae2-ea5e-11de-9ef4-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Adjective Phrase"
+              },
+              "abbr": {
+                "en": "AdjP"
+              },
+              "desc": {
+                "en": "A phrase consisting of an Adjective and its modifiers."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c240b690-ea5e-11de-880b-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Adverb Phrase"
+              },
+              "abbr": {
+                "en": "AdvP"
+              },
+              "desc": {
+                "en": "A phrase consisting of an Adverb and its modifiers."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c24a3fee-ea5e-11de-92f8-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Clause"
+              },
+              "abbr": {
+                "en": "Cl"
+              },
+              "desc": {
+                "en": "A group of words with a single central Verb Phrase."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c2562ba6-ea5e-11de-80c8-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Clause Chain"
+              },
+              "abbr": {
+                "en": "Chn"
+              },
+              "desc": {
+                "en": "A chain of Clauses."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "1a050211-ad7c-4a7c-9ff3-d2f9af3541db",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Serial Verb Construction"
+              },
+              "abbr": {
+                "en": "SVC"
+              },
+              "desc": {
+                "en": "Serial Verb Construction"
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c2621754-ea5e-11de-91de-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Noun Phrase"
+              },
+              "abbr": {
+                "en": "NP"
+              },
+              "desc": {
+                "en": "A phrase consisting of a Noun and its modifiers."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c26e030c-ea5e-11de-9df4-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Possessive Phrase"
+              },
+              "abbr": {
+                "en": "PossP"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c2778c60-ea5e-11de-86a4-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Postpositional Phrase"
+              },
+              "abbr": {
+                "en": "PostP"
+              },
+              "desc": {
+                "en": "An Adpositional Phrase where the central constituent follows the Nominal."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c2837818-ea5e-11de-938d-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Prepositional Phrase"
+              },
+              "abbr": {
+                "en": "PreP"
+              },
+              "desc": {
+                "en": "An Adpositional Phrase where the central constituent precedes the Nominal."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c28f63c6-ea5e-11de-9a0b-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Relative Clause"
+              },
+              "abbr": {
+                "en": "RelCl"
+              },
+              "desc": {
+                "en": "A clause that serves as a noun modifier."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c298ed24-ea5e-11de-874e-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Sentence"
+              },
+              "abbr": {
+                "en": "Sent"
+              },
+              "desc": {
+                "en": "A complete grouping of one or more Clauses."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c2a4d8dc-ea5e-11de-8857-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Inflectional Phrase"
+              },
+              "abbr": {
+                "en": "IP"
+              },
+              "desc": {
+                "en": "A grouping of (usually) a Verb Phrase and its inflectional modifiers."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c2b0c48a-ea5e-11de-9dba-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Verb Phrase"
+              },
+              "abbr": {
+                "en": "VP"
+              },
+              "desc": {
+                "en": "A phrase consisting of a Verb and its direct modifiers."
+              },
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "c2e79a5a-ea5e-11de-9669-0013722f8dec",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Syntax-RRG"
+          },
+          "abbr": {
+            "en": "Syn-RRG"
+          },
+          "desc": {
+            "en": "A list of Syntax tags based on an email from John Roberts about RRG."
+          },
+          "daughters": [
+            {
+              "original_guid": "c2f38612-ea5e-11de-9124-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "SENTENCE"
+              },
+              "abbr": {
+                "en": "SENT"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c2fd0f70-ea5e-11de-96db-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "CLAUSE"
+              },
+              "abbr": {
+                "en": "CL"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c308fb1e-ea5e-11de-885b-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "CORE"
+              },
+              "abbr": {
+                "en": "CORE"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c314e6d6-ea5e-11de-8d43-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "NUCLEUS"
+              },
+              "abbr": {
+                "en": "NUC"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c31e702a-ea5e-11de-9d76-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "PREDICATE"
+              },
+              "abbr": {
+                "en": "PRED"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c32a5be2-ea5e-11de-8d46-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Left Detached Position"
+              },
+              "abbr": {
+                "en": "LDP"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c3364790-ea5e-11de-96c0-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Right Detached Position"
+              },
+              "abbr": {
+                "en": "RDP"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c3423348-ea5e-11de-85a0-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Pre-core slot"
+              },
+              "abbr": {
+                "en": "PrCS"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c34bbca6-ea5e-11de-8901-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Post-core slot"
+              },
+              "abbr": {
+                "en": "PoCS"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c357a854-ea5e-11de-8a16-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "PERIPHERY"
+              },
+              "abbr": {
+                "en": "PERI"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c363940c-ea5e-11de-8faa-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Reference Phrase"
+              },
+              "abbr": {
+                "en": "RP"
+              },
+              "desc": {
+                "en": "Reference Phrase replaces the Noun Phrase(NP) in earlier RRG models (Van Valin 2006)."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c36d1d60-ea5e-11de-9cd9-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Pronominal Argument"
+              },
+              "abbr": {
+                "en": "PRO"
+              },
+              "desc": {
+                "en": "Used for arguments represented by bound morphemes."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c3790918-ea5e-11de-903f-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Auxiliary"
+              },
+              "abbr": {
+                "en": "AUX"
+              },
+              "desc": {
+                "en": "Non-predicative verbs required for the formation of particular syntactic constructions."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c384f4c6-ea5e-11de-9fe7-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "CORE-R"
+              },
+              "abbr": {
+                "en": "CORE-R"
+              },
+              "desc": {
+                "en": "The CORE of a Reference Phrase."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c38e7e24-ea5e-11de-8114-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "NUCLEUS-R"
+              },
+              "abbr": {
+                "en": "NUC-R"
+              },
+              "desc": {
+                "en": "The NUCLEUS of a Reference Phrase."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c39a69dc-ea5e-11de-9467-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Reference Phrase Initial Position"
+              },
+              "abbr": {
+                "en": "RPIP"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c3a6558a-ea5e-11de-98c9-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Reference Phrase Final Position"
+              },
+              "abbr": {
+                "en": "RPFP"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c3afdee8-ea5e-11de-85b1-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "PERIPHERY-R"
+              },
+              "abbr": {
+                "en": "PERI-R"
+              },
+              "desc": {
+                "en": "The PERIPHERY of a Reference Phrase."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c3bbcaa0-ea5e-11de-843e-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Modifier Phrase"
+              },
+              "abbr": {
+                "en": "MP"
+              },
+              "desc": {},
+              "daughters": []
+            },
+            {
+              "original_guid": "c3c7b64e-ea5e-11de-825d-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "CORE-M"
+              },
+              "abbr": {
+                "en": "CORE-M"
+              },
+              "desc": {
+                "en": "The CORE of a Modifier Phrase."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c3d13fac-ea5e-11de-8141-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "NUCLEUS-M"
+              },
+              "abbr": {
+                "en": "NUC-M"
+              },
+              "desc": {
+                "en": "The NUCLEUS of a Modifier Phrase."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c3dd2b5a-ea5e-11de-9a4d-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Adpositional Phrase"
+              },
+              "abbr": {
+                "en": "PP"
+              },
+              "desc": {
+                "en": "PP is either Prepositional Phrase or Postpositional Phrase depending on the typology of the language."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c3e91712-ea5e-11de-8763-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "CORE-P"
+              },
+              "abbr": {
+                "en": "CORE-P"
+              },
+              "desc": {
+                "en": "The CORE of an Adpositional Phrase(PP)."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "c3f2a070-ea5e-11de-8c44-0013722f8dec",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "NUCLEUS-P"
+              },
+              "abbr": {
+                "en": "NUC-P"
+              },
+              "desc": {
+                "en": "The NUCLEUS of an Adpositional Phrase(PP)."
+              },
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "85427db1-a541-4d26-999b-583a3e1e5a09",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Topic-Comment"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "c1c03d8c-9a6b-4757-88f7-65db180bdc03",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Topic"
+              },
+              "abbr": {
+                "en": "TOP"
+              },
+              "desc": {
+                "en": "The known information in a sentence, the main thing being talked about or the starting point. Often (but not always) the same as the subject or the agent."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "0c53bc94-e7c2-4b08-9888-31e3f26211e3",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Comment"
+              },
+              "abbr": {
+                "en": "Cmnt"
+              },
+              "desc": {
+                "en": "The part of the sentence that is new information in a normal, unmarked, not special sentence. This is also called \"predicate focus\", usually the predicate (verb plus non-topical arguments)."
+              },
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "db03d75b-6f28-4064-a51f-76ad115f9819",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Topic & Focus -- MARKED"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "d1df92bf-d05c-4221-a420-eae4775282cd",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Marked/Fronted Topic"
+              },
+              "abbr": {
+                "en": "Mkd.TOP"
+              },
+              "desc": {
+                "en": "Left-displaced or fronted, special topic. Ex. \"(Regarding) Aligators, we have lots\", \"Biga's wife, she gave us food.\""
+              },
+              "desc_runs": {
+                "en": [
+                  {
+                    "text": "Left-displaced or fronted, special topic. Ex. \"(Regarding) ",
+                    "ws": "en"
+                  },
+                  {
+                    "text": "Aligators",
+                    "ws": "en",
+                    "style": "Emphasized Text"
+                  },
+                  {
+                    "text": ", we have lots\", \"",
+                    "ws": "en"
+                  },
+                  {
+                    "text": "Biga's wife",
+                    "ws": "en",
+                    "style": "Emphasized Text"
+                  },
+                  {
+                    "text": ", she gave us food.\"",
+                    "ws": "en"
+                  }
+                ]
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "f348060d-32dc-4a45-995c-5069bfc17f6d",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Contrastive Topic"
+              },
+              "abbr": {
+                "en": "Cntrs.TOP"
+              },
+              "desc": {
+                "en": "The things being contrasted in a list of comparisions, for example Boys, are roudy, girls are well-behaved."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "3e69169b-aee1-4a0c-bd9b-e8966dee9625",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Marked Focus"
+              },
+              "abbr": {
+                "en": "FOC"
+              },
+              "desc": {
+                "en": "Narrow or broad focus, special focus. Emphasizing, asserting, or highlighting what is new or noteworthy in this sentence (the content question word and the part of the answer that replaces the content question word are in focus). The part of the assertion that is new and not presupposed."
+              },
+              "daughters": []
+            },
+            {
+              "original_guid": "a268295a-0452-4ae1-b97e-f9efdc21a990",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Contrastive Focus"
+              },
+              "abbr": {
+                "en": "Cntr.FOC"
+              },
+              "desc": {
+                "en": "Contrasting something as different from something else (or different from what the hearer already things). SAM is the one who did this (not Susie, like you think)."
+              },
+              "daughters": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "source_list_guid": "c40a77d6-ea5e-11de-99c2-0013722f8dec",
+      "source_list_name": {
+        "en": "Text Constituent Chart Templates",
+        "id": "Pola-pola Acuan untuk Bagan Unsur Teks"
+      },
+      "source_list_owner": "DsDiscourseData.ConstChartTempl",
+      "items": [
+        {
+          "original_guid": "64ffa265-db02-4412-9757-06f6f99ba76d",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Topic Prominent Template (ex)"
+          },
+          "abbr": {},
+          "desc": {},
+          "daughters": [
+            {
+              "original_guid": "22b3976e-1281-4b03-8b28-b5653fcc6d3a",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Pre-DP (Pause)"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "2a9e3689-23e1-4735-a74b-f649e9565c46",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Global"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "3a7746df-dc19-4a5c-b72a-46cf9bc18622",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Local"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "9698e2d1-01d8-454a-8077-09215cfd7bc8",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Focus"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "9a2ce1be-2581-41e6-a19a-f2b1898fa337",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Clause"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "5272016b-d21d-4864-8f10-1f534d22acb4",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Cl. Topic"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "8e7468bf-0b54-4a8d-b366-bd824c680f68",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Non-Top 1"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "5f40f83a-10e1-42ef-b346-9c00f7d22282",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Non-Top Other"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "9296a439-6f5e-4b42-8e73-c3f38fec2a05",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "PRED"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            },
+            {
+              "original_guid": "b46d2e20-1487-4041-8cd7-841d134595a0",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Post Clause"
+              },
+              "abbr": {},
+              "desc": {},
+              "daughters": [
+                {
+                  "original_guid": "bb1fc276-1e35-4a36-a0a6-c6731a80c73b",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Inner"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": []
+                },
+                {
+                  "original_guid": "295677d3-fa65-43ff-80a7-30793acfea3f",
+                  "cls": "CmPossibility",
+                  "name": {
+                    "en": "Outer"
+                  },
+                  "abbr": {},
+                  "desc": {},
+                  "daughters": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

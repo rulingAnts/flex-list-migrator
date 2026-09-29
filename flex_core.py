@@ -1029,7 +1029,8 @@ FORMAT_VERSION = 3                     # newest version this release reads and w
 _V1_FORMAT = "flex-list-migrator-v1"   # how version 1 files identify themselves
 
 _LIST_KEYS = {"source_list_guid", "source_list_name", "source_list_owner", "items"}
-_TOP_KEYS = {"format", "format_version", "generator", "source_project", "lists"} | _LIST_KEYS
+_TOP_KEYS = {"format", "format_version", "generator", "source_project", "description",
+             "lists"} | _LIST_KEYS
 _V2_ITEM_KEYS = {"desc_runs", "discussion", "status", "confidence",
                  "researchers", "restrictions"}
 _ITEM_KEYS = {"original_guid", "cls", "name", "abbr", "desc", "daughters"} | _V2_ITEM_KEYS
@@ -1090,7 +1091,7 @@ def validate_transfer(data: object) -> Tuple[List[str], List[str]]:
     for key in data:
         if key not in _TOP_KEYS:
             warnings.append(f'Unknown top-level field "{key}" will be ignored.')
-    for key in ("generator", "source_project"):
+    for key in ("generator", "source_project", "description"):
         if key in data and not isinstance(data[key], str):
             errors.append(f'"{key}" must be text.')
 
@@ -1249,14 +1250,16 @@ def save_transfer(
     selections: List[Tuple[ListInfo, List[ItemInfo]]],
     source_project_name: str,
     out_path: str | Path,
+    description: str = "",
 ) -> int:
     """
     Write one or more lists' items to a transfer file.
 
     One list is written as format version 2, which FLEx List Migrator 1.1
     can open; several lists need version 3.  Returns the version written.
-    Raises ValueError if nothing is selected, or for a list (or items) this
-    release can't export — see SUPPORTED_LISTS.
+    description, if given, is saved as the file's "description" (templates
+    are listed by it).  Raises ValueError if nothing is selected, or for a
+    list (or items) this release can't export — see SUPPORTED_LISTS.
     """
     selections = [(li, items) for li, items in selections if items]
     if not selections:
@@ -1277,6 +1280,8 @@ def save_transfer(
         "generator": "FLEx List Migrator" + (f" {_app_version()}" if _app_version() else ""),
         "source_project": source_project_name,
     }
+    if description:
+        data["description"] = description
     if version == 2:
         li, items = selections[0]
         data.update(header(li))

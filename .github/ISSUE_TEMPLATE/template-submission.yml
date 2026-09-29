@@ -1,0 +1,52 @@
+name: Submit a template
+description: Offer your lists to be bundled with FLEx List Migrator as a template.
+title: "[Template]: "
+labels: ["template"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for offering a template! Bundled templates appear in FLEx List Migrator under **Source ▸ Template**, so others can import your lists in a few clicks.
+
+        Lists that work well for a **region, language family, field organization, workshop or training course** are especially welcome: they give colleagues a tested starting point instead of building every marker by hand.
+
+        **To make the file:** open FLEx List Migrator, load your project, check the items you want to share, and click **Save Transfer JSON…**. A template can hold Text Chart Markers, Text Markup Tags and Text Constituent Chart Templates.
+  - type: input
+    id: name
+    attributes:
+      label: Template name
+      description: How the template should be listed in the app.
+      placeholder: "LTTW Papua (Seth)"
+    validations:
+      required: true
+  - type: checkboxes
+    id: lists
+    attributes:
+      label: Lists included
+      options:
+        - label: Text Chart Markers
+        - label: Text Markup Tags
+        - label: Text Constituent Chart Templates
+  - type: textarea
+    id: about
+    attributes:
+      label: About this template
+      description: What it's for, which region, language family or organization it suits, and anything users should know, such as analysis choices behind particular markers.
+    validations:
+      required: true
+  - type: textarea
+    id: file
+    attributes:
+      label: Template file
+      description: Drag your .json file into this box to attach it. If it won't attach, paste the file's contents here instead.
+    validations:
+      required: true
+  - type: checkboxes
+    id: permission
+    attributes:
+      label: Permission
+      options:
+        - label: I have the right to share these lists, and I agree they may be bundled and shared with FLEx List Migrator under the project's license (AGPL-3.0).
+          required: true
+        - label: The file contains no personal or sensitive information.
+          required: true

@@ -247,7 +247,7 @@ class App:
         self._source_type_var = tk.StringVar(value="flex")
         self._src_json_path_var = tk.StringVar()
         self._src_json_label: str = ""   # display label when JSON is source
-        self._json_source = False         # list labels get a [JSON] prefix
+        self._list_prefix = ""            # e.g. "[JSON]  " before each list's name
         self._list_origin: Dict[int, str] = {}   # id(list) -> file it came from
 
         self._build_ui()
@@ -271,6 +271,9 @@ class App:
         ttk.Radiobutton(radio_row, text="JSON File",
                         variable=self._source_type_var, value="json",
                         command=self._on_source_type_change).pack(side="left", padx=(12, 0))
+        ttk.Radiobutton(radio_row, text="Template",
+                        variable=self._source_type_var, value="template",
+                        command=self._on_source_type_change).pack(side="left", padx=(12, 0))
 
         # FLEx input row (shown by default)
         self._flex_src_row = ttk.Frame(src_frame)
@@ -293,6 +296,23 @@ class App:
                    command=self._browse_source_json).pack(side="left")
         ttk.Button(self._json_src_row, text="Load",
                    command=self._load_source).pack(side="left", padx=(6, 0))
+
+        # Template input row (hidden by default): lists bundled with the app,
+        # shown by their description.
+        self._tpl_src_row = ttk.Frame(src_frame)
+        ttk.Label(self._tpl_src_row, text="Template:").pack(side="left")
+        self._tpl_combo = ttk.Combobox(self._tpl_src_row, width=60, state="readonly")
+        self._tpl_combo.pack(side="left", padx=4, fill="x", expand=True)
+        ttk.Button(self._tpl_src_row, text="Load",
+                   command=self._load_source).pack(side="left", padx=(6, 0))
+        ttk.Button(self._tpl_src_row, text="Submit yours…",
+                   command=_open_template_submission).pack(side="left", padx=(6, 0))
+        self._templates = _find_templates()
+        self._tpl_combo["values"] = [desc for desc, _path in self._templates]
+        if self._templates:
+            self._tpl_combo.current(0)
+        else:
+            self._tpl_combo.set("No templates are included in this copy of the app")
 
         # Paned: list browser (left) + item tree (right)
         pane = ttk.PanedWindow(self.root, orient="horizontal")
@@ -337,9 +357,16 @@ class App:
 
         btn_row = ttk.Frame(item_f)
         btn_row.pack(fill="x", pady=(4, 0))
+        select_btn = ttk.Menubutton(btn_row, text="Select All")
+        select_menu = tk.Menu(select_btn, tearoff=False)
+        select_menu.add_command(label="In this list", command=self._select_all_in_list)
+        select_menu.add_command(label="In all supported lists",
+                                command=self._select_all_lists)
+        select_btn["menu"] = select_menu
+        select_btn.pack(side="left", padx=2)
+        ttk.Button(btn_row, text="Deselect All",
+                   command=self._deselect_all).pack(side="left", padx=2)
         for label, cmd in (
-            ("Select All",    lambda: self._select_all(True)),
-            ("Deselect All",  lambda: self._select_all(False)),
             ("Expand All",    lambda: self._expand_all(True)),
             ("Collapse All",  lambda: self._expand_all(False)),
         ):
@@ -404,12 +431,11 @@ class App:
     # ── Source (FLEx project or JSON file) ────────────────────────────────
 
     def _on_source_type_change(self):
-        if self._source_type_var.get() == "flex":
-            self._json_src_row.pack_forget()
-            self._flex_src_row.pack(fill="x")
-        else:
-            self._flex_src_row.pack_forget()
-            self._json_src_row.pack(fill="x")
+        rows = {"flex": self._flex_src_row, "json": self._json_src_row,
+                "template": self._tpl_src_row}
+        for row in rows.values():
+            row.pack_forget()
+        rows[self._source_type_var.get()].pack(fill="x")
         # Clear whatever was loaded as the previous source type
         self._clear_source()
 
@@ -438,10 +464,20 @@ class App:
             self._src_json_path_var.set("; ".join(paths))
 
     def _load_source(self):
-        if self._source_type_var.get() == "json":
+        kind = self._source_type_var.get()
+        if kind == "json":
             self._load_source_json()
+        elif kind == "template":
+            self._load_template()
         else:
             self._load_source_flex()
+
+    def _load_template(self):
+        i = self._tpl_combo.current()
+        if not 0 <= i < len(self._templates):
+            messagebox.showwarning("No Template", "Choose a template first.")
+            return
+        self.load_json_files([self._templates[i][1]], kind="Template")
 
     def _load_source_flex(self):
         name = self._src_combo.get().strip()
@@ -480,9 +516,10 @@ class App:
             self._on_source_type_change()
         self.load_json_files(paths)
 
-    def load_json_files(self, paths: List[str]) -> bool:
+    def load_json_files(self, paths: List[str], kind: str = "JSON") -> bool:
         """Load one or more transfer files as the source.
 
+        kind ("JSON" or "Template") labels the lists and the status line.
         All or nothing: if any file can't be loaded, none are.
         """
         if not paths:
@@ -521,17 +558,18 @@ class App:
                 all_lists.append(li)
         projects = sorted({m.get("source_project", "") for _p, m, _l, _n in loaded} - {""})
         self._src_json_label = ", ".join(projects)
-        self._src_json_path_var.set("; ".join(paths))
+        if kind == "JSON":
+            self._src_json_path_var.set("; ".join(paths))
         self._src_lists = all_lists
         self._checked.clear()
-        self._refresh_list_box(json_source=True)
+        self._refresh_list_box(prefix=f"[{kind}]  ")
         # Select the first list so the tree populates immediately
         self._list_box.selection_set(0)
         self._on_list_select()
         n_total = sum(_count_items(li.items) for li in all_lists)
         versions = "/".join(f"v{v}" for v in sorted({m["format_version"] for _p, m, _l, _n in loaded}))
         self._set_status(
-            (f"JSON source: {len(loaded)} files, " if several else "JSON source: ")
+            (f"{kind} source: {len(loaded)} files, " if several else f"{kind} source: ")
             + f"{len(all_lists)} list{'s' if len(all_lists) != 1 else ''}, {n_total} items"
             + (f"  from '{self._src_json_label}'" if self._src_json_label else "")
             + f"  [format {versions}]"
@@ -540,15 +578,14 @@ class App:
 
     def _list_label(self, li: core.ListInfo) -> str:
         origin = self._list_origin.get(id(li))
-        prefix = f"[{origin}]  " if origin else "[JSON]  " if self._json_source else ""
-        label = prefix + li.display_name
+        label = (f"[{origin}]  " if origin else self._list_prefix) + li.display_name
         if core.unsupported_reason(li):
             return f"{label}   (not supported yet)"
         n = _count_items(self._filter_checked(li.items))
         return f"{label}   ({n} checked)" if n else label
 
-    def _refresh_list_box(self, json_source: bool = False):
-        self._json_source = json_source
+    def _refresh_list_box(self, prefix: str = ""):
+        self._list_prefix = prefix
         # Lists this version can export/import first; the rest greyed out.
         self._src_lists.sort(key=lambda li: core.unsupported_reason(li) is not None)
         self._list_box.delete(0, "end")
@@ -669,13 +706,64 @@ class App:
         for child in self._tree.get_children(iid):
             self._uncheck(child)
 
-    def _select_all(self, checked: bool) -> None:
-        """Check or uncheck every item in the selected list (other lists keep theirs)."""
+    def _select_all_in_list(self) -> None:
+        """Check every item in the selected list; other lists keep their checks."""
         if self._current_list is None or self._browse_only():
             return
         for iid in self._tree.get_children():
-            (self._check if checked else self._uncheck)(iid)
+            self._check(iid)
         self._after_check_change()
+
+    def _select_all_lists(self) -> None:
+        """Check every item in every supported list."""
+        supported = [li for li in self._src_lists if not core.unsupported_reason(li)]
+        if not supported:
+            self._set_status("None of these lists can be exported or imported yet.")
+            return
+
+        def add(items: List[core.ItemInfo]) -> None:
+            for item in items:
+                self._checked.add(item.original_guid)
+                add(item.daughters)
+
+        for li in supported:
+            add(li.items)
+        if self._current_list in supported:
+            for iid in self._tree.get_children():
+                self._check(iid)          # show the ticks in the open list
+        self._refresh_list_labels()
+        self._set_status(self._selection_summary().strip(" ·"))
+
+    def _deselect_all(self) -> None:
+        """Uncheck every item in every list, after confirming."""
+        if not self._checked:
+            self._set_status("Nothing is checked.")
+            return
+        n_lists = sum(1 for li in self._src_lists if self._has_checks(li.items))
+        if not messagebox.askyesno(
+                "Deselect All",
+                f"Uncheck all {len(self._checked)} checked item(s) in {n_lists} "
+                f"list{'s' if n_lists != 1 else ''}?"):
+            return
+        self._checked.clear()
+        for iid in self._tree.get_children():
+            self._uncheck(iid)
+        self._refresh_list_labels()
+        self._set_status("Nothing checked")
+
+    def _has_checks(self, items: List[core.ItemInfo]) -> bool:
+        return any(i.original_guid in self._checked or self._has_checks(i.daughters)
+                   for i in items)
+
+    def _refresh_list_labels(self) -> None:
+        """Update every list's label (checked counts), keeping the selection."""
+        for i, li in enumerate(self._src_lists):
+            self._list_box.delete(i)
+            self._list_box.insert(i, self._list_label(li))
+            if core.unsupported_reason(li):
+                self._list_box.itemconfig(i, foreground="#999999")
+        if self._current_list is not None:
+            self._list_box.selection_set(self._src_lists.index(self._current_list))
 
     def _expand_all(self, expand: bool) -> None:
         for iid in self._all_iids():
@@ -736,7 +824,7 @@ class App:
         if not path:
             return
         try:
-            if self._source_type_var.get() == "json":
+            if self._source_type_var.get() in ("json", "template"):
                 src_name = self._src_json_label or _basename(self._src_json_path_var.get())
             else:
                 src_name = self._src_combo.get().strip()
@@ -1013,6 +1101,44 @@ FILE.json      Transfer files to open as the source. Dropping files onto
 
 With no files named, the app opens any .json files in a "preload" folder,
 either built into the app or next to it."""
+
+
+TEMPLATE_SUBMISSION_URL = ("https://github.com/rulingAnts/flex-list-migrator/issues/new"
+                           "?template=template-submission.yml")
+
+
+def _find_templates() -> List[Tuple[str, str]]:
+    """Bundled templates as [(description, path)], sorted by description.
+
+    Templates are transfer files in a "templates" folder: built into the .exe
+    (see build.spec), in the source folder, or next to the app.  Each is
+    listed by its "description", or by its lists' names if it has none; files
+    that don't load are left out.
+    """
+    here = os.path.dirname(os.path.abspath(__file__))
+    app_dir = os.path.dirname(sys.executable) if getattr(sys, "frozen", False) else here
+    dirs = [os.path.join(getattr(sys, "_MEIPASS", here), "templates"),
+            os.path.join(app_dir, "templates")]
+    found: Dict[str, Tuple[str, str]] = {}
+    for folder in dict.fromkeys(dirs):            # each folder once, in order
+        for path in sorted(glob.glob(os.path.join(folder, "*.json"))):
+            name = os.path.basename(path)
+            if name in found:
+                continue
+            try:
+                meta, lists, _notes = core.load_from_json(path)
+            except Exception:
+                continue
+            desc = (meta.get("description") or "").strip() \
+                or ", ".join(li.display_name for li in lists) or name
+            found[name] = (desc, path)
+    return sorted(found.values(), key=lambda t: t[0].lower())
+
+
+def _open_template_submission() -> None:
+    """Open the GitHub form for suggesting a template, in the default browser."""
+    import webbrowser
+    webbrowser.open(TEMPLATE_SUBMISSION_URL)
 
 
 def _startup_files(args: List[str]) -> List[str]:

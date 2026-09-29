@@ -38,6 +38,10 @@ _fl2_dir = _fl2_spec.submodule_search_locations[0]
 # and opened when it starts (README, "Preloaded lists").  preload/ is
 # gitignored, so personal lists stay out of the repository and CI builds.
 _preload = [(p, 'preload') for p in sorted(glob.glob(os.path.join('preload', '*.json')))]
+
+# Bundled templates: transfer files in templates/ (committed, public) are
+# offered under Source > Template, listed by their "description".
+_templates = [(p, 'templates') for p in sorted(glob.glob(os.path.join('templates', '*.json')))]
 if _preload:
     print('Building in preloaded lists: ' + ', '.join(os.path.basename(p) for p, _ in _preload))
 
@@ -54,6 +58,7 @@ a = Analysis(
         # The app sets this as its window icon at runtime.
         ('app_icon.ico', '.'),
         *_preload,
+        *_templates,
     ],
     hiddenimports=[
         'flex_core',
