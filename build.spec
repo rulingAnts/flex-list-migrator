@@ -43,6 +43,8 @@ a = Analysis(
         # Bundle the entire flexlibs2 package as source files.
         # This avoids any import of flexlibs2 during PyInstaller analysis.
         (_fl2_dir, 'flexlibs2'),
+        # The app sets this as its window icon at runtime.
+        ('app_icon.ico', '.'),
     ],
     hiddenimports=[
         'flex_core',

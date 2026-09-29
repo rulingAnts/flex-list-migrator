@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Simplified FLEx List Migrator icon for 16-32 px: one list card and the
+       move badge, drawn bold enough to stay legible at taskbar sizes. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f7ff2"/>
+      <stop offset="1" stop-color="#1446a8"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="256" height="256" rx="52" fill="url(#bg)"/>
+  <rect x="26" y="34" width="156" height="184" rx="22" fill="#ffffff"/>
+  <rect x="50" y="66" width="104" height="30" rx="15" fill="#1d63d8"/>
+  <rect x="50" y="122" width="76" height="30" rx="15" fill="#0e7490"/>
+  <circle cx="186" cy="186" r="64" fill="#f5a524" stroke="#1a52bd" stroke-width="16"/>
+  <path d="M150 186 H216 M190 160 L218 186 L190 212" fill="none" stroke="#132a57"
+        stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

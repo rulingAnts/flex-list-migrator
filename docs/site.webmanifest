@@ -1,0 +1,25 @@
+{
+  "name": "FLEx List Migrator",
+  "short_name": "List Migrator",
+  "icons": [
+    {
+      "src": "180x180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#1d63d8"
+}

@@ -1,71 +1,68 @@
 """
-Generate app_icon.ico for FLEx List Migrator.
-Run once (on any platform with Pillow) and commit the result.
+Generate the app and website icons from the SVG sources in icons/.
+
+  icons/app_icon.svg        full design, used at 48 px and larger
+  icons/app_icon_small.svg  bolder, simplified design for 16-32 px
+
+Needs rsvg-convert (librsvg; on macOS `brew install librsvg`) and Pillow.
+Run it after editing either SVG, then commit what it writes:
+
+  app_icon.ico                 the .exe and window icon (16-256 px)
+  docs/favicon.ico             website favicon (16-48 px)
+  docs/favicon.svg             website icon for browsers that use SVG
+  docs/180x180.png, docs/192x192.png, docs/512x512.png
+                               Apple touch and web-app icons (docs/site.webmanifest)
 
   pip install Pillow
   python make_icon.py
 """
 
-from PIL import Image, ImageDraw, ImageFont
+import io
+import shutil
+import subprocess
+from pathlib import Path
 
-SIZES = [16, 24, 32, 48, 64, 128, 256]
-BG    = (31, 78, 121)    # deep SIL blue
-FG    = (255, 255, 255)  # white
+from PIL import Image
+
+HERE = Path(__file__).resolve().parent
+FULL = HERE / "icons" / "app_icon.svg"
+SMALL = HERE / "icons" / "app_icon_small.svg"
+SMALL_MAX = 32                     # sizes up to this use the simplified design
+
+APP_ICO_SIZES = [16, 24, 32, 48, 64, 128, 256]
+FAVICON_SIZES = [16, 32, 48]
+PNG_SIZES = [180, 192, 512]
 
 
-def make_frame(size: int) -> Image.Image:
-    img  = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(img)
+def render(svg: Path, size: int) -> Image.Image:
+    png = subprocess.run(
+        ["rsvg-convert", "-w", str(size), "-h", str(size), str(svg)],
+        check=True, capture_output=True,
+    ).stdout
+    return Image.open(io.BytesIO(png)).convert("RGBA")
 
-    # Rounded rectangle background
-    m = max(1, size // 10)
-    r = max(3, size // 5)
-    draw.rounded_rectangle([m, m, size - m - 1, size - m - 1],
-                            radius=r, fill=BG)
 
-    # "FL" label — scale font to frame
-    font_size = max(6, int(size * 0.44))
-    font = None
-    for path in [
-        "arialbd.ttf", "arial.ttf",           # Windows
-        "/System/Library/Fonts/Helvetica.ttc", # macOS
-        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",  # Linux
-    ]:
-        try:
-            font = ImageFont.truetype(path, font_size)
-            break
-        except OSError:
-            pass
-    if font is None:
-        try:
-            font = ImageFont.load_default(size=font_size)
-        except TypeError:
-            font = ImageFont.load_default()
+def frame(size: int) -> Image.Image:
+    return render(SMALL if size <= SMALL_MAX else FULL, size)
 
-    text = "FL"
-    # Skip text on very small frames where it's unreadable anyway
-    if size >= 24:
-        try:
-            bb = draw.textbbox((0, 0), text, font=font)
-            x  = (size - (bb[2] - bb[0])) / 2 - bb[0]
-            y  = (size - (bb[3] - bb[1])) / 2 - bb[1] - max(0, size // 18)
-            draw.text((x, y), text, fill=FG, font=font)
-        except Exception:
-            pass  # Fall back to blank-label icon for this size
 
-    return img
+def save_ico(path: Path, sizes) -> None:
+    frames = [frame(s) for s in sizes]
+    # Pillow stores a supplied image for each size rather than scaling one down,
+    # so the small sizes get the simplified design.
+    frames[-1].save(path, format="ICO", sizes=[(s, s) for s in sizes],
+                    append_images=frames[:-1])
 
 
 if __name__ == "__main__":
-    frames = [make_frame(s) for s in SIZES]
-    out = "app_icon.ico"
-    # Pillow's ICO save: pass all frames as a list via the 'icon_size' approach.
-    # The most reliable method is to save the largest frame and append the rest.
-    img = frames[-1]  # largest frame (256)
-    img.save(
-        out,
-        format="ICO",
-        append_images=frames[:-1],
-    )
-    import os
-    print(f"Wrote {out}  ({os.path.getsize(out):,} bytes, {len(SIZES)} sizes: {SIZES})")
+    if not shutil.which("rsvg-convert"):
+        raise SystemExit("rsvg-convert not found: install librsvg "
+                         "(macOS: brew install librsvg).")
+    save_ico(HERE / "app_icon.ico", APP_ICO_SIZES)
+    save_ico(HERE / "docs" / "favicon.ico", FAVICON_SIZES)
+    # Browsers show the SVG favicon at tab size, so use the bold design.
+    shutil.copyfile(SMALL, HERE / "docs" / "favicon.svg")
+    for s in PNG_SIZES:
+        frame(s).save(HERE / "docs" / f"{s}x{s}.png", optimize=True)
+    print("Wrote app_icon.ico, docs/favicon.ico, docs/favicon.svg and "
+          + ", ".join(f"docs/{s}x{s}.png" for s in PNG_SIZES))

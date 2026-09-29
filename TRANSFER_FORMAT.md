@@ -3,7 +3,7 @@
 **Save Transfer JSON…** writes selected list items to a UTF-8 JSON file, and
 **Source → JSON File** reads one back. You can also write these files by hand,
 for example to add a ready-made branch to a list. See
-[`examples/evidentials-text-chart-markers.json`](examples/evidentials-text-chart-markers.json).
+[`docs/examples/evidentials-text-chart-markers.json`](docs/examples/evidentials-text-chart-markers.json).
 
 ## Version statement
 

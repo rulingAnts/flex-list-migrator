@@ -19,6 +19,7 @@ To build a standalone .exe:
 from __future__ import annotations
 
 import os
+import sys
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 from typing import Dict, List, Optional, Tuple
@@ -886,6 +887,18 @@ def _count_descendants(item: core.ItemInfo) -> int:
     return sum(1 + _count_descendants(d) for d in item.daughters)
 
 
+def _set_window_icon(root: tk.Tk) -> None:
+    """Show the app icon on this and every later window instead of Tk's feather.
+
+    Frozen (.exe) builds unpack bundled files to sys._MEIPASS (see build.spec).
+    """
+    base = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+    try:
+        root.iconbitmap(default=os.path.join(base, "app_icon.ico"))
+    except tk.TclError:
+        pass
+
+
 def _open_file(path: str) -> None:
     try:
         os.startfile(path)  # Windows only
@@ -951,6 +964,7 @@ def main():
         return
 
     root = tk.Tk()
+    _set_window_icon(root)
     app = App(root)
     root.protocol("WM_DELETE_WINDOW", app.on_close)
     root.mainloop()

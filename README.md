@@ -23,8 +23,8 @@ Description (including embedded writing systems and styles), Discussion,
 Status, Confidence, Researchers, Restrictions and subitems. Transfer files are
 checked when they are loaded, and each import is checked against the target
 project before anything is written. See [TRANSFER_FORMAT.md](TRANSFER_FORMAT.md)
-for the file format, which you can also write by hand. The `examples/` folder
-has a ready-made branch for the Text Chart Markers list.
+for the file format, which you can also write by hand. The `docs/examples/`
+folder has a ready-made branch for the Text Chart Markers list.
 
 All writes are wrapped in a transaction. FLEx must be closed while the tool runs.
 
@@ -90,7 +90,7 @@ Copy it (and `flex_core.py`) into your FLExTools Modules folder and run it in
 | `pretty_export.py` | HTML and plain-text human-readable export |
 | `flex_module.py` | FLExTools module for development testing |
 | `TRANSFER_FORMAT.md` | The transfer JSON format, its versions and validation |
-| `examples/` | Ready-made transfer files (e.g. an Evidentials branch for Text Chart Markers) |
+| `docs/examples/` | Ready-made transfer files (e.g. an Evidentials branch for Text Chart Markers), also downloadable from the website |
 | `build.spec` | PyInstaller build configuration |
 | `requirements.txt` | Dependency notes |
 

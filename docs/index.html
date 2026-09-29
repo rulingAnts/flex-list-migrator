@@ -8,6 +8,9 @@
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#0b1020" />
   <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="180x180.png" />
+  <link rel="manifest" href="site.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
   <script>
     // Apply saved theme before first paint to avoid a flash of the wrong theme.
@@ -25,7 +28,7 @@
   <header class="site-header">
     <div class="site-header-inner">
       <a class="brand" href="#top" aria-label="FLEx List Migrator home">
-        <img src="favicon.ico" alt="" width="28" height="28" />
+        <img src="favicon.svg" alt="" width="28" height="28" />
         <span>List Migrator</span>
       </a>
       <nav class="site-nav" aria-label="Site sections">
@@ -68,7 +71,7 @@
             Download for Windows
           </a>
           <p class="hero-meta">
-            Portable <code>.exe</code> · <span id="version-label">v1.0.1</span> ·
+            Portable <code>.exe</code> · <span id="version-label">v1.1.0</span> ·
             <a href="https://github.com/rulingAnts/flex-list-migrator/releases" target="_blank" rel="noopener">All releases<span class="sr-only"> (opens in a new tab)</span></a>
           </p>
         </div>
@@ -182,11 +185,24 @@
             <ul class="link-list">
               <li>
                 <a id="download-btn-2" href="https://github.com/rulingAnts/flex-list-migrator/releases/latest/download/FLEx.List.Migrator.exe">FLEx List Migrator (.exe)</a>
-                <span>Latest release, <span id="version-label-2">v1.0.1</span>. Requires FieldWorks Language Explorer 9 installed on the same machine.</span>
+                <span>Latest release, <span id="version-label-2">v1.1.0</span>. Requires FieldWorks Language Explorer 9 installed on the same machine.</span>
               </li>
               <li>
                 <a href="https://github.com/rulingAnts/flex-list-migrator/releases" target="_blank" rel="noopener">All releases &amp; release notes<span class="sr-only"> (opens in a new tab)</span></a>
                 <span>Previous versions and changelogs on GitHub.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="link-panel">
+            <h3>Ready-made lists</h3>
+            <ul class="link-list">
+              <li>
+                <a href="examples/evidentials-text-chart-markers.json" download>Evidentials for Text Chart Markers (.json)</a>
+                <span>Visual, sensory, inferential, reported and participatory evidentials, with descriptions and notes. Load it as a JSON source and import it into your Text Chart Markers.</span>
+              </li>
+              <li>
+                <a href="https://github.com/rulingAnts/flex-list-migrator/blob/main/TRANSFER_FORMAT.md" target="_blank" rel="noopener">Make your own list file<span class="sr-only"> (opens in a new tab)</span></a>
+                <span>The transfer file format, for writing list branches by hand.</span>
               </li>
             </ul>
           </div>
