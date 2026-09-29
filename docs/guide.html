@@ -76,7 +76,7 @@
     <section id="top" aria-labelledby="guide-heading">
       <div class="container">
         <div class="section-header">
-          <p class="section-eyebrow">User guide · version 1.1</p>
+          <p class="section-eyebrow">User guide · version 1.2</p>
           <h1 id="guide-heading">Using FLEx List Migrator</h1>
           <p class="section-lede">How to copy list items between FLEx projects, share them as a file, import ready-made lists, and make readable copies.</p>
         </div>
@@ -124,8 +124,8 @@
         <dl class="guide-parts">
           <div><dt>Source</dt><dd>Where items come from: a <span class="ui">FLEx Project</span> (choose it under <span class="ui">Project</span> and click <span class="ui">Load</span>) or a <span class="ui">JSON File</span> (choose it with <span class="ui">Browse…</span> and click <span class="ui">Load</span>). <span class="ui">Browse folder…</span> adds projects kept outside FLEx's usual folder.</dd></div>
           <div><dt>Lists</dt><dd>The source's lists. The lists this version can export and import come first: Text Chart Markers, Text Markup Tags and Text Constituent Chart Templates. Other lists are greyed out and marked <em>(not supported yet)</em>; you can look at them but not export or import them.</dd></div>
-          <div><dt>Items</dt><dd>The items in the selected list. Click an item to check ☑ or uncheck ☐ it; this also checks or unchecks everything under it. <span class="ui">Select All</span>, <span class="ui">Deselect All</span>, <span class="ui">Expand All</span> and <span class="ui">Collapse All</span> help with long lists.</dd></div>
-          <div><dt>Save Transfer JSON… · Export Human-Readable…</dt><dd>Save the checked items as a file to share, or as a readable HTML or text document.</dd></div>
+          <div><dt>Items</dt><dd>The items in the selected list. Click an item to check ☑ or uncheck ☐ it; this also checks or unchecks everything under it. Your checks are kept when you switch to another list, and the Lists pane shows how many items are checked in each. <span class="ui">Select All</span> and <span class="ui">Deselect All</span> work on the selected list; <span class="ui">Expand All</span> and <span class="ui">Collapse All</span> help with long lists.</dd></div>
+          <div><dt>Save Transfer JSON… · Export Human-Readable…</dt><dd>Save everything you've checked, from every list, as a file to share or as a readable HTML or text document.</dd></div>
           <div><dt>Target Project (Import)</dt><dd>The project to import into: choose it under <span class="ui">Project</span>, click <span class="ui">Load Target</span>, then <span class="ui">Import Items</span>. <span class="ui">Skip duplicates</span> is on by default.</dd></div>
           <div><dt>Status bar</dt><dd>What's loaded and what just happened, along the bottom of the window.</dd></div>
         </dl>
@@ -148,8 +148,8 @@
             <p>Under <span class="ui">Source</span>, choose <span class="ui">FLEx Project</span>, pick the project and click <span class="ui">Load</span>. The source is only read, never changed.</p>
           </li>
           <li>
-            <strong>Choose a list and check items</strong>
-            <p>Select Text Chart Markers, Text Markup Tags or Text Constituent Chart Templates, then click the items you want. An item is copied only if the items above it are checked too, so check a whole group by clicking its top item.</p>
+            <strong>Check items in one or more lists</strong>
+            <p>Select Text Chart Markers, Text Markup Tags or Text Constituent Chart Templates, then click the items you want. Switch lists to check items in the others too: your checks are kept, and each list shows how many are checked. An item is copied only if the items above it are checked too, so check a whole group by clicking its top item.</p>
           </li>
           <li>
             <strong>Load the target project</strong>
@@ -157,7 +157,7 @@
           </li>
           <li>
             <strong>Import</strong>
-            <p>Leave <span class="ui">Skip duplicates</span> on and click <span class="ui">Import Items</span>. The confirmation shows which list the items will go into and lists anything that will be skipped or simplified. Nothing is written until you click <span class="ui">Yes</span>.</p>
+            <p>Leave <span class="ui">Skip duplicates</span> on and click <span class="ui">Import Items</span>. Everything you checked is imported in one go, each list's items into the matching list in the target. The confirmation shows where each list's items will go and lists anything that will be skipped or simplified. Nothing is written until you click <span class="ui">Yes</span>.</p>
           </li>
           <li>
             <strong>Close the List Migrator, then open FLEx</strong>
@@ -176,14 +176,14 @@
         </div>
         <div class="doc-prose">
           <h3>Save a file</h3>
-          <p>Load the source and check the items, as in steps 1–3 above. Then click <span class="ui">Save Transfer JSON…</span> and choose a name.</p>
+          <p>Load the source and check the items, in as many lists as you like, as in steps 1–3 above. Then click <span class="ui">Save Transfer JSON…</span> and choose a name. The file holds everything you checked.</p>
           <h3>Import from a file</h3>
-          <p>Under <span class="ui">Source</span>, choose <span class="ui">JSON File</span>, click <span class="ui">Browse…</span> to pick the file, and click <span class="ui">Load</span>. Check the items (or <span class="ui">Select All</span>), then load the target and import as in steps 4–6 above.</p>
+          <p>Under <span class="ui">Source</span>, choose <span class="ui">JSON File</span>, click <span class="ui">Browse…</span> to pick the file, and click <span class="ui">Load</span>. A file with several lists shows each of them in the Lists pane. Check the items (or <span class="ui">Select All</span> in each list), then load the target and import as in steps 4–6 above.</p>
           <p>Each file is checked as it loads. If it has problems, it isn't loaded, and the message says what's wrong and where in the file. Smaller issues are shown as notes, and the file still loads. The status bar shows the file's format version.</p>
           <h3>Ready-made lists</h3>
           <p>The <a href="index.html#download">Download</a> section has ready-made files, such as a set of evidentials for Text Chart Markers. Load one as a JSON source and import it.</p>
           <h3>Versions</h3>
-          <p>Version 1.1 opens files saved by 1.0, but 1.0 can't open files saved by 1.1. To write a file by hand, see the <a href="https://github.com/rulingAnts/flex-list-migrator/blob/main/TRANSFER_FORMAT.md" target="_blank" rel="noopener">transfer file format<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+          <p>Version 1.2 opens files saved by 1.0 and 1.1. A file with one list is saved so that 1.1 can open it too; a file with several lists needs 1.2 or later. Version 1.0 can't open files saved by 1.1 or later. To write a file by hand, see the <a href="https://github.com/rulingAnts/flex-list-migrator/blob/main/TRANSFER_FORMAT.md" target="_blank" rel="noopener">transfer file format<span class="sr-only"> (opens in a new tab)</span></a>.</p>
         </div>
       </div>
     </section>
@@ -202,7 +202,7 @@
           </li>
           <li>
             <strong>Choose what and how</strong>
-            <p>Set the <span class="ui">Document title</span>. Choose <span class="ui">Currently selected items only</span>, or <span class="ui">Entire list(s)</span> and tick the lists. Choose <span class="ui">HTML</span> (styled; several lists get a tab each) or <span class="ui">Plain text</span>. Enter the writing system to show, such as <code>en</code>.</p>
+            <p>Set the <span class="ui">Document title</span>. Choose <span class="ui">Checked items only (in all lists)</span>, or <span class="ui">Entire list(s)</span> and tick the lists. Choose <span class="ui">HTML</span> (styled; several lists get a tab each) or <span class="ui">Plain text</span>. Enter the writing system to show, such as <code>en</code>.</p>
           </li>
           <li>
             <strong>Save</strong>

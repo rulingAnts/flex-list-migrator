@@ -831,6 +831,66 @@ class _ItemWriter:
 # Public: import
 # ---------------------------------------------------------------------------
 
+def import_selections(
+    project,
+    plan: List[Tuple[str, List[ItemInfo]]],
+    skip_duplicates: bool = True,
+    manage_undo: bool = True,
+    warnings: Optional[List[str]] = None,
+) -> List[int]:
+    """
+    Import items into one or more lists in a single transaction.
+
+    plan is [(target_list_guid, items), ...].  Every target list and item is
+    checked (see unsupported_reason) before anything is written.
+
+    If ``warnings`` is given, a note is appended for anything that couldn't be
+    carried over exactly (see _ItemWriter); the rest of the import goes ahead.
+
+    manage_undo=True  (default) — standalone Tkinter app.
+        Wraps the whole import in project.Transaction(), which marks a
+        rollback point before the first write.  If any item fails, all
+        changes in the import are rolled back automatically.
+        Changes are committed to disk when CloseProject() is called.
+
+    manage_undo=False — FLExTools module (FTM_ModifiesDB=True).
+        FLExTools already manages the transaction for the whole module run.
+        We just write directly; FLExTools handles commit/rollback.
+
+    Returns the number of top-level items added for each plan entry.
+    """
+    handles = _ws_handles(project)
+    prepared = []
+    for target_list_guid, items in plan:
+        target_list = _find_target_list(project, target_list_guid)
+        reason = unsupported_reason(_list_info(project.project, target_list, handles), items)
+        if reason:
+            raise ValueError(reason)
+        existing = _existing_names(target_list) if skip_duplicates else set()
+        prepared.append((target_list,
+                         [i for i in items if i.name.best().lower() not in existing]))
+    if not any(to_import for _, to_import in prepared):
+        return [0] * len(prepared)
+
+    writer = _ItemWriter(project, handles, warnings if warnings is not None else [])
+
+    def _do_writes():
+        for target_list, to_import in prepared:
+            for item in to_import:
+                writer.create(target_list.PossibilitiesOS, item)
+
+    if manage_undo:
+        # project.Transaction() marks a rollback point; on any exception the
+        # whole import is rolled back via LCM's Mark/RollbackToMark API.
+        with project.Transaction("Import FLEx list items"):
+            _do_writes()
+    else:
+        # FLExTools module: FLExTools owns the transaction envelope.
+        _do_writes()
+
+    return [len(to_import) for _, to_import in prepared]
+
+
 def import_items(
     project,
     target_list_guid: str,
@@ -839,50 +899,10 @@ def import_items(
     manage_undo: bool = True,
     warnings: Optional[List[str]] = None,
 ) -> int:
-    """
-    Import items into the named list using the LCM API.
-
-    If ``warnings`` is given, a note is appended for anything that couldn't be
-    carried over exactly (see _ItemWriter); the rest of the import goes ahead.
-
-    manage_undo=True  (default) — standalone Tkinter app.
-        Wraps the entire batch in project.Transaction(), which marks a
-        rollback point before the first write.  If any item fails, all
-        changes in the batch are rolled back automatically.
-        Changes are committed to disk when CloseProject() is called.
-
-    manage_undo=False — FLExTools module (FTM_ModifiesDB=True).
-        FLExTools already manages the transaction for the whole module run.
-        We just write directly; FLExTools handles commit/rollback.
-
-    Returns the number of top-level items actually added.
-    """
-    handles = _ws_handles(project)
-    target_list = _find_target_list(project, target_list_guid)
-    reason = unsupported_reason(_list_info(project.project, target_list, handles), items)
-    if reason:
-        raise ValueError(reason)
-    existing = _existing_names(target_list) if skip_duplicates else set()
-    to_import = [item for item in items if item.name.best().lower() not in existing]
-    if not to_import:
-        return 0
-
-    writer = _ItemWriter(project, handles, warnings if warnings is not None else [])
-
-    def _do_writes():
-        for item in to_import:
-            writer.create(target_list.PossibilitiesOS, item)
-
-    if manage_undo:
-        # project.Transaction() marks a rollback point; on any exception the
-        # whole batch is rolled back via LCM's Mark/RollbackToMark API.
-        with project.Transaction("Import FLEx list items"):
-            _do_writes()
-    else:
-        # FLExTools module: FLExTools owns the transaction envelope.
-        _do_writes()
-
-    return len(to_import)
+    """Import items into one list (see import_selections).  Returns the number
+    of top-level items added."""
+    return import_selections(project, [(target_list_guid, items)], skip_duplicates,
+                             manage_undo, warnings)[0]
 
 
 def preflight_import(
@@ -992,20 +1012,24 @@ def find_matching_list(
 # Public: JSON transfer format
 #
 # A transfer file opens with a version statement:
-#     "format": "flex-list-migrator", "format_version": 2
-# Files from FLEx List Migrator 1.0.x say "format": "flex-list-migrator-v1"
-# instead, and are read as version 1 (name/abbr/desc/daughters only).
-# Version 2 adds desc_runs, discussion, status, confidence, researchers and
-# restrictions to items, and source_list_owner to the header.
-# TRANSFER_FORMAT.md describes every field.
+#     "format": "flex-list-migrator", "format_version": 3
+# Version 3 holds one or more lists:
+#     "lists": [{"source_list_guid", "source_list_name", "source_list_owner",
+#                "items": [...]}, ...]
+# Versions 1 and 2 hold one list, with those fields at the top level.  Files
+# from 1.0.x say "format": "flex-list-migrator-v1" instead (name/abbr/desc/
+# daughters only); version 2 (1.1) added desc_runs, discussion, status,
+# confidence, researchers, restrictions and source_list_owner.  A file with
+# one list is still written as version 2, so FLEx List Migrator 1.1 can
+# open it.  TRANSFER_FORMAT.md describes every field.
 # ---------------------------------------------------------------------------
 
 FORMAT_NAME = "flex-list-migrator"
-FORMAT_VERSION = 2                     # what save_to_json writes; newest we read
+FORMAT_VERSION = 3                     # newest version this release reads and writes
 _V1_FORMAT = "flex-list-migrator-v1"   # how version 1 files identify themselves
 
-_TOP_KEYS = {"format", "format_version", "generator", "source_project",
-             "source_list_guid", "source_list_name", "source_list_owner", "items"}
+_LIST_KEYS = {"source_list_guid", "source_list_name", "source_list_owner", "items"}
+_TOP_KEYS = {"format", "format_version", "generator", "source_project", "lists"} | _LIST_KEYS
 _V2_ITEM_KEYS = {"desc_runs", "discussion", "status", "confidence",
                  "researchers", "restrictions"}
 _ITEM_KEYS = {"original_guid", "cls", "name", "abbr", "desc", "daughters"} | _V2_ITEM_KEYS
@@ -1045,7 +1069,7 @@ def validate_transfer(data: object) -> Tuple[List[str], List[str]]:
 
     Returns (errors, warnings).  Any error means the file must not be loaded;
     warnings describe things that will be ignored or adjusted.  Problems are
-    located by path, e.g. items[0].daughters[2].discussion[1].
+    located by path, e.g. lists[1].items[0].daughters[2].discussion[1].
     """
     errors: List[str] = []
     warnings: List[str] = []
@@ -1066,24 +1090,52 @@ def validate_transfer(data: object) -> Tuple[List[str], List[str]]:
     for key in data:
         if key not in _TOP_KEYS:
             warnings.append(f'Unknown top-level field "{key}" will be ignored.')
-    for key in ("generator", "source_project", "source_list_guid", "source_list_owner"):
+    for key in ("generator", "source_project"):
         if key in data and not isinstance(data[key], str):
             errors.append(f'"{key}" must be text.')
-    if "source_list_name" in data:
-        _check_multistr(data["source_list_name"], "source_list_name", errors)
 
-    items = data.get("items")
-    if not isinstance(items, list) or not items:
-        errors.append('"items" must be a non-empty list of list items.')
-        return errors, warnings
     seen: set = set()
     newer_fields: set = set()
-    for i, item in enumerate(items):
-        _check_item(item, f"items[{i}]", errors, warnings, seen, newer_fields)
-    if version == 1 and newer_fields:
-        warnings.append("The file says it is format version 1 but uses version 2 fields ("
-                        + ", ".join(sorted(newer_fields)) + "); they will be read anyway.")
+    if version >= 3:
+        if "items" in data:
+            errors.append('In format version 3, items go inside "lists", not at the top level.')
+        lists = data.get("lists")
+        if not isinstance(lists, list) or not lists:
+            errors.append('"lists" must be a non-empty list of lists.')
+            return errors, warnings
+        for i, entry in enumerate(lists):
+            where = f"lists[{i}]"
+            if not isinstance(entry, dict):
+                errors.append(f"{where} must be an object ({{ … }}).")
+                continue
+            for key in entry:
+                if key not in _LIST_KEYS:
+                    warnings.append(f'{where}: unknown field "{key}" will be ignored.')
+            _check_list(entry, where + ".", errors, warnings, seen, newer_fields)
+    else:
+        if "lists" in data:
+            errors.append(f'"lists" needs format version 3; this file says version {version}.')
+        _check_list(data, "", errors, warnings, seen, newer_fields)
+        if version == 1 and newer_fields:
+            warnings.append("The file says it is format version 1 but uses version 2 fields ("
+                            + ", ".join(sorted(newer_fields)) + "); they will be read anyway.")
     return errors, warnings
+
+
+def _check_list(entry: dict, prefix: str, errors: List[str], warnings: List[str],
+                seen: set, newer_fields: set) -> None:
+    """Check one list's header fields and items; prefix locates it, e.g. "lists[1].\""""
+    for key in ("source_list_guid", "source_list_owner"):
+        if key in entry and not isinstance(entry[key], str):
+            errors.append(f'{prefix}{key} must be text.')
+    if "source_list_name" in entry:
+        _check_multistr(entry["source_list_name"], f"{prefix}source_list_name", errors)
+    items = entry.get("items")
+    if not isinstance(items, list) or not items:
+        errors.append(f'{prefix}items must be a non-empty list of list items.')
+        return
+    for j, item in enumerate(items):
+        _check_item(item, f"{prefix}items[{j}]", errors, warnings, seen, newer_fields)
 
 
 def _check_multistr(value: object, path: str, errors: List[str]) -> None:
@@ -1193,42 +1245,72 @@ def _check_item(item: object, path: str, errors: List[str], warnings: List[str],
         _check_item(daughter, f"{path}.daughters[{j}]", errors, warnings, seen, newer_fields)
 
 
-def save_to_json(
-    items: List[ItemInfo],
-    source_list: ListInfo,
+def save_transfer(
+    selections: List[Tuple[ListInfo, List[ItemInfo]]],
     source_project_name: str,
     out_path: str | Path,
-) -> None:
-    """Write items to a transfer file.  Raises ValueError for a list (or items)
-    this release can't export — see SUPPORTED_LISTS."""
-    reason = unsupported_reason(source_list, items)
-    if reason:
-        raise ValueError(reason)
+) -> int:
+    """
+    Write one or more lists' items to a transfer file.
+
+    One list is written as format version 2, which FLEx List Migrator 1.1
+    can open; several lists need version 3.  Returns the version written.
+    Raises ValueError if nothing is selected, or for a list (or items) this
+    release can't export — see SUPPORTED_LISTS.
+    """
+    selections = [(li, items) for li, items in selections if items]
+    if not selections:
+        raise ValueError("Nothing to save: no items are checked.")
+    for li, items in selections:
+        reason = unsupported_reason(li, items)
+        if reason:
+            raise ValueError(reason)
+
+    def header(li: ListInfo) -> dict:
+        return {"source_list_guid": li.guid, "source_list_name": li.name.to_dict(),
+                "source_list_owner": li.owner}
+
+    version = 2 if len(selections) == 1 else 3
     data = {
         "format": FORMAT_NAME,
-        "format_version": FORMAT_VERSION,
+        "format_version": version,
         "generator": "FLEx List Migrator" + (f" {_app_version()}" if _app_version() else ""),
         "source_project": source_project_name,
-        "source_list_guid": source_list.guid,
-        "source_list_name": source_list.name.to_dict(),
-        "source_list_owner": source_list.owner,
-        "items": [i.to_dict() for i in items],
     }
+    if version == 2:
+        li, items = selections[0]
+        data.update(header(li))
+        data["items"] = [i.to_dict() for i in items]
+    else:
+        data["lists"] = [dict(header(li), items=[i.to_dict() for i in items])
+                         for li, items in selections]
     errors, _warnings = validate_transfer(data)
     if errors:   # a bug here, not bad input: refuse to write a file we can't read
         raise TransferFileError("The transfer file could not be written:", errors)
     Path(out_path).write_text(
         json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
     )
+    return version
 
 
-def load_from_json(path: str | Path) -> Tuple[dict, List[ItemInfo], List[str]]:
+def save_to_json(
+    items: List[ItemInfo],
+    source_list: ListInfo,
+    source_project_name: str,
+    out_path: str | Path,
+) -> None:
+    """Write one list's items to a transfer file (see save_transfer)."""
+    save_transfer([(source_list, items)], source_project_name, out_path)
+
+
+def load_from_json(path: str | Path) -> Tuple[dict, List[ListInfo], List[str]]:
     """
     Read and check a transfer file (any version from 1 to FORMAT_VERSION).
 
-    Returns (metadata, items, warnings); metadata["format_version"] is the
-    version the file declared.  Raises TransferFileError, listing every
-    problem found, if the file can't be used — nothing is loaded from it then.
+    Returns (metadata, lists, warnings): one ListInfo per list in the file,
+    holding its items.  metadata["format_version"] is the version the file
+    declared.  Raises TransferFileError, listing every problem found, if the
+    file can't be used — nothing is loaded from it then.
     """
     try:
         raw = Path(path).read_text(encoding="utf-8-sig")   # tolerate a BOM
@@ -1244,11 +1326,21 @@ def load_from_json(path: str | Path) -> Tuple[dict, List[ItemInfo], List[str]]:
     if errors:
         raise TransferFileError("This transfer file has problems, so nothing was "
                                 "loaded from it:", errors)
-    items = [ItemInfo.from_dict(d) for d in data["items"]]
-    _ensure_unique_ids(items, set())
-    meta = {k: v for k, v in data.items() if k != "items"}
-    meta["format_version"] = format_version(data)
-    return meta, items, warnings
+    version = format_version(data)
+    lists: List[ListInfo] = []
+    seen: set = set()
+    for entry in (data["lists"] if version >= 3 else [data]):
+        li = ListInfo(
+            guid=str(entry.get("source_list_guid") or "").lower(),
+            name=MultiStr.from_dict(entry.get("source_list_name", {})),
+            items=[ItemInfo.from_dict(d) for d in entry["items"]],
+            owner=entry.get("source_list_owner") or "",
+        )
+        _ensure_unique_ids(li.items, seen)
+        lists.append(li)
+    meta = {k: v for k, v in data.items() if k not in ("items", "lists")}
+    meta["format_version"] = version
+    return meta, lists, warnings
 
 
 def _ensure_unique_ids(items: List[ItemInfo], seen: set) -> None:

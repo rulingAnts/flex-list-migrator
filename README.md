@@ -12,10 +12,10 @@ A standalone Windows app for migrating possibility list items between
 FLEx stores linguistic data in named lists — Parts of Speech, Semantic Domains,
 Text Markup Tags, custom lists, and more. This tool lets you:
 
-- **Browse** any list in a source FLEx project and check the items you want to move
-- **Export** selected items to a portable JSON file — shareable with other users who have this tool
+- **Browse** any list in a source FLEx project and check the items you want to move, in one list or several (checks are kept as you switch lists)
+- **Export** the checked items, from every list, to one portable JSON file — shareable with other users who have this tool
 - **Load** a saved JSON file as a source and re-export or import from it just like a live project
-- **Import** items into a matching list in a target FLEx project. The list is matched automatically by GUID, then by the field that owns it (for built-in lists), then by name (for custom lists).
+- **Import** the checked items into a target FLEx project in one go, each list's items into its matching list. Lists are matched automatically by GUID, then by the field that owns them (for built-in lists), then by name (for custom lists).
 - **Export human-readable** HTML or plain-text dumps of any list or selection for documentation or review
 
 This version exports and imports **Text Chart Markers, Text Markup Tags and Text

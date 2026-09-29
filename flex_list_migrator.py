@@ -42,12 +42,12 @@ class ExportReadableDialog:
         parent: tk.Widget,
         all_lists: List[core.ListInfo],
         current_list: Optional[core.ListInfo],
-        filter_fn,          # callable(items) -> filtered_items
+        selected_fn,        # callable() -> [(ListInfo, checked items), ...]
     ):
         self.result: Optional[Tuple] = None  # (path, fmt, selections, ws, title)
         self._all_lists = all_lists
         self._current_list = current_list
-        self._filter_fn = filter_fn
+        self._selected_fn = selected_fn
 
         win = tk.Toplevel(parent)
         win.title("Export Human-Readable")
@@ -70,7 +70,7 @@ class ExportReadableDialog:
         scope_f.pack(fill="x", **pad)
         self._scope = tk.StringVar(value="selected")
         ttk.Radiobutton(
-            scope_f, text="Currently selected items only",
+            scope_f, text="Checked items only (in all lists)",
             variable=self._scope, value="selected",
         ).pack(anchor="w")
         ttk.Radiobutton(
@@ -145,10 +145,8 @@ class ExportReadableDialog:
         scope = self._scope.get()
         selections: List[Tuple[core.ListInfo, List[core.ItemInfo]]] = []
 
-        if scope == "selected" and self._current_list:
-            filtered = self._filter_fn(self._current_list.items)
-            if filtered:
-                selections.append((self._current_list, filtered))
+        if scope == "selected":
+            selections = self._selected_fn()
         else:
             for var, li in self._list_vars:
                 if var.get():
@@ -248,6 +246,7 @@ class App:
         self._source_type_var = tk.StringVar(value="flex")
         self._src_json_path_var = tk.StringVar()
         self._src_json_label: str = ""   # display label when JSON is source
+        self._json_source = False         # list labels get a [JSON] prefix
 
         self._build_ui()
         self._refresh_project_combos()
@@ -455,6 +454,7 @@ class App:
         try:
             self._src = core.open_project(name, write_enabled=False)
             self._src_lists = core.read_lists(self._src)
+            self._checked.clear()
             self._refresh_list_box()
             n_ok = sum(1 for li in self._src_lists if not core.unsupported_reason(li))
             self._set_status(
@@ -471,7 +471,7 @@ class App:
             messagebox.showwarning("No File", "Browse to a transfer JSON file first.")
             return
         try:
-            meta, items, notes = core.load_from_json(path)
+            meta, lists, notes = core.load_from_json(path)
         except Exception as exc:
             messagebox.showerror("Can't Load JSON", str(exc))
             return
@@ -483,43 +483,52 @@ class App:
                 f"{_basename(path)} loaded, with these notes:\n\n• " + "\n• ".join(shown)
                 + (f"\n• …and {more} more" if more else ""),
             )
-        # Build a synthetic ListInfo so the tree works identically to a FLEx source
-        list_name = core.MultiStr.from_dict(meta.get("source_list_name", {}))
-        if not list_name.vals:
-            list_name = core.MultiStr({"en": _basename(path)})
-        synth = core.ListInfo(
-            guid=meta.get("source_list_guid", ""),
-            name=list_name,
-            items=items,
-            owner=meta.get("source_list_owner", ""),
-        )
+        # A list with no name or known type (e.g. a hand-made file) is shown
+        # by the file's name.
+        for li in lists:
+            if not li.name.vals and not li.owner:
+                li.name = core.MultiStr({"en": _basename(path)})
         src_project = meta.get("source_project", "")
         self._src_json_label = src_project
-        self._src_lists = [synth]
+        self._src_lists = lists
+        self._checked.clear()
         self._refresh_list_box(json_source=True)
-        # Auto-select the only list so the tree populates immediately
+        # Select the first list so the tree populates immediately
         self._list_box.selection_set(0)
         self._on_list_select()
-        n_top = len(items)
-        n_total = sum(1 + _count_descendants(i) for i in items)
+        n_total = sum(_count_items(li.items) for li in lists)
         self._set_status(
-            f"JSON source: {synth.display_name}  "
-            f"({n_top} top-level, {n_total} total items)"
+            f"JSON source: {len(lists)} list{'s' if len(lists) != 1 else ''}, "
+            f"{n_total} items"
             + (f"  from '{src_project}'" if src_project else "")
             + f"  [format v{meta['format_version']}]"
         )
 
+    def _list_label(self, li: core.ListInfo) -> str:
+        label = f"[JSON]  {li.display_name}" if self._json_source else li.display_name
+        if core.unsupported_reason(li):
+            return f"{label}   (not supported yet)"
+        n = _count_items(self._filter_checked(li.items))
+        return f"{label}   ({n} checked)" if n else label
+
     def _refresh_list_box(self, json_source: bool = False):
+        self._json_source = json_source
         # Lists this version can export/import first; the rest greyed out.
         self._src_lists.sort(key=lambda li: core.unsupported_reason(li) is not None)
         self._list_box.delete(0, "end")
         for i, li in enumerate(self._src_lists):
-            label = f"[JSON]  {li.display_name}" if json_source else li.display_name
+            self._list_box.insert("end", self._list_label(li))
             if core.unsupported_reason(li):
-                self._list_box.insert("end", f"{label}   (not supported yet)")
                 self._list_box.itemconfig(i, foreground="#999999")
-            else:
-                self._list_box.insert("end", label)
+
+    def _update_list_label(self) -> None:
+        """Refresh the selected list's label after its checks change."""
+        if self._current_list is None:
+            return
+        i = self._src_lists.index(self._current_list)
+        self._list_box.delete(i)
+        self._list_box.insert(i, self._list_label(self._current_list))
+        self._list_box.selection_set(i)
 
     def _on_list_select(self, _event=None):
         sel = self._list_box.curselection()
@@ -527,37 +536,37 @@ class App:
             return
         li = self._src_lists[sel[0]]
         self._current_list = li
-        self._checked.clear()
+        # Checked items are kept per item across lists; only the tree is rebuilt.
         self._iid_to_guid.clear()
         self._guid_to_name.clear()
         self._guid_to_item.clear()
         self._populate_tree(li)
         reason = self._update_support_ui()
         self._set_status(f"{li.display_name}  —  {len(li.items)} top-level item(s)"
-                         + ("  (not supported yet: browse only)" if reason else ""))
+                         + ("  (not supported yet: browse only)" if reason else "")
+                         + self._selection_summary())
 
     def _update_support_ui(self) -> Optional[str]:
-        """Show or hide the not-supported note and enable/disable the actions
-        for the selected list.  Returns the reason it isn't supported, if any."""
+        """Show or hide the not-supported note for the selected list.
+        Returns the reason it isn't supported, if any."""
         reason = core.unsupported_reason(self._current_list) if self._current_list else None
         if reason:
             self._support_note.configure(
-                text=reason + " You can browse it here, but not export or import it.")
+                text=reason + " You can browse it here, but not check, export or "
+                "import its items.")
             self._support_note.pack(side="top", fill="x", pady=(0, 4),
                                     before=self._support_anchor)
         else:
             self._support_note.pack_forget()
-        state = "disabled" if reason else "normal"
-        for btn in (self._save_btn, self._export_btn, self._import_btn):
-            btn.configure(state=state)
         return reason
 
-    def _blocked(self) -> bool:
-        """Warn and return True if the selected list can't be exported/imported."""
-        reason = core.unsupported_reason(self._current_list) if self._current_list else None
-        if reason:
-            messagebox.showwarning("Not Supported Yet", reason)
-        return bool(reason)
+    def _browse_only(self) -> bool:
+        """True (with a status note) if the selected list's items can't be checked."""
+        if self._current_list is not None and core.unsupported_reason(self._current_list):
+            self._set_status(f"{self._current_list.display_name} is not supported yet: "
+                             "its items can't be checked.")
+            return True
+        return False
 
     def _populate_tree(self, li: core.ListInfo):
         for iid in self._tree.get_children():
@@ -594,14 +603,17 @@ class App:
         if not iid:
             return
         guid = self._iid_to_guid.get(iid)
-        if not guid:
+        if not guid or self._browse_only():
             return
         if guid in self._checked:
             self._uncheck(iid)
         else:
             self._check(iid)
-        n = len(self._checked)
-        self._set_status(f"{n} item{'s' if n != 1 else ''} selected")
+        self._after_check_change()
+
+    def _after_check_change(self) -> None:
+        self._update_list_label()
+        self._set_status(self._selection_summary().strip(" ·") or "Nothing checked")
 
     def _check(self, iid: str) -> None:
         guid = self._iid_to_guid.get(iid)
@@ -622,10 +634,12 @@ class App:
             self._uncheck(child)
 
     def _select_all(self, checked: bool) -> None:
+        """Check or uncheck every item in the selected list (other lists keep theirs)."""
+        if self._current_list is None or self._browse_only():
+            return
         for iid in self._tree.get_children():
             (self._check if checked else self._uncheck)(iid)
-        n = len(self._checked)
-        self._set_status(f"{n} item{'s' if n != 1 else ''} selected")
+        self._after_check_change()
 
     def _expand_all(self, expand: bool) -> None:
         for iid in self._all_iids():
@@ -640,11 +654,28 @@ class App:
 
     # ── Selection helpers ──────────────────────────────────────────────────
 
-    def _get_selected(self) -> List[core.ItemInfo]:
-        """Return checked items (with daughters filtered to only checked ones)."""
-        if not self._current_list:
-            return []
-        return self._filter_checked(self._current_list.items)
+    def _selections(self) -> List[Tuple[core.ListInfo, List[core.ItemInfo]]]:
+        """Checked items of every supported list, as [(list, items), ...].
+
+        This is what Save, Import and the readable export use.  An item counts
+        only if the items above it are checked too.
+        """
+        result = []
+        for li in self._src_lists:
+            if core.unsupported_reason(li):
+                continue
+            items = self._filter_checked(li.items)
+            if items:
+                result.append((li, items))
+        return result
+
+    def _selection_summary(self) -> str:
+        sel = self._selections()
+        if not sel:
+            return ""
+        n = sum(_count_items(items) for _, items in sel)
+        return (f"  ·  {n} item{'s' if n != 1 else ''} checked in "
+                f"{len(sel)} list{'s' if len(sel) != 1 else ''}")
 
     def _filter_checked(self, items: List[core.ItemInfo]) -> List[core.ItemInfo]:
         return [
@@ -656,14 +687,10 @@ class App:
     # ── JSON export ────────────────────────────────────────────────────────
 
     def _save_json(self):
-        if self._blocked():
-            return
-        selected = self._get_selected()
-        if not selected:
+        selections = self._selections()
+        if not selections:
             messagebox.showwarning("Nothing Selected",
-                                   "Check at least one item, then save.")
-            return
-        if not self._current_list:
+                                   "Check items in one or more lists, then save.")
             return
         path = filedialog.asksaveasfilename(
             title="Save Transfer JSON",
@@ -677,8 +704,12 @@ class App:
                 src_name = self._src_json_label or _basename(self._src_json_path_var.get())
             else:
                 src_name = self._src_combo.get().strip()
-            core.save_to_json(selected, self._current_list, src_name, path)
-            self._set_status(f"Saved {len(selected)} item(s) → {_basename(path)}")
+            version = core.save_transfer(selections, src_name, path)
+            n = sum(_count_items(items) for _, items in selections)
+            self._set_status(
+                f"Saved {n} item(s) from {len(selections)} list(s) → {_basename(path)}"
+                + ("  (a multi-list file: FLEx List Migrator 1.2 or later can open it)"
+                   if version >= 3 else ""))
         except Exception as exc:
             messagebox.showerror("Save Error", str(exc))
 
@@ -689,18 +720,14 @@ class App:
             messagebox.showwarning("No Source",
                                    "Load a source project or JSON file first.")
             return
-        if self._blocked():
-            return
         exportable = [li for li in self._src_lists if not core.unsupported_reason(li)]
         if not exportable:
             messagebox.showwarning("Not Supported Yet",
                                    "None of these lists can be exported yet. "
                                    + core.NOT_SUPPORTED_YET)
             return
-        dlg = ExportReadableDialog(
-            self.root, exportable,
-            self._current_list, self._filter_checked,
-        )
+        current = self._current_list if self._current_list in exportable else None
+        dlg = ExportReadableDialog(self.root, exportable, current, self._selections)
         self.root.wait_window(dlg.window)
         if not dlg.result:
             return
@@ -741,18 +768,21 @@ class App:
 
     # ── Import ─────────────────────────────────────────────────────────────
 
+    _MATCH_NOTES = {
+        "guid": "matched by GUID",
+        "owner": "matched by list type",
+        "name": "matched by name — check this is right",
+        "manual": "chosen by you",
+    }
+
     def _do_import(self):
-        if self._blocked():
-            return
-        items = self._get_selected()
-        if not items:
+        selections = self._selections()
+        if not selections:
             messagebox.showwarning("Nothing to Import",
-                                   "Select items in the source panel first.")
+                                   "Check items in one or more lists first.")
             return
         if not self._tgt:
             messagebox.showwarning("No Target", "Load a target project first.")
-            return
-        if not self._current_list:
             return
 
         # Only lists this version supports can receive items.
@@ -764,51 +794,40 @@ class App:
                 "into. " + core.NOT_SUPPORTED_YET)
             return
 
-        # Auto-match source list → target list
-        tgt_list, match_type = core.find_matching_list(targets, self._current_list)
-
-        if match_type == "none":
-            # No auto-match — let user pick manually
-            dlg = _ListPickerDialog(
-                self.root, targets, self._current_list.display_name
-            )
-            self.root.wait_window(dlg.window)
-            if not dlg.result:
-                return
-            tgt_list = dlg.result
-            match_type = "manual"
+        # Find the target list for each source list with checked items.
+        plan = []   # (source list, items, target list, how it was matched)
+        for src_li, items in selections:
+            tgt_li, how = core.find_matching_list(targets, src_li)
+            if how == "none":
+                dlg = _ListPickerDialog(self.root, targets, src_li.display_name)
+                self.root.wait_window(dlg.window)
+                if not dlg.result:
+                    return
+                tgt_li, how = dlg.result, "manual"
+            plan.append((src_li, items, tgt_li, how))
 
         skip = self._skip_var.get()
 
         # Check the import against the target before anything is written.
+        notes: List[str] = []
         try:
-            notes = core.preflight_import(self._tgt, tgt_list.guid, items, skip)
+            for _src_li, items, tgt_li, _how in plan:
+                for note in core.preflight_import(self._tgt, tgt_li.guid, items, skip):
+                    notes.append(f"{tgt_li.display_name}: {note}" if len(plan) > 1 else note)
         except Exception as exc:
             messagebox.showerror("Can't Import", f"The import check failed:\n\n{exc}")
             return
-        notes_text = ""
-        if notes:
-            shown = notes[:8]
-            more = len(notes) - len(shown)
-            notes_text = ("Check before importing:\n• " + "\n• ".join(shown)
-                          + (f"\n• …and {more} more" if more else "") + "\n\n")
 
-        match_note = {
-            "guid": "(matched by GUID)",
-            "owner": "(matched by list type)",
-            "name": "(matched by name — verify this is correct)",
-            "manual": "(manually selected)",
-        }[match_type]
-
+        lines = [f"• {_count_items(items)} item(s) from '{src_li.display_name}'\n"
+                 f"    into '{tgt_li.display_name}' ({self._MATCH_NOTES[how]})"
+                 for src_li, items, tgt_li, how in plan]
         confirmed = messagebox.askyesno(
             "Confirm Import",
-            f"Import {len(items)} item(s)\n"
-            f"  from  '{self._current_list.display_name}'\n"
-            f"  into  '{tgt_list.display_name}'\n"
-            f"          {match_note}\n\n"
+            "Import:\n" + "\n".join(lines) + "\n\n"
             f"Skip duplicates: {'yes' if skip else 'no'}\n\n"
-            f"{notes_text}"
-            "FLEx must remain closed until this completes.",
+            + _bullets("Check before importing:", notes, 8)
+            + "Shared project? Do a Send/Receive in FLEx before importing.\n"
+            "FLEx must stay closed until this completes.",
         )
         if not confirmed:
             return
@@ -818,41 +837,10 @@ class App:
 
         try:
             warnings: List[str] = []
-            added   = core.import_items(self._tgt, tgt_list.guid, items, skip,
-                                        warnings=warnings)
-            skipped = len(items) - added   # top-level items filtered by skip-duplicates
+            added = core.import_selections(
+                self._tgt, [(tgt_li.guid, items) for _s, items, tgt_li, _h in plan],
+                skip, warnings=warnings)
             self._tgt_lists = core.read_lists(self._tgt)
-
-            if added == 0 and skipped > 0:
-                messagebox.showinfo(
-                    "Nothing Added",
-                    f"All {skipped} selected item(s) already exist in\n"
-                    f"'{tgt_list.display_name}'.\n\n"
-                    "Nothing was imported (skip duplicates is on).",
-                )
-                self._set_status(
-                    f"Nothing added — all {skipped} item(s) already exist "
-                    f"in '{tgt_list.display_name}'"
-                )
-            else:
-                parts = [f"{added} item(s) added"]
-                if skipped:
-                    parts.append(f"{skipped} duplicate(s) skipped")
-                summary = ",  ".join(parts)
-                notes = ""
-                if warnings:
-                    shown = warnings[:8]
-                    more = len(warnings) - len(shown)
-                    notes = ("\n\nImported with these notes:\n• " + "\n• ".join(shown)
-                             + (f"\n• …and {more} more" if more else ""))
-                messagebox.showinfo(
-                    "Import Complete",
-                    f"{summary}\n→ '{tgt_list.display_name}'{notes}",
-                )
-                self._set_status(
-                    f"Import complete: {summary} → '{tgt_list.display_name}'"
-                    + (f"  ({len(warnings)} note(s))" if warnings else "")
-                )
         except Exception as exc:
             messagebox.showerror(
                 "Import Failed",
@@ -860,6 +848,26 @@ class App:
                 "All partial changes were rolled back.",
             )
             self._set_status("Import failed — changes rolled back.")
+            return
+
+        results = []
+        for (_src_li, items, tgt_li, _how), n_added in zip(plan, added):
+            n_skipped = len(items) - n_added   # top-level items that were already there
+            results.append(f"'{tgt_li.display_name}': {n_added} top-level item(s) added"
+                           + (f", {n_skipped} already there (skipped)" if n_skipped else ""))
+        total = sum(added)
+        messagebox.showinfo(
+            "Import Complete" if total else "Nothing Added",
+            "\n".join(results) + "\n\n"
+            + _bullets("Imported with these notes:", warnings, 8)
+            + ("The import is saved to the project when you close FLEx List Migrator "
+               "(or load another target project). Then open the project in FLEx, "
+               "and Send/Receive if it's shared." if total else
+               "Nothing was imported (Skip duplicates is on)."),
+        )
+        self._set_status(
+            f"Import complete: {total} top-level item(s) added to {len(plan)} list(s)"
+            + (f"  ({len(warnings)} note(s))" if warnings else ""))
 
     # ── Misc ───────────────────────────────────────────────────────────────
 
@@ -881,6 +889,21 @@ class App:
 
 def _basename(path: str) -> str:
     return os.path.basename(path)
+
+
+def _count_items(items: List[core.ItemInfo]) -> int:
+    """Items plus all their subitems."""
+    return sum(1 + _count_descendants(i) for i in items)
+
+
+def _bullets(title: str, lines: List[str], limit: int) -> str:
+    """A titled bullet list for a message box, or '' if there are no lines."""
+    if not lines:
+        return ""
+    shown = lines[:limit]
+    more = len(lines) - len(shown)
+    return (title + "\n• " + "\n• ".join(shown)
+            + (f"\n• …and {more} more" if more else "") + "\n\n")
 
 
 def _count_descendants(item: core.ItemInfo) -> int:

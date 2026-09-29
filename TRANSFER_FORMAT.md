@@ -1,8 +1,9 @@
 # Transfer JSON format
 
-**Save Transfer JSON…** writes selected list items to a UTF-8 JSON file, and
-**Source → JSON File** reads one back. You can also write these files by hand,
-for example to add a ready-made branch to a list. See
+**Save Transfer JSON…** writes the checked items, from one list or several,
+to a UTF-8 JSON file, and **Source → JSON File** reads one back. You can also
+write these files by hand, for example to add a ready-made branch to a list.
+See
 [`docs/examples/evidentials-text-chart-markers.json`](docs/examples/evidentials-text-chart-markers.json).
 
 ## Version statement
@@ -12,19 +13,20 @@ Every file begins by saying what it is and which version of the format it uses:
 ```json
 {
   "format": "flex-list-migrator",
-  "format_version": 2,
+  "format_version": 3,
   ...
 }
 ```
 
-| Written by | Version statement | Read by |
-|---|---|---|
-| FLEx List Migrator 1.0.x | `"format": "flex-list-migrator-v1"` | every version |
-| FLEx List Migrator 1.1 and later | `"format": "flex-list-migrator", "format_version": 2` | 1.1 and later |
+| Version | Holds | Written by | Read by |
+|---|---|---|---|
+| 1 (`"format": "flex-list-migrator-v1"`) | one list | 1.0.x | every version |
+| 2 | one list | 1.1, and 1.2 or later for a single list | 1.1 and later |
+| 3 | one or more lists | 1.2 and later, when saving several lists | 1.2 and later |
 
-Newer versions keep reading older files. A file with a *newer* version than the
-app understands is refused, with a message to update the app. (FLEx List
-Migrator 1.0.x can't open version 2 files.)
+Newer versions keep reading older files, and a file with one list is still
+written as version 2 so that 1.1 can open it. A file with a *newer* version than
+the app understands is refused, with a message to update the app.
 
 ## Which lists
 
@@ -42,7 +44,7 @@ A file is checked in full when it is loaded, before any of it is used:
 - **Problems** stop the load, so nothing from the file can reach a project.
   Examples: not valid JSON, no version statement, a newer version, a field of
   the wrong type. Each problem gives its location, such as
-  `items[0].daughters[2] (Visual).discussion[1]`.
+  `lists[1].items[0].daughters[2] (Visual).discussion[1]`.
 - **Notes** let the load go ahead. Examples: an unknown field (often a typo),
   an item class this version can't import, or a repeated `original_guid`.
 
@@ -62,10 +64,37 @@ Nothing is written until you confirm.
 | `format`, `format_version` | text, number | The version statement (above). |
 | `generator` | text | Optional. The app version that wrote the file. |
 | `source_project` | text | Optional. Shown when the file is loaded. |
+| `lists` | list of lists | Version 3 only: one entry per list, each with the list fields below (at least one list). |
+
+## List fields
+
+In version 3 these fields are in each entry of `lists`. In versions 1 and 2,
+which hold a single list, they are at the top level instead.
+
+| Field | Type | Notes |
+|---|---|---|
 | `source_list_guid` | text | GUID of the list the items came from. Used first to find the target list. May be `""`. |
 | `source_list_owner` | text | The field that owns that list, such as `DsDiscourseData.ChartMarkers`. Used next: it finds a built-in list even when its GUID differs between projects. |
 | `source_list_name` | writing system → text | Used last, to match by name. If nothing matches, the app asks which list to import into. |
-| `items` | list of items | Top-level items to import (at least one). |
+| `items` | list of items | Top-level items to import into that list (at least one). |
+
+A version 3 file with two lists looks like this (items shortened):
+
+```json
+{
+  "format": "flex-list-migrator",
+  "format_version": 3,
+  "source_project": "My project",
+  "lists": [
+    {"source_list_owner": "DsDiscourseData.ChartMarkers",
+     "source_list_name": {"en": "Text Chart Markers"},
+     "items": [{"name": {"en": "Evidentials"}, "abbr": {"en": "EVID"}}]},
+    {"source_list_owner": "LangProject.TextMarkupTags",
+     "source_list_name": {"en": "Text Markup Tags"},
+     "items": [{"name": {"en": "Topic"}, "abbr": {"en": "TOP"}}]}
+  ]
+}
+```
 
 ## Items
 
