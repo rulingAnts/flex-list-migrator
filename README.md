@@ -3,6 +3,10 @@
 A standalone Windows app for migrating possibility list items between
 [FieldWorks Language Explorer](https://software.sil.org/fieldworks/) (FLEx 9) projects.
 
+**User guide:** https://rulingants.github.io/flex-list-migrator/guide.html
+
+**Requires [FieldWorks Language Explorer 9](https://software.sil.org/fieldworks/) installed on the same Windows computer** — the app won't run without it.
+
 ## What it does
 
 FLEx stores linguistic data in named lists — Parts of Speech, Semantic Domains,

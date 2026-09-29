@@ -37,6 +37,7 @@
         <a href="#download">Download</a>
         <a href="#requirements">Requirements</a>
         <a href="#faq">FAQ</a>
+        <a href="guide.html">User guide</a>
       </nav>
       <div class="header-actions">
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Toggle color theme">
@@ -145,7 +146,7 @@
         <div class="section-header">
           <p class="section-eyebrow">Step by step</p>
           <h2 id="how-heading">How it works</h2>
-          <p class="section-lede">A typical migration takes just a few clicks. FLEx must be closed while the tool has a project open.</p>
+          <p class="section-lede">A typical migration takes just a few clicks. FLEx must be closed while the tool has a project open. For every step in detail, see the <a href="guide.html">user guide</a>.</p>
         </div>
         <ol class="steps">
           <li>
@@ -236,11 +237,11 @@
         <div class="doc-prose">
           <ul>
             <li><strong>Windows.</strong> FieldWorks Language Explorer is Windows-only, and so is this tool.</li>
-            <li><strong>FieldWorks Language Explorer 9</strong> installed on the same machine — <a href="https://software.sil.org/fieldworks/" target="_blank" rel="noopener">download from SIL<span class="sr-only"> (opens in a new tab)</span></a>. The tool reads and writes FLEx data through the installed FieldWorks components.</li>
+            <li><strong>FieldWorks Language Explorer 9 installed on the same machine — the app won't run without it.</strong> <a href="https://software.sil.org/fieldworks/" target="_blank" rel="noopener">Download FLEx from SIL<span class="sr-only"> (opens in a new tab)</span></a>. The tool reads and writes FLEx data through the installed FieldWorks components.</li>
             <li><strong>FLEx must be closed</strong> while you have a project loaded in the List Migrator.</li>
             <li>No separate install of Python, FLExTools, or flexlibs is needed — the portable <code>.exe</code> bundles them.</li>
           </ul>
-          <p>Only sharing a JSON file (not touching a live project)? You still need this tool to open it, but you don't need FLEx to be installed just to load and inspect a saved <code>.json</code> source.</p>
+          <p><strong>FLEx is required even just to open a shared <code>.json</code> file.</strong> The app reads and writes through FLEx's own components and checks for FLEx 9 when it starts, so it won't run on a computer without FLEx.</p>
         </div>
       </div>
     </section>

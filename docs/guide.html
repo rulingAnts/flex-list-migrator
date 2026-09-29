@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>User guide — FLEx List Migrator</title>
+  <meta name="description" content="How to use FLEx List Migrator: copy list items between FLEx 9 projects, share them as a file, import ready-made lists, and make readable copies." />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#0b1020" />
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="apple-touch-icon" href="180x180.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Guide-only additions, built on the shared FLET tokens. */
+    .guide-parts { margin: 1.5rem 0 0; display: grid; gap: 0.8rem; max-width: 820px; }
+    .guide-parts div { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 0.8rem 1rem; }
+    .guide-parts dt { font-weight: 650; color: var(--text); }
+    .guide-parts dd { margin: 0.2rem 0 0; color: var(--text-secondary); font-size: 0.95rem; }
+    .doc-prose h3 { margin: 1.6rem 0 0.4rem; font-size: 1.1rem; }
+    .doc-prose .ui { font-weight: 600; color: var(--text); }
+    .callout + .callout, .doc-prose + .callout, .callout + .doc-prose { margin-top: 1rem; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.2rem 0 0; padding: 0; list-style: none; }
+    .toc a { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 999px; border: 1px solid var(--border);
+             background: var(--bg-raised); color: var(--text); text-decoration: none; font-size: 0.9rem; }
+    .toc a:hover { border-color: var(--accent); }
+  </style>
+  <script>
+    // Apply saved theme before first paint to avoid a flash of the wrong theme.
+    (function () {
+      try {
+        var t = localStorage.getItem('flet-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { /* storage unavailable; fall back to system preference */ }
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand" href="index.html" aria-label="FLEx List Migrator home">
+        <img src="favicon.svg" alt="" width="28" height="28" />
+        <span>List Migrator</span>
+      </a>
+      <nav class="site-nav" aria-label="Guide sections">
+        <a href="index.html">Home</a>
+        <a href="#start">Before you start</a>
+        <a href="#copy">Copy items</a>
+        <a href="#files">Files</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+      </nav>
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Toggle color theme">
+          <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+          </svg>
+          <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+          </svg>
+        </button>
+        <a class="header-github" href="https://github.com/rulingAnts/flex-list-migrator" target="_blank" rel="noopener" aria-label="FLEx List Migrator on GitHub (opens in a new tab)">
+          <svg aria-hidden="true" viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <section id="top" aria-labelledby="guide-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">User guide · version 1.1</p>
+          <h1 id="guide-heading">Using FLEx List Migrator</h1>
+          <p class="section-lede">How to copy list items between FLEx projects, share them as a file, import ready-made lists, and make readable copies.</p>
+        </div>
+        <div class="callout">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16v-4m0-4h.01M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z"/></svg>
+          <p><strong>FLEx List Migrator needs FieldWorks Language Explorer&nbsp;9 installed on the same Windows computer.</strong> It reads and writes projects through FLEx's own components, so it won't start without FLEx — not even to open a shared file.</p>
+        </div>
+        <ul class="toc" aria-label="On this page">
+          <li><a href="#start">Before you start</a></li>
+          <li><a href="#window">The window</a></li>
+          <li><a href="#copy">Copy items between projects</a></li>
+          <li><a href="#files">Share items as a file</a></li>
+          <li><a href="#readable">Make a readable copy</a></li>
+          <li><a href="#importing">How importing works</a></li>
+          <li><a href="#chart-markers">Text Chart Markers</a></li>
+          <li><a href="#troubleshooting">Troubleshooting</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="start" aria-labelledby="start-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Step 0</p>
+          <h2 id="start-heading">Before you start</h2>
+        </div>
+        <div class="doc-prose">
+          <ul>
+            <li><strong>Windows, with FieldWorks Language Explorer 9 installed</strong> — <a href="https://software.sil.org/fieldworks/" target="_blank" rel="noopener">download FLEx from SIL<span class="sr-only"> (opens in a new tab)</span></a>.</li>
+            <li><strong>FLEx List Migrator.</strong> <a href="index.html#download">Download the <code>.exe</code></a>. It's portable: there's nothing to install, so save it anywhere and double-click it. The first time, Windows SmartScreen may warn you; choose <span class="ui">More info → Run anyway</span>.</li>
+            <li><strong>Close FLEx</strong> before you load a project here. FLEx locks a project while it has it open.</li>
+            <li><strong>Back up the project you'll import into.</strong> In FLEx, choose <span class="ui">File ▸ Back up this Project</span>. The import is a single transaction, but a backup lets you undo it later if you change your mind.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="window" aria-labelledby="window-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Getting around</p>
+          <h2 id="window-heading">The window</h2>
+        </div>
+        <dl class="guide-parts">
+          <div><dt>Source</dt><dd>Where items come from: a <span class="ui">FLEx Project</span> (choose it under <span class="ui">Project</span> and click <span class="ui">Load</span>) or a <span class="ui">JSON File</span> (choose it with <span class="ui">Browse…</span> and click <span class="ui">Load</span>). <span class="ui">Browse folder…</span> adds projects kept outside FLEx's usual folder.</dd></div>
+          <div><dt>Lists</dt><dd>The source's lists. The lists this version can export and import come first: Text Chart Markers, Text Markup Tags and Text Constituent Chart Templates. Other lists are greyed out and marked <em>(not supported yet)</em>; you can look at them but not export or import them.</dd></div>
+          <div><dt>Items</dt><dd>The items in the selected list. Click an item to check ☑ or uncheck ☐ it; this also checks or unchecks everything under it. <span class="ui">Select All</span>, <span class="ui">Deselect All</span>, <span class="ui">Expand All</span> and <span class="ui">Collapse All</span> help with long lists.</dd></div>
+          <div><dt>Save Transfer JSON… · Export Human-Readable…</dt><dd>Save the checked items as a file to share, or as a readable HTML or text document.</dd></div>
+          <div><dt>Target Project (Import)</dt><dd>The project to import into: choose it under <span class="ui">Project</span>, click <span class="ui">Load Target</span>, then <span class="ui">Import Items</span>. <span class="ui">Skip duplicates</span> is on by default.</dd></div>
+          <div><dt>Status bar</dt><dd>What's loaded and what just happened, along the bottom of the window.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section id="copy" aria-labelledby="copy-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Main task</p>
+          <h2 id="copy-heading">Copy items from one project to another</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <strong>Close FLEx</strong>
+            <p>Quit FieldWorks Language Explorer completely.</p>
+          </li>
+          <li>
+            <strong>Load the source project</strong>
+            <p>Under <span class="ui">Source</span>, choose <span class="ui">FLEx Project</span>, pick the project and click <span class="ui">Load</span>. The source is only read, never changed.</p>
+          </li>
+          <li>
+            <strong>Choose a list and check items</strong>
+            <p>Select Text Chart Markers, Text Markup Tags or Text Constituent Chart Templates, then click the items you want. An item is copied only if the items above it are checked too, so check a whole group by clicking its top item.</p>
+          </li>
+          <li>
+            <strong>Load the target project</strong>
+            <p>Under <span class="ui">Target Project (Import)</span>, pick the project to copy into and click <span class="ui">Load Target</span>.</p>
+          </li>
+          <li>
+            <strong>Import</strong>
+            <p>Leave <span class="ui">Skip duplicates</span> on and click <span class="ui">Import Items</span>. The confirmation shows which list the items will go into and lists anything that will be skipped or simplified. Nothing is written until you click <span class="ui">Yes</span>.</p>
+          </li>
+          <li>
+            <strong>Close the List Migrator, then open FLEx</strong>
+            <p>The import is saved to the project when the List Migrator closes it: when you close the app, or when you load a different target project. Then open the project in FLEx to see the new items.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="files" aria-labelledby="files-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Sharing</p>
+          <h2 id="files-heading">Share items as a file</h2>
+          <p class="section-lede">A transfer file carries checked items and all their fields, so a colleague can import them into their own project.</p>
+        </div>
+        <div class="doc-prose">
+          <h3>Save a file</h3>
+          <p>Load the source and check the items, as in steps 1–3 above. Then click <span class="ui">Save Transfer JSON…</span> and choose a name.</p>
+          <h3>Import from a file</h3>
+          <p>Under <span class="ui">Source</span>, choose <span class="ui">JSON File</span>, click <span class="ui">Browse…</span> to pick the file, and click <span class="ui">Load</span>. Check the items (or <span class="ui">Select All</span>), then load the target and import as in steps 4–6 above.</p>
+          <p>Each file is checked as it loads. If it has problems, it isn't loaded, and the message says what's wrong and where in the file. Smaller issues are shown as notes, and the file still loads. The status bar shows the file's format version.</p>
+          <h3>Ready-made lists</h3>
+          <p>The <a href="index.html#download">Download</a> section has ready-made files, such as a set of evidentials for Text Chart Markers. Load one as a JSON source and import it.</p>
+          <h3>Versions</h3>
+          <p>Version 1.1 opens files saved by 1.0, but 1.0 can't open files saved by 1.1. To write a file by hand, see the <a href="https://github.com/rulingAnts/flex-list-migrator/blob/main/TRANSFER_FORMAT.md" target="_blank" rel="noopener">transfer file format<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="readable" aria-labelledby="readable-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Documentation</p>
+          <h2 id="readable-heading">Make a readable copy</h2>
+          <p class="section-lede">For review, documentation, or a colleague who doesn't use FLEx.</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <strong>Open the export</strong>
+            <p>Load a source and select a list, then click <span class="ui">Export Human-Readable…</span>.</p>
+          </li>
+          <li>
+            <strong>Choose what and how</strong>
+            <p>Set the <span class="ui">Document title</span>. Choose <span class="ui">Currently selected items only</span>, or <span class="ui">Entire list(s)</span> and tick the lists. Choose <span class="ui">HTML</span> (styled; several lists get a tab each) or <span class="ui">Plain text</span>. Enter the writing system to show, such as <code>en</code>.</p>
+          </li>
+          <li>
+            <strong>Save</strong>
+            <p>Click <span class="ui">Export…</span>, choose a file name, and open the result.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="importing" aria-labelledby="importing-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Details</p>
+          <h2 id="importing-heading">How importing works</h2>
+        </div>
+        <div class="doc-prose">
+          <h3>Which list</h3>
+          <p>The matching list in the target is found by its GUID, then by the kind of list (so Text Chart Markers is found even where FLEx gave the list its own GUID), then by name. If nothing matches, you choose the list.</p>
+          <h3>Where the items go</h3>
+          <p>Imported items are added at the end of the target list's top level, with all their subitems. To put them somewhere else, move them in FLEx afterwards: drag them in the Lists area, or use Promote and Demote. Text Chart Markers can also be moved with Move Up and Move Down.</p>
+          <h3>Skip duplicates</h3>
+          <p>When it's on, a checked top-level item whose name matches a top-level item already in the target list is skipped, together with everything under it. It doesn't merge new subitems into an existing item.</p>
+          <h3>What's copied</h3>
+          <ul>
+            <li>Name, Abbreviation and subitems.</li>
+            <li>Description, including text in other writing systems and character styles.</li>
+            <li>Discussion, with all its paragraphs.</li>
+            <li>Status, Confidence, Researchers and Restrictions. These point to items in the target's Status, Confidence Levels, People and Restrictions lists, found by GUID or by name. One that isn't found is left out, and the notes say which.</li>
+          </ul>
+          <p>Text in a writing system the target project doesn't have isn't imported, and the notes say so. Add the writing system in FLEx first if you need that text. Dates and other fields that FLEx manages itself aren't copied.</p>
+          <h3>Which lists</h3>
+          <p>This version exports and imports Text Chart Markers, Text Markup Tags and Text Constituent Chart Templates. Other lists (Parts of Speech, Semantic Domains, entry types, custom lists and more) can't be exported or imported yet. Support for them may come in a future release; see the <a href="https://github.com/rulingAnts/flex-list-migrator/issues/1" target="_blank" rel="noopener">known issue<span class="sr-only"> (opens in a new tab)</span></a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="chart-markers" aria-labelledby="chart-markers-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Tips</p>
+          <h2 id="chart-markers-heading">Text Chart Markers in the chart</h2>
+        </div>
+        <div class="doc-prose">
+          <ul>
+            <li>Each top-level marker group becomes a <span class="ui">Mark …</span> command in a Text Chart cell's menu (for example, <span class="ui">Mark Evidentials</span>), and its subitems become submenus.</li>
+            <li>Only items with no subitems can be chosen. An item that has subitems is just a heading in the menu.</li>
+            <li>The chart cell shows the chosen marker's <strong>abbreviation</strong>, coloured and in parentheses; the menu shows <em>Name (Abbreviation)</em>. Keep abbreviations short and distinct, and enter them in the project's default analysis writing system.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="troubleshooting" aria-labelledby="troubleshooting-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-eyebrow">Help</p>
+          <h2 id="troubleshooting-heading">Troubleshooting</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>“FLEx Not Found” when the app starts</summary>
+            <p>FLEx List Migrator couldn't find FieldWorks Language Explorer 9 on this computer. Install FLEx 9 from SIL, then start the app again.</p>
+          </details>
+          <details>
+            <summary>“This project is in use by another program”</summary>
+            <p>FLEx, or another program, has the project open. Close FLEx completely and click <span class="ui">Load</span> again.</p>
+          </details>
+          <details>
+            <summary>I don't see the imported items in FLEx</summary>
+            <p>Close the List Migrator first. The import is saved when the app closes the project. Then open the project in FLEx.</p>
+          </details>
+          <details>
+            <summary>A list is greyed out and says “not supported yet”</summary>
+            <p>This version exports and imports only Text Chart Markers, Text Markup Tags and Text Constituent Chart Templates. You can look at other lists, but their buttons stay disabled.</p>
+          </details>
+          <details>
+            <summary>“Can't Load JSON”</summary>
+            <p>The file isn't a transfer file, or it has problems. The message lists each problem and where it is in the file (for example <code>items[0].daughters[2].discussion[1]</code>). A file saved by a newer version of FLEx List Migrator needs that version to open it.</p>
+          </details>
+          <details>
+            <summary>Notes before or after importing</summary>
+            <p>They list what couldn't be copied exactly:</p>
+            <ul>
+              <li><strong>Items already in the list</strong> are skipped.</li>
+              <li><strong>Writing systems</strong> the target lacks: the text in them isn't imported. Add the writing system in FLEx and import again.</li>
+              <li><strong>Character styles</strong> the target lacks: the text is imported without the style.</li>
+              <li><strong>Status, Confidence, People or Restrictions items</strong> the target lacks: that reference is left out. Add the item to that list in FLEx if you need it.</li>
+            </ul>
+          </details>
+          <details>
+            <summary>Windows says “Windows protected your PC”</summary>
+            <p>SmartScreen warns about apps it hasn't seen often. Choose <span class="ui">More info → Run anyway</span>. The download comes straight from the project's GitHub releases.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="favicon.svg" alt="" width="24" height="24" />
+        <span>FLEx List Migrator · part of <a href="https://rulingants.github.io/" rel="noopener">FLET</a></span>
+      </div>
+      <p>
+        &copy; <span id="year">2026</span> Seth Johnston ·
+        Developed with <a href="https://claude.ai" rel="noopener" target="_blank">Claude</a> ·
+        FLEx access via <a href="https://github.com/cdfarrow/flexlibs" rel="noopener" target="_blank">flexlibs</a> ·
+        <a href="https://github.com/rulingAnts/flex-list-migrator" rel="noopener" target="_blank">GitHub</a> ·
+        Code licensed <a href="https://www.gnu.org/licenses/agpl-3.0.html" rel="noopener" target="_blank">AGPL-3.0</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
