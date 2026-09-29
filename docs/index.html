@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>FLEx List Migrator — move possibility list items between FLEx projects</title>
-  <meta name="description" content="A free standalone Windows app for migrating possibility list items (Parts of Speech, Semantic Domains, custom lists, and more) between FieldWorks Language Explorer (FLEx 9) projects." />
+  <meta name="description" content="A free standalone Windows app for moving text-analysis list items (Text Chart Markers, Text Markup Tags and Text Constituent Chart Templates) between FieldWorks Language Explorer (FLEx 9) projects." />
   <meta name="color-scheme" content="light dark" />
   <meta name="theme-color" content="#0b1020" />
   <link rel="icon" href="favicon.ico" sizes="any" />
@@ -59,7 +59,7 @@
       <div class="hero-inner">
         <p class="hero-eyebrow">Free &amp; open-source · part of the FLET toolkit</p>
         <h1 id="project-title">FLEx <span class="accent-text">List Migrator</span></h1>
-        <p class="tagline" id="project-tagline">Move possibility list items — Parts of Speech, Semantic Domains, Text Markup Tags, custom lists, and more — between FieldWorks Language Explorer (FLEx&nbsp;9) projects. Share a curated list with a colleague, or copy your carefully built categories from one project to the next.</p>
+        <p class="tagline" id="project-tagline">Move list items for text analysis — Text Chart Markers, Text Markup Tags and Text Constituent Chart Templates — between FieldWorks Language Explorer (FLEx&nbsp;9) projects. Share a curated list with a colleague, or copy your carefully built categories from one project to the next.</p>
         <div class="hero-download">
           <a class="btn btn-primary btn-download" id="download-btn" href="https://github.com/rulingAnts/flex-list-migrator/releases/latest/download/FLEx.List.Migrator.exe">
             <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -99,8 +99,8 @@
 
           <article class="tool-card feature-card">
             <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
-            <h3>Browse any list</h3>
-            <p>Open a source FLEx project and browse any possibility list — Parts of Speech, Semantic Domains, Text Markup Tags, Text Constituent Chart Templates, custom lists, and more. Tick exactly the items you want to move; <em>Select All</em>, <em>Deselect All</em>, <em>Expand All</em>, and <em>Collapse All</em> make big lists quick.</p>
+            <h3>Browse your lists</h3>
+            <p>Open a source FLEx project and browse its possibility lists. Text Chart Markers, Text Markup Tags and Text Constituent Chart Templates can be exported and imported; other lists are shown but not supported yet. Tick exactly the items you want to move; <em>Select All</em>, <em>Deselect All</em>, <em>Expand All</em>, and <em>Collapse All</em> make big lists quick.</p>
           </article>
 
           <article class="tool-card feature-card">
@@ -112,7 +112,7 @@
           <article class="tool-card feature-card">
             <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4M7 10l5-5 5 5M12 5v12"/></svg></span>
             <h3>Import with smart matching</h3>
-            <p>Load a target project and click <em>Import Items</em>. Built-in lists are matched automatically by GUID; custom lists are matched by name. Keep <em>Skip duplicates</em> on to avoid re-adding items the target already has — so items land where they belong.</p>
+            <p>Load a target project and click <em>Import Items</em>. The matching list is found automatically — by GUID, or by list type when a project gave the list its own GUID. Keep <em>Skip duplicates</em> on to avoid re-adding items the target already has — so items land where they belong.</p>
           </article>
 
           <article class="tool-card feature-card">
@@ -151,7 +151,7 @@
           </li>
           <li>
             <strong>Pick a list and check items</strong>
-            <p>Select any possibility list from the source and tick the items you want to move. Hierarchical lists expand so you can check nested items — a discourse chart template and its columns, a semantic domain and its subdomains. Select as few or as many as you like.</p>
+            <p>Select a supported list from the source and tick the items you want to move. Hierarchical lists expand so you can check nested items — a discourse chart template and its columns, or a group of chart markers. Select as few or as many as you like.</p>
           </li>
           <li>
             <strong>Export or import</strong>
@@ -159,7 +159,7 @@
           </li>
           <li>
             <strong>Review the result</strong>
-            <p>Matching is automatic (by GUID for built-in lists, by name for custom lists). The import runs as one transaction, so your project stays consistent.</p>
+            <p>Matching is automatic (by GUID, or by list type), and the confirmation lists anything that will be skipped before you import. The import runs as one transaction, so your project stays consistent.</p>
           </li>
         </ol>
         <div class="callout">
@@ -262,11 +262,11 @@ pyinstaller build.spec
           </details>
           <details>
             <summary>Which lists can I move?</summary>
-            <p>Any FLEx possibility list — the categories, terms, labels, and chart markers/templates FLEx stores in named lists: Parts of Speech, Semantic Domains, Text Markup Tags, chart markers, Academic Domains, and your own custom lists, among others.</p>
+            <p>This version exports and imports Text Chart Markers, Text Markup Tags and Text Constituent Chart Templates, with every field FLEx shows for their items: name, abbreviation, description, discussion, status, confidence, researchers, restrictions and subitems. Other lists (Parts of Speech, Semantic Domains, entry types, custom lists and more) can be browsed but not exported or imported yet. Support for them may come in a future release; see <a href="https://github.com/rulingAnts/flex-list-migrator/issues/1" target="_blank" rel="noopener">the known issue</a>.</p>
           </details>
           <details>
             <summary>How are items matched between projects?</summary>
-            <p>Built-in lists are matched by their stable GUID, so a "Semantic Domains" list in one project maps to the same list in another. Custom lists are matched by name.</p>
+            <p>By the list's GUID first. If a project gave the list its own GUID, it is found by list type instead (for example, the Text Chart Markers list), and by name as a last resort. If nothing matches, the tool asks which list to use.</p>
           </details>
           <details>
             <summary>Can I share lists with someone who doesn't have my project?</summary>

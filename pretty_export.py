@@ -11,7 +11,7 @@ import html as html_lib
 from pathlib import Path
 from typing import List, Tuple
 
-from flex_core import ItemInfo, ListInfo
+from flex_core import ItemInfo, ListInfo, ref_label, runs_text
 
 
 # ---------------------------------------------------------------------------
@@ -47,8 +47,29 @@ def _text_item(item: ItemInfo, lines: List[str], ws: str, depth: int) -> None:
     lines.append(f"{indent}• {name}{abbr_part}")
     if desc:
         lines.append(f"{indent}  {desc}")
+    for para in item.discussion:
+        text = runs_text(para)
+        if text:
+            lines.append(f"{indent}  ¶ {text}")
+    meta = _meta_parts(item, ws)
+    if meta:
+        lines.append(f"{indent}  [{' · '.join(meta)}]")
     for d in item.daughters:
         _text_item(d, lines, ws, depth + 1)
+
+
+def _meta_parts(item: ItemInfo, ws: str) -> List[str]:
+    """'Status: …', 'Confidence: …' etc. for the fields that are set."""
+    parts: List[str] = []
+    if item.status:
+        parts.append(f"Status: {ref_label(item.status, ws)}")
+    if item.confidence:
+        parts.append(f"Confidence: {ref_label(item.confidence, ws)}")
+    if item.researchers:
+        parts.append("Researchers: " + ", ".join(ref_label(r, ws) for r in item.researchers))
+    if item.restrictions:
+        parts.append("Restrictions: " + ", ".join(ref_label(r, ws) for r in item.restrictions))
+    return parts
 
 
 # ---------------------------------------------------------------------------
@@ -103,6 +124,10 @@ _HTML_HEAD = """\
   .item-name { font-weight: 500; }
   .item-abbr { color: #666; font-size: .88em; font-style: italic; }
   .item-desc { color: #666; font-size: .88em; margin: .1em 0 .1em 1.2em; }
+  .item-disc { color: #555; font-size: .85em; margin: .1em 0 .2em 1.2em;
+               padding-left: .6em; border-left: 2px solid #e0e0e0; }
+  .item-disc p { margin: .15em 0; }
+  .item-meta { color: #888; font-size: .8em; margin: .1em 0 .1em 1.2em; }
   /* Tabs (JS-free, CSS radio technique) — used only for 2+ lists. */
   .tabs { margin-top: 1em; }
   .tab-radio { position: absolute; opacity: 0; pointer-events: none; }
@@ -198,6 +223,13 @@ def _html_item(item: ItemInfo, parts: List[str], ws: str) -> None:
     abbr_span = f' <span class="item-abbr">({_esc(abbr)})</span>' if abbr else ""
     label = f'<span class="item-name">{name}</span>{abbr_span}'
     desc_p = f'<p class="item-desc">{_esc(desc)}</p>' if desc else ""
+    paras = [_html_runs(p, ws) for p in item.discussion if runs_text(p)]
+    if paras:
+        desc_p += ('<div class="item-disc">'
+                   + "".join(f"<p>{p}</p>" for p in paras) + "</div>")
+    meta = _meta_parts(item, ws)
+    if meta:
+        desc_p += f'<p class="item-meta">{_esc(" · ".join(meta))}</p>'
 
     if item.daughters:
         # Collapsible parent — <details> is collapsed by default (no `open`).
@@ -217,6 +249,17 @@ def _html_item(item: ItemInfo, parts: List[str], ws: str) -> None:
         if desc_p:
             parts.append(desc_p)
         parts.append("</div>")
+
+
+def _html_runs(runs: List[dict], ws: str) -> str:
+    """Runs as HTML; text in another writing system is tagged with its lang."""
+    out: List[str] = []
+    for r in runs:
+        text = _esc(r.get("text", ""))
+        code = r.get("ws")
+        out.append(f'<span lang="{html_lib.escape(code)}">{text}</span>'
+                   if code and code != ws else text)
+    return "".join(out)
 
 
 def _esc(text: str) -> str:

@@ -16,7 +16,9 @@ WHAT THIS VALIDATES
   Read path  — ICmPossibilityListRepository.AllInstances() works,
                all writing systems are found, item hierarchy is correct.
   Write path — Creating a CmPossibility item with BeginUndoTask/EndUndoTask
-               works and is undoable from FLEx (run in Modify mode).
+               works and is undoable from FLEx (run in Modify mode), and its
+               Discussion (with a styled run) and Status reference read back
+               the same.
 """
 
 import os
@@ -44,6 +46,17 @@ def _count_all(items):
     for item in items:
         total += 1 + _count_all(item.daughters)
     return total
+
+
+def _first_item_ref(project, list_attr):
+    """Reference to the first item of a LangProject list (e.g. "StatusOA"), or None."""
+    try:
+        plist = getattr(project.lp, list_attr)
+        if plist is None or plist.PossibilitiesOS.Count == 0:
+            return None
+        return {"guid": str(plist.PossibilitiesOS[0].Guid).lower(), "name": {}}
+    except Exception:
+        return None
 
 
 def _show_item(item, report, depth=0):
@@ -187,6 +200,17 @@ def Main(project, report, modifyAllowed):
         ],
     )
 
+    # Discussion with a second paragraph that mixes plain and styled runs, and
+    # a Status reference if the project's Status list has any items.
+    dummy.discussion = [
+        [{"text": "Test discussion, paragraph one."}],
+        [{"text": "Paragraph two has "},
+         {"text": "styled", "style": "Emphasized Text"},
+         {"text": " text."}],
+    ]
+    dummy.status = _first_item_ref(project, "StatusOA")
+
+    warnings = []
     try:
         added = core.import_items(
             project,
@@ -194,13 +218,38 @@ def Main(project, report, modifyAllowed):
             items=[dummy],
             skip_duplicates=False,
             manage_undo=False,   # FLExTools manages the undo task for us
+            warnings=warnings,
         )
         report.Info(f"Write test: {added} top-level item(s) created — PASS")
-        report.Info("Open FLEx > Tools > Configure > Text Markup Tags.")
-        report.Info("You should see '_TEST_PARENT_DELETE_ME_' with child '_TEST_CHILD_DELETE_ME_'.")
-        report.Info("Run this module again in Modify mode to clean them up.")
     except Exception as exc:
         report.Error(f"Write test FAILED: {exc}")
+        return
+    for note in warnings:
+        report.Warning(f"  Import note: {note}")
+
+    # Read the new item back and compare the Discussion and Status fields.
+    reread = next((li for li in core.read_lists(project) if li.guid == test_list.guid), None)
+    created = next((i for i in (reread.items if reread else [])
+                    if i.name.best() == "_TEST_PARENT_DELETE_ME_"), None)
+    if created is None:
+        report.Error("Round-trip FAILED: the test item was not found when read back.")
+        return
+    want = [core.runs_text(p) for p in dummy.discussion]
+    got = [core.runs_text(p) for p in created.discussion]
+    if got == want:
+        report.Info("Round-trip Discussion text — PASS")
+    else:
+        report.Error(f"Round-trip Discussion text FAILED: wrote {want}, read {got}")
+    styled = [r for p in created.discussion for r in p if r.get("style")]
+    report.Info(f"Round-trip character style: {styled[0]['style'] if styled else 'none'} "
+                "(expected 'Emphasized Text' unless noted above)")
+    if dummy.status:
+        ok = created.status and created.status["guid"] == dummy.status["guid"]
+        (report.Info if ok else report.Error)(
+            f"Round-trip Status reference — {'PASS' if ok else 'FAILED'}")
+    report.Info("Open FLEx > Tools > Configure > Text Markup Tags.")
+    report.Info("You should see '_TEST_PARENT_DELETE_ME_' with child '_TEST_CHILD_DELETE_ME_'.")
+    report.Info("Run this module again in Modify mode to clean them up.")
 
 
 # ---------------------------------------------------------------------------

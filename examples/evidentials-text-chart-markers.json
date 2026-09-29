@@ -1,0 +1,432 @@
+{
+  "format": "flex-list-migrator",
+  "format_version": 2,
+  "generator": "FLEx List Migrator 1.1.0",
+  "source_project": "Papuan evidentials (hand-built)",
+  "source_list_guid": "",
+  "source_list_name": {
+    "en": "Text Chart Markers"
+  },
+  "source_list_owner": "DsDiscourseData.ChartMarkers",
+  "items": [
+    {
+      "original_guid": "2e22263c-22e7-5e5c-8329-278ceed5ce03",
+      "cls": "CmPossibility",
+      "name": {
+        "en": "Evidentials"
+      },
+      "abbr": {
+        "en": "EVID"
+      },
+      "desc": {
+        "en": "Grammatical marking of the speaker's source of information for a statement."
+      },
+      "discussion": [
+        [
+          {
+            "text": "Papuan languages have some of the largest evidentiality systems in the world. Most are obligatory and marked on the verb, especially in Trans-New Guinea highlands languages.",
+            "ws": "en"
+          }
+        ],
+        [
+          {
+            "text": "2-term systems: direct vs. indirect (reported).",
+            "ws": "en"
+          }
+        ],
+        [
+          {
+            "text": "3-term systems: visual vs. inferential vs. reportative, as in Enga (direct/visual vs. inferred vs. reported) and Tauya.",
+            "ws": "en"
+          }
+        ],
+        [
+          {
+            "text": "Larger (5+ term) systems, as in Fasu and Foi: visual; non-visual sensory; reported; heard from a known source; direct participation; inferred/assumed (2–3 subtypes).",
+            "ws": "en"
+          }
+        ],
+        [
+          {
+            "text": "In the Text Chart, choose Mark Evidentials, then a category, then a value. Only the values can be chosen (not the categories), and the chart cell shows the value's abbreviation.",
+            "ws": "en"
+          }
+        ]
+      ],
+      "daughters": [
+        {
+          "original_guid": "ee235c0b-fb88-53bb-ae1e-39e7cd9a5cb2",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Sensory / Direct"
+          },
+          "abbr": {
+            "en": "DIR"
+          },
+          "desc": {
+            "en": "The speaker perceived the event directly, with the senses."
+          },
+          "daughters": [
+            {
+              "original_guid": "bfc98ca7-eea3-5d0c-ba65-4d0382fa7091",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Visual"
+              },
+              "abbr": {
+                "en": "VIS"
+              },
+              "desc": {
+                "en": "The speaker saw the event."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "Also called: eyewitness; direct.",
+                    "ws": "en"
+                  }
+                ],
+                [
+                  {
+                    "text": "Example: “I saw it happen.”",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            },
+            {
+              "original_guid": "a290bd5a-67b6-55b1-8f53-cb33c8f2eae5",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Non-visual sensory"
+              },
+              "abbr": {
+                "en": "NVSENS"
+              },
+              "desc": {
+                "en": "The speaker heard, smelled or felt the event but did not see it."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "Also called: non-visual; non-eyewitness.",
+                    "ws": "en"
+                  }
+                ],
+                [
+                  {
+                    "text": "Example: “I heard / smelled / felt it happen.”",
+                    "ws": "en"
+                  }
+                ],
+                [
+                  {
+                    "text": "Fasu has visual (seen) and non-visual sensory (heard) as two different suffixes.",
+                    "ws": "en"
+                  }
+                ],
+                [
+                  {
+                    "text": "Some systems split this value; for those languages use Auditory (AUD) and Other sensory (OSENS) instead.",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            },
+            {
+              "original_guid": "e19afaa4-4e29-5a5f-8722-938c54d3497a",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Auditory"
+              },
+              "abbr": {
+                "en": "AUD"
+              },
+              "desc": {
+                "en": "The speaker heard the event."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "For systems that split non-visual sensory (NVSENS) into auditory and other senses.",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            },
+            {
+              "original_guid": "72d18ee2-6a11-51b3-b79e-8a495ef2883f",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Other sensory"
+              },
+              "abbr": {
+                "en": "OSENS"
+              },
+              "desc": {
+                "en": "The speaker perceived the event by smell, touch or taste."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "For systems that split non-visual sensory (NVSENS) into auditory and other senses.",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "546a0dd9-a310-550e-bd9f-3ddb1fcbec33",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Inferential"
+          },
+          "abbr": {
+            "en": "INFER"
+          },
+          "desc": {
+            "en": "The speaker infers the event instead of perceiving it."
+          },
+          "discussion": [
+            [
+              {
+                "text": "The most subdivided category in Papuan systems. Terms follow Aikhenvald, and San Roque & Loughnane.",
+                "ws": "en"
+              }
+            ],
+            [
+              {
+                "text": "Fasu has three inferential values: deduced from evidence, statement about a thought, and obvious to the speaker.",
+                "ws": "en"
+              }
+            ]
+          ],
+          "daughters": [
+            {
+              "original_guid": "328418fb-afa5-5aa8-85a9-27ee281620c6",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Resultative inference"
+              },
+              "abbr": {
+                "en": "INFER.RES"
+              },
+              "desc": {
+                "en": "The speaker sees the result and infers the cause."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "Also called: inferred from evidence.",
+                    "ws": "en"
+                  }
+                ],
+                [
+                  {
+                    "text": "Example: “He must have gone” (I see his footprints).",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            },
+            {
+              "original_guid": "bd3f971b-02d8-5b86-b57d-d4e3c237065a",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Reasoning inference"
+              },
+              "abbr": {
+                "en": "INFER.REAS"
+              },
+              "desc": {
+                "en": "Inference from general knowledge or logic."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "Also called: deduced; assumed; obvious.",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            },
+            {
+              "original_guid": "117d6d39-a633-5609-9e4f-056be1d1bd4b",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Presumption"
+              },
+              "abbr": {
+                "en": "PRESUMPT"
+              },
+              "desc": {
+                "en": "A gut feeling: internal reasoning that it must be so."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "Also called: internal support.",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "85008dc2-0a13-59d9-9e41-10b2c919dbf6",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Reported / Indirect"
+          },
+          "abbr": {
+            "en": "INDIR"
+          },
+          "desc": {
+            "en": "The speaker learned of the event from someone else."
+          },
+          "daughters": [
+            {
+              "original_guid": "46e07113-3677-5e5c-8571-d1b9e3e87ae5",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Reportative"
+              },
+              "abbr": {
+                "en": "REP"
+              },
+              "desc": {
+                "en": "Reported from an unspecified source."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "Also called: reported; secondhand; hearsay (HEARSAY).",
+                    "ws": "en"
+                  }
+                ],
+                [
+                  {
+                    "text": "Example: “They say… / I was told…”",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            },
+            {
+              "original_guid": "b3bc5bc7-c99a-5580-8fa3-fe76ea09ced5",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Quotative"
+              },
+              "abbr": {
+                "en": "EV.QUOT"
+              },
+              "desc": {
+                "en": "A direct quotation of a named speaker. Abbreviated EV.QUOT so it isn't confused with a quote-margin marker (QUOT). Whether a quote margin is an evidential or a speech verb is an analysis decision: if you analyse quote margins as evidential marking in your language, you may want to change this abbreviation to QUOT and remove the separate quote-margin marker."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "Example: “X said: …”",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            },
+            {
+              "original_guid": "66e58290-ff0c-54c0-9153-c66bff612b3b",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Heard from known source"
+              },
+              "abbr": {
+                "en": "REP.KNOWN"
+              },
+              "desc": {
+                "en": "The speaker knows who told them, as opposed to anonymous hearsay."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "Fasu marks this as a separate value.",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            }
+          ]
+        },
+        {
+          "original_guid": "594958f7-e87b-5a28-a2eb-cf2def09d913",
+          "cls": "CmPossibility",
+          "name": {
+            "en": "Participatory / Egophoric"
+          },
+          "abbr": {
+            "en": "EGO"
+          },
+          "desc": {
+            "en": "The speaker knows because they did it or were involved."
+          },
+          "discussion": [
+            [
+              {
+                "text": "Characteristically Papuan.",
+                "ws": "en"
+              }
+            ]
+          ],
+          "daughters": [
+            {
+              "original_guid": "ee943128-6231-5b1a-85f9-6e6aa8d50b0a",
+              "cls": "CmPossibility",
+              "name": {
+                "en": "Participatory"
+              },
+              "abbr": {
+                "en": "PART"
+              },
+              "desc": {
+                "en": "Knowledge from the speaker's own participation in the event."
+              },
+              "discussion": [
+                [
+                  {
+                    "text": "Also called: performative (PERF); personal-factual; ego; egophoric. These terms are used in descriptions of Foe, Oksapmin and Enga; Foe and Oksapmin are described as having a (personal-)factual value.",
+                    "ws": "en"
+                  }
+                ],
+                [
+                  {
+                    "text": "Example (Central Pomo style): “I caught it — I know because I did it myself.”",
+                    "ws": "en"
+                  }
+                ],
+                [
+                  {
+                    "text": "Avoid PERF as this marker's abbreviation: it is the usual gloss for perfect/perfective.",
+                    "ws": "en"
+                  }
+                ]
+              ],
+              "daughters": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

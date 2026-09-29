@@ -11,10 +11,39 @@ Text Markup Tags, custom lists, and more. This tool lets you:
 - **Browse** any list in a source FLEx project and check the items you want to move
 - **Export** selected items to a portable JSON file — shareable with other users who have this tool
 - **Load** a saved JSON file as a source and re-export or import from it just like a live project
-- **Import** items into a matching list in a target FLEx project, with automatic list matching by GUID (built-in lists) or name (custom lists)
+- **Import** items into a matching list in a target FLEx project. The list is matched automatically by GUID, then by the field that owns it (for built-in lists), then by name (for custom lists).
 - **Export human-readable** HTML or plain-text dumps of any list or selection for documentation or review
 
+This version exports and imports **Text Chart Markers, Text Markup Tags and Text
+Constituent Chart Templates**. You can browse other lists, but not export or
+import them yet (see [Known issues](#known-issues)).
+
+Each item carries every field FLEx shows for list items: Name, Abbreviation,
+Description (including embedded writing systems and styles), Discussion,
+Status, Confidence, Researchers, Restrictions and subitems. Transfer files are
+checked when they are loaded, and each import is checked against the target
+project before anything is written. See [TRANSFER_FORMAT.md](TRANSFER_FORMAT.md)
+for the file format, which you can also write by hand. The `examples/` folder
+has a ready-made branch for the Text Chart Markers list.
+
 All writes are wrapped in a transaction. FLEx must be closed while the tool runs.
+
+## Known issues
+
+- **Only three lists can be exported and imported.** Since 1.1.0, Save
+  Transfer JSON, Export Human-Readable and Import Items work only for Text Chart
+  Markers, Text Markup Tags and Text Constituent Chart Templates. Other lists
+  are shown greyed out as "not supported yet". There are two reasons:
+  - Some lists hold kinds of item the importer can't create yet: Complex Form
+    Types and Variant Types (`LexEntryType`, `LexEntryInflType`), Lexical
+    Relations (`LexRefType`) and Annotation Definitions (`CmAnnotationDefn`).
+    Version 1.0.x imported these as plain list items of the wrong kind.
+  - Other lists have fields specific to their items that aren't transferred,
+    such as a Part of Speech's inflection features or a Semantic Domain's
+    questions.
+
+  Support may come in a future release. See
+  [issue #1](https://github.com/rulingAnts/flex-list-migrator/issues/1).
 
 ## Requirements
 
@@ -60,6 +89,8 @@ Copy it (and `flex_core.py`) into your FLExTools Modules folder and run it in
 | `flex_core.py` | FLEx project access, list reading/writing, JSON transfer format |
 | `pretty_export.py` | HTML and plain-text human-readable export |
 | `flex_module.py` | FLExTools module for development testing |
+| `TRANSFER_FORMAT.md` | The transfer JSON format, its versions and validation |
+| `examples/` | Ready-made transfer files (e.g. an Evidentials branch for Text Chart Markers) |
 | `build.spec` | PyInstaller build configuration |
 | `requirements.txt` | Dependency notes |
 
