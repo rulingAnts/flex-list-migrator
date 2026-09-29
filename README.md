@@ -31,6 +31,8 @@ for the file format, which you can also write by hand. The `docs/examples/`
 folder has a ready-made branch for the Text Chart Markers list.
 
 All writes are wrapped in a transaction. FLEx must be closed while the tool runs.
+If the target project uses Send/Receive, do a Send/Receive in FLEx before
+importing, and again afterwards to share the new items.
 
 ## Known issues
 

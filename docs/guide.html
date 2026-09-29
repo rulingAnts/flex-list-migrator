@@ -108,7 +108,8 @@
             <li><strong>Windows, with FieldWorks Language Explorer 9 installed</strong> — <a href="https://software.sil.org/fieldworks/" target="_blank" rel="noopener">download FLEx from SIL<span class="sr-only"> (opens in a new tab)</span></a>.</li>
             <li><strong>FLEx List Migrator.</strong> <a href="index.html#download">Download the <code>.exe</code></a>. It's portable: there's nothing to install, so save it anywhere and double-click it. The first time, Windows SmartScreen may warn you; choose <span class="ui">More info → Run anyway</span>.</li>
             <li><strong>Close FLEx</strong> before you load a project here. FLEx locks a project while it has it open.</li>
-            <li><strong>Back up the project you'll import into.</strong> In FLEx, choose <span class="ui">File ▸ Back up this Project</span>. The import is a single transaction, but a backup lets you undo it later if you change your mind.</li>
+            <li><strong>Shared project? Do a Send/Receive first.</strong> If the project you'll import into uses Send/Receive, do one in FLEx before importing, so you import into everyone's latest data. After importing, open the project in FLEx and Send/Receive again to share the new items.</li>
+            <li><strong>Back up the project you'll import into.</strong> In FLEx, choose <span class="ui">File ▸ Back up this Project</span>. The import is a single transaction, but a backup lets you undo it later if you change your mind. For a shared project, check with your team before restoring a backup: FLEx warns that restoring an old backup can send old data to everyone and lose newer changes.</li>
           </ul>
         </div>
       </div>
@@ -139,8 +140,8 @@
         </div>
         <ol class="steps">
           <li>
-            <strong>Close FLEx</strong>
-            <p>Quit FieldWorks Language Explorer completely.</p>
+            <strong>Send/Receive, then close FLEx</strong>
+            <p>If the target project uses Send/Receive, do a Send/Receive in FLEx first. Then quit FieldWorks Language Explorer completely.</p>
           </li>
           <li>
             <strong>Load the source project</strong>
@@ -160,7 +161,7 @@
           </li>
           <li>
             <strong>Close the List Migrator, then open FLEx</strong>
-            <p>The import is saved to the project when the List Migrator closes it: when you close the app, or when you load a different target project. Then open the project in FLEx to see the new items.</p>
+            <p>The import is saved to the project when the List Migrator closes it: when you close the app, or when you load a different target project. Then open the project in FLEx to see the new items, and Send/Receive if you share the project.</p>
           </li>
         </ol>
       </div>
