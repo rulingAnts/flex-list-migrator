@@ -244,7 +244,8 @@ class App:
         self._guid_to_item: Dict[str, core.ItemInfo] = {}
         self._projects_dir: Optional[str] = None
         # Source type: "flex" or "json"
-        self._source_type_var = tk.StringVar(value="flex")
+        # The app opens with Template selected (FLEx Project if none are bundled).
+        self._source_type_var = tk.StringVar(value="template")
         self._src_json_path_var = tk.StringVar()
         self._src_json_label: str = ""   # display label when JSON is source
         self._list_prefix = ""            # e.g. "[JSON]  " before each list's name
@@ -275,9 +276,8 @@ class App:
                         variable=self._source_type_var, value="template",
                         command=self._on_source_type_change).pack(side="left", padx=(12, 0))
 
-        # FLEx input row (shown by default)
+        # FLEx input row
         self._flex_src_row = ttk.Frame(src_frame)
-        self._flex_src_row.pack(fill="x")
         ttk.Label(self._flex_src_row, text="Project:").pack(side="left")
         self._src_combo = ttk.Combobox(self._flex_src_row, width=36, state="normal")
         self._src_combo.pack(side="left", padx=4)
@@ -286,9 +286,8 @@ class App:
         ttk.Button(self._flex_src_row, text="Load",
                    command=self._load_source).pack(side="left", padx=(6, 0))
 
-        # JSON input row (hidden by default)
+        # JSON input row
         self._json_src_row = ttk.Frame(src_frame)
-        # not packed yet
         ttk.Label(self._json_src_row, text="File:").pack(side="left")
         ttk.Entry(self._json_src_row, textvariable=self._src_json_path_var,
                   width=44).pack(side="left", padx=4, fill="x", expand=True)
@@ -297,8 +296,8 @@ class App:
         ttk.Button(self._json_src_row, text="Load",
                    command=self._load_source).pack(side="left", padx=(6, 0))
 
-        # Template input row (hidden by default): lists bundled with the app,
-        # shown by their description.
+        # Template input row: lists bundled with the app, shown by their
+        # description.
         self._tpl_src_row = ttk.Frame(src_frame)
         ttk.Label(self._tpl_src_row, text="Template:").pack(side="left")
         self._tpl_combo = ttk.Combobox(self._tpl_src_row, width=60, state="readonly")
@@ -313,6 +312,8 @@ class App:
             self._tpl_combo.current(0)
         else:
             self._tpl_combo.set("No templates are included in this copy of the app")
+            self._source_type_var.set("flex")   # open on FLEx Project instead
+        self._show_source_row()
 
         # Paned: list browser (left) + item tree (right)
         pane = ttk.PanedWindow(self.root, orient="horizontal")
@@ -407,7 +408,8 @@ class App:
         self._import_btn.pack(anchor="w", pady=(2, 0))
 
         # Status bar
-        self._status_var = tk.StringVar(value="Ready. Load a source project to begin.")
+        self._status_var = tk.StringVar(
+            value="Ready. Choose a template, JSON file or FLEx project, then click Load.")
         ttk.Label(
             self.root, textvariable=self._status_var,
             relief="sunken", anchor="w", padding=(4, 2),
@@ -431,13 +433,17 @@ class App:
     # ── Source (FLEx project or JSON file) ────────────────────────────────
 
     def _on_source_type_change(self):
+        self._show_source_row()
+        # Clear whatever was loaded as the previous source type
+        self._clear_source()
+
+    def _show_source_row(self):
+        """Show the input row for the selected source type and hide the others."""
         rows = {"flex": self._flex_src_row, "json": self._json_src_row,
                 "template": self._tpl_src_row}
         for row in rows.values():
             row.pack_forget()
         rows[self._source_type_var.get()].pack(fill="x")
-        # Clear whatever was loaded as the previous source type
-        self._clear_source()
 
     def _clear_source(self):
         if self._src:
